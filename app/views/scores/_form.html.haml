@@ -1,0 +1,21 @@
+= form_for @score do |f|
+  - if @score.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@score.errors.count, "error")} prohibited this score from being saved:"
+      %ul
+        - @score.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :value
+    = f.text_field :value
+  .field
+    = f.label :player
+    = f.select :player_id, options_for_select(Player.all.map{|s|[s.name, s.id]})
+  .field
+    = f.label :round
+    = f.select :round_id, options_for_select(Round.all.map{|s|["#{s.created_at} / #{s.game.location}", s.id]})
+  %br/
+  .actions
+    = f.submit 'Enregistrer', :class=>"btn btn-primary"
+  %hr

@@ -1,0 +1,30 @@
+
+.card.card-body
+  %h4.card-title=@game.title
+  .card-text
+
+    Location: 
+    =@game.location
+    %br/
+    ="Joueurs:"
+    %small.text-muted="(#{@players_count})"
+    
+    %br/
+    %span.text-info{:style=>"margin-left:20px;"}=@players.pluck(:name).to_sentence
+    %hr/ 
+    %br/
+    .text-center 
+      =@players.sample.name+ " commence à donner."
+      %hr/
+      %br/
+      %b=@game.rules
+      %br/    
+      %br/    
+      =link_to "Premiere manche", game_edit_round_path(@game.id, @round.number), :class=>"btn btn-primary btn-lg", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+  
+      %br/
+      %br/
+        
+  .flex-row
+    = link_to 'Quitter', root_path, :class=>"btn btn-secondary btn-sm", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+    

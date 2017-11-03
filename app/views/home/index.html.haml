@@ -1,0 +1,28 @@
+
+.text-center
+
+  %hr
+  = link_to new_game_wizard_path, :class=>"btn btn-lg btn-info", 'data-disable-with' => fa_icon("spinner spin ").html_safe do
+    Nouvelle partie
+  %br
+  %hr
+  %hr
+  %h4.text-white
+    Reprendre une partie :
+  -if @unfinished_games.blank? 
+    %p.text-white
+      Aucune partie en cours   
+  -else
+    -@unfinished_games.each do |g|
+      .card
+        .card-body
+          =g.title
+          %br
+          %small.text-muted="Créée à #{l(g.created_at, :format=>"%Hh%M")}"
+          %br
+          %span.text-primary="Manche #{g.rounds.order(:number).last.number}"
+          %br
+          %b=g.players.pluck(:name).to_sentence
+          %br
+          =link_to "Reprendre", game_edit_round_path(g, g.rounds.order(:number).last.number), :class=>"btn btn-secondary", :style=>"margin-top:15px;", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+      %br

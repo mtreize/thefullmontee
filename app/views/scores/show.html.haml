@@ -1,0 +1,16 @@
+.card.card-body
+  %h4.card-title Nouveau score
+  %p.card-text 
+    %p
+      %b Value:
+      = @score.value
+    %p
+      %b Player:
+      = @score.player
+    %p
+      %b Round:
+      = @score.round
+  .flex-row
+    = link_to 'Retour', scores_path, :class=>"card-link"
+    = link_to 'Modifier', edit_score_path(@score), :class=>"pull-right card-link btn btn-info"
+    

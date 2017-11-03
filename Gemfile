@@ -24,7 +24,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise-i18n'
 gem 'haml-rails'
@@ -35,3 +34,11 @@ group :development do
   gem 'html2haml'
   gem 'rails_layout'
 end
+
+
+
+gem "font-awesome-rails"
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'jquery-easing-rails'
+gem 'chartjs-ror'
+gem 'filesaverjs-rails'

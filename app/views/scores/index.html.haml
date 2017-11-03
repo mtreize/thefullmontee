@@ -1,0 +1,30 @@
+
+.card.card-body
+  %h4.card-title Liste des scores
+  %p.card-text 
+      
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Value
+          %th Player
+          %th Round
+          %th
+          %th
+          %th
+    
+      %tbody
+        - @scores.each do |score|
+          %tr
+            %td= score.value
+            %td= score.player.name
+            %td= score.round.display
+            %td= link_to 'Voir', score
+            %td= link_to 'Modifier', edit_score_path(score)
+            %td= link_to 'Supprimer', score, method: :delete, data: { confirm: 'Etes-vous sur?' }
+
+    %br
+  .flex-row
+
+    
+    = link_to 'Nouveau Score', new_score_path, :class=>"card-link btn btn-primary"

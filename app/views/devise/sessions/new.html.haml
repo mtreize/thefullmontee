@@ -1,0 +1,37 @@
+.h-100.text-white
+  .row.h-100{:style=>"padding-top:100px;"}
+    
+    
+    .col-lg-12.text-center.my-auto
+      %h1.mb-5 
+        The Full Montee
+        
+      .mb-5
+        Connectez-vous pour accéder aux résultats de la champion's league.
+  .row
+
+    .col-lg-5
+      .authform
+        = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
+          %h3 Se connecter
+          = devise_error_messages!
+          .form-group
+            - if devise_mapping.registerable?
+              = link_to 'Sign up', new_registration_path(resource_name), class: 'right'
+            = f.label :email
+            = f.email_field :email, :autofocus => true, class: 'form-control'
+          .form-group
+            = f.label :password
+            = f.password_field :password, class: 'form-control'
+            - if devise_mapping.recoverable?
+              = link_to "Forgot password?", new_password_path(resource_name), class: 'right'
+          = f.submit 'Se connecter', :class => 'button right btn btn-outline btn-xl'
+          - if devise_mapping.rememberable?
+            .checkbox
+              %label
+                = f.check_box :remember_me
+                Se souvenir de moi
+    
+    .col-lg-7.my-auto
+      .text-center
+        = image_tag("cards.png", :alt => "", :class=>"img-fluid", :style=>"height:300px;")

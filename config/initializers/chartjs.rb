@@ -1,0 +1,2 @@
+Chartjs.no_conflict!
+

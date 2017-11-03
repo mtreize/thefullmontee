@@ -1,0 +1,12 @@
+.card.card-body
+  %h4.card-title Nouveau <%= singular_table_name %>
+  %p.card-text 
+<% for attribute in attributes -%>
+    %p
+      %b <%= attribute.human_name %>:
+      = @<%= singular_table_name %>.<%= attribute.name %>
+<% end -%>
+  .flex-row
+    = link_to 'Retour', <%= index_helper %>_path, :class=>"card-link"
+    = link_to 'Modifier', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), :class=>"pull-right card-link btn btn-info"
+    

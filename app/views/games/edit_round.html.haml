@@ -1,0 +1,96 @@
+.card#current_totals
+  .card-body
+    .row
+      =render "player_current_total"
+%small.text-white.pull-right
+  Encore  
+  =@game.nb_rounds-@round.number+1
+  manches à jouer
+%br
+%h3.text-white
+  ="#{@round.number.to_s}ᵉ manche"
+  =fa_icon "long-arrow-right"
+  
+  =" #{@game.nb_cards_for_round(@round.number)} carte#{"s" if @game.nb_cards_for_round(@round.number)>1}"
+#editroundform
+  =form_tag(game_save_round_path(@game.id, @round.number), :id=>"erf") do
+    -@players.each do |p|
+      .card.player_fieldset
+        .card-body
+          %h4
+            =p.name
+            -if @round.previous
+              -prev_score=@round.previous.score_for_player(p).try(:value)
+              %b="[#{"+" if prev_score>0}#{prev_score}]"
+    
+          %div{"data-toggle" => "buttons"}
+            .btn-group.btn-group-justified.score_selector.specialw
+              -(1..6).each do |v|
+                %label.btn.btn-info{:class=> "#{@players_score_for_this_round[p.id]==v ? "active" : ""}"}
+                  -attr={:autocomplete => "off", :name => "players_scores[#{p.id}]", :type => "radio", :value => "#{v}"}
+                  -attr["checked"]="checked" if @players_score_for_this_round[p.id]==v
+                  -attr["class"]="tocheck" if @players_score_for_this_round[p.id]==v
+                  %input{attr}/
+                  ="#{"+" if v>0}"+v.to_s
+            .btn-group.btn-group-justified.score_selector.specialw
+              -(-3..-1).reverse_each do |v|
+                %label.btn.btn-info{:class=> "#{@players_score_for_this_round[p.id]==v ? "active" : ""}"}
+                  -attr={:autocomplete => "off", :name => "players_scores[#{p.id}]", :type => "radio", :value => "#{v}"}
+                  -attr["checked"]="checked" if @players_score_for_this_round[p.id]==v
+                  -attr["class"]="tocheck" if @players_score_for_this_round[p.id]==v
+                  %input{attr}/
+                  =v.to_s
+              %label.btn.btn-info{:class=> "#{@players_score_for_this_round[p.id]==0 ? "active" : ""}"}
+                -attr={:autocomplete => "off", :name => "players_scores[#{p.id}]", :type => "radio", :value => 0}
+                -attr["checked"]="checked" if @players_score_for_this_round[p.id]==0
+                -attr["class"]="tocheck" if @players_score_for_this_round[p.id]==0
+                %input{attr}/
+                out
+              %label.btn.btn-info{:class=> "#{(@players_score_for_this_round[p.id].present? && (@players_score_for_this_round[p.id]>6 || @players_score_for_this_round[p.id]<-3)) ? "active" : ""}"}
+                -attr={:autocomplete => "off", :name => "players_scores[#{p.id}]", :type => "radio", :value => 10}
+                -attr["checked"]="checked" if (@players_score_for_this_round[p.id].present? && (@players_score_for_this_round[p.id]>6 || @players_score_for_this_round[p.id]<-3))
+                -attr["class"]="tocheck" if (@players_score_for_this_round[p.id].present? && (@players_score_for_this_round[p.id]>6 || @players_score_for_this_round[p.id]<-3))
+                %input{attr}/
+                autre
+    .card
+      .card-body
+        // %small.pull-right.text-secondary
+        //   =@game.title
+        .text-center
+          =button_tag "Valider ce tour", :class=>"saveroundbtn btn btn-secondary btn-xl", :type=>"submit", :disabled=>"disabled", 'data-disable-with' => fa_icon("spinner spin 2x").html_safe
+        %hr/
+        =link_to "Annuler et modifier la manche précédente", game_edit_round_path(@game, @round.previous.number)   unless @round.previous.nil?
+        
+:javascript
+  $(".tocheck").prop('checked', true);
+  
+ 
+  
+  function checkScores(){ 
+    condition_presence=false;
+    condition_au_moins_un_echec=false;
+    
+    //CONDITION PRESENCE
+    if($("#erf input[type='radio']:checked").length >= #{@players.count}){ 
+      condition_presence=true;
+    }
+    
+    //CONDITION AU MOINS UN ECHEC
+    if($("#editroundform .btn :input[type='radio']:checked").filter(function() {
+            return parseInt($(this).val(), 10) < 0;
+        }).length > 0){
+      condition_au_moins_un_echec=true;
+    }
+    
+    if (condition_presence==true && condition_au_moins_un_echec==true){
+      $(".saveroundbtn").attr( "class", "saveroundbtn btn btn-primary btn-xl" );
+      $(".saveroundbtn").prop( "disabled", false );
+    }
+    else{
+      $(".saveroundbtn").attr( "class", "saveroundbtn btn btn-secondary btn-xl" );
+      $(".saveroundbtn").prop( "disabled", true );
+    }
+  }
+  
+  checkScores();
+  $("#editroundform .btn :input").change(function (){checkScores()});

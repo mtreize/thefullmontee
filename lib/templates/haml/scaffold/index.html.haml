@@ -1,0 +1,30 @@
+
+.card.card-body
+  %h4.card-title Liste des <%= plural_table_name %>
+  %p.card-text 
+      
+    %table.table.table-striped
+      %thead
+        %tr
+<% for attribute in attributes -%>
+          %th <%= attribute.human_name %>
+<% end -%>
+          %th
+          %th
+          %th
+    
+      %tbody
+        - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+          %tr
+<% for attribute in attributes -%>
+            %td= <%= singular_table_name %>.<%= attribute.name %>
+<% end -%>
+            %td= link_to 'Voir', <%= singular_table_name %>
+            %td= link_to 'Modifier', edit_<%= singular_table_name %>_path(<%= singular_table_name %>)
+            %td= link_to 'Supprimer', <%= singular_table_name %>, method: :delete, data: { confirm: 'Etes-vous sur?' }
+
+    %br
+  .flex-row
+
+    
+    = link_to 'Nouveau <%= human_name %>', new_<%= singular_table_name %>_path, :class=>"card-link btn btn-primary"

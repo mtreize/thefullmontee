@@ -1,0 +1,10 @@
+.card.card-body
+  %h4.card-title Modification de score
+  
+  %p.card-text
+    = render 'form'
+    
+  .flex-row
+    = link_to 'Voir', @score
+    \|
+    = link_to 'Retour', scores_path

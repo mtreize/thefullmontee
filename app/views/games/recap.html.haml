@@ -1,0 +1,98 @@
+.well.card
+  =@game.rounds.count
+  \/
+  =@game.nb_rounds
+  ROUNDS
+  
+  =@game.players.count 
+  PLAYERS
+  
+  =@game.scores.count 
+  SCORES
+  // -raise @curves.first.second.inspect
+  %section
+    
+    %canvas#myChart{:height => "250", :width => "400", :style=>"background-color:white;"}
+    
+    .text-center
+      %button#save-btn.btn.btn-primary Save Chart Image
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Value
+        %th Player
+        %th Round
+
+    %tbody
+      - @game.scores.each do |score|
+        %tr
+          %td= score.value
+          %td= score.player.name
+          %td= score.round.number
+
+:javascript
+  // var FileSaver = require('file-saver');
+
+  var ctx = document.getElementById("myChart").getContext('2d');
+
+  var myChart = new Chart(ctx, { 
+      type: 'line',
+      data: #{@chart_data.to_json.html_safe},
+      options: {
+        layout: {
+          padding: {
+            left: 5,
+            right: 20,
+            top: 10,
+            bottom: 20
+          }
+        },
+        responsive: true,
+        title:{
+            display:true,
+            text: "#{@game.title}",
+            fontSize:16
+        },
+        legend: {
+            display: true
+        },
+        elements: {
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              stepSize: 1,
+              callback: function(value, index, values){
+                if(value % 5 == 0){ 
+                  return value;
+                }
+                else{
+               	  return "";
+                }
+              }
+            },
+            gridLines:{
+              zeroLineColor: "#ffbbbb",
+              zeroLineWidth: 2,
+              borderDash:[5, 5],
+              zeroLineBorderDash:[3, 3]
+            }
+          }]
+        }
+      }
+    });
+    Chart.plugins.register({
+      beforeDraw: function(myChart) {
+        var ctx = myChart.chart.ctx;
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, myChart.chart.width, myChart.chart.height);
+      }
+    });
+    
+    
+    
+    $("#save-btn").click(function() {
+     	    $("#myChart").get(0).toBlob(function(blob) {
+        		saveAs(blob, "#{@game.title}.png");
+    		});
+    });

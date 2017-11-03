@@ -10,7 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026093538) do
+ActiveRecord::Schema.define(version: 20171030163539) do
+
+  create_table "games", force: :cascade do |t|
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+  end
+
+  create_table "games_players", id: false, force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.integer "player_id", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "number"
+    t.index ["game_id"], name: "index_rounds_on_game_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.integer "value"
+    t.integer "player_id"
+    t.integer "round_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_scores_on_player_id"
+    t.index ["round_id"], name: "index_scores_on_round_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

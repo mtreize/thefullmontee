@@ -1,0 +1,52 @@
+
+.card.card-body
+  %h4.card-title Nouvelle partie
+  .card-text
+    =form_tag game_step_1_path, :id=>"playerchoiceform" do
+      .field.text-center
+        =label_tag 'location', 'Lieu'
+        %br/
+        =text_field_tag 'location', 'MK'
+      %br/
+      .field.text-center
+        =label_tag 'select_players', 'Feuille de match'
+        %br/
+        .btn-group-vertical.select_players_group{"data-toggle" => "buttons"}
+          
+          -Player.all.each do |p|
+          
+            .btn.btn-info.btn-lg{:style=>"cursor:pointer;"}
+              = check_box_tag 'players_ids[]', p.id
+              = h p.name
+            // %label.btn.btn-secondary
+            //   %input{:autocomplete => "off", :type => "checkbox", :name=>"players_ids[#{p.id}]"}/
+            //   =p.name
+      %br/
+      =button_tag "Créer la partie", :class=>"creategamebtn btn btn-block btn-lg btn-secondary", :type=>"submit", :disabled=>"disabled", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+
+
+  .flex-row
+    = link_to 'Annuler', root_path
+
+
+        
+:javascript
+  function checkPlayers(){ 
+    condition_presence=false;
+
+    //CONDITION PRESENCE
+    if($("#playerchoiceform input[type='checkbox']:checked").length >=2){ 
+      condition_presence=true;
+    }
+    
+    if (condition_presence==true){
+      $(".creategamebtn").attr( "class", "creategamebtn btn btn-block btn-lg btn-primary" );
+      $(".creategamebtn").prop( "disabled", false );
+    }
+    else{
+      $(".creategamebtn").attr( "class", "creategamebtn btn btn-block btn-lg btn-secondary" );
+      $(".creategamebtn").prop( "disabled", true );
+    }
+  }
+  
+  $("#playerchoiceform .btn :input").change(function (){checkPlayers()});

@@ -1,0 +1,51 @@
+body{
+  background: asset-data-url("bg-pattern.png"), #4792DA;
+  background: asset-data-url("bg-pattern.png"), -webkit-linear-gradient(to left, #4792DA, #915B87);
+  background: asset-data-url("bg-pattern.png"), linear-gradient(to left, #4792DA, #915B87); 
+}
+
+.navigation{
+    background-color:#eaeaea;
+    margin-right:-20px;
+    border-radius:5px;
+    .navigation__link{
+        padding-left:20px;
+        border-radius:5px;
+    }
+    .navigation__link:hover{
+        background-color:lightgrey;
+    }
+
+    .navigation__link--active{
+        background-color: white;
+        border-radius: 4px;
+        color: #293f54;    
+    }
+
+}
+
+.select_players_group{
+  .btn:focus, .btn.focus {
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .btn-info:focus{
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+  }
+  .btn-info:hover {
+    color: #fff;
+    background-color: #17a2b8; 
+    border-color: #17a2b8;
+  }
+}
+
+
+.btn-group.specialw {
+  display: flex;
+}
+
+.specialw .btn {
+  flex: 1
+}

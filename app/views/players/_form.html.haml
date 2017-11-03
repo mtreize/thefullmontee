@@ -1,0 +1,15 @@
+= form_for @player do |f|
+  - if @player.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@player.errors.count, "error")} prohibited this player from being saved:"
+      %ul
+        - @player.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  %br/
+  .actions
+    = f.submit 'Enregistrer', :class=>"btn btn-primary"
+  %hr

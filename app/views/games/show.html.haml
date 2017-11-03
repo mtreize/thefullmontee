@@ -1,0 +1,12 @@
+.card.card-body
+  %h4.card-title Nouveau game
+  %p.card-text 
+    %p
+      %b Location:
+      = @game.location
+      %b Title:
+      = @game.title
+  .flex-row
+    = link_to 'Retour', games_path, :class=>"card-link"
+    = link_to 'Modifier', edit_game_path(@game), :class=>"pull-right card-link btn btn-info"
+    

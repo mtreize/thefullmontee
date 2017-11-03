@@ -1,0 +1,30 @@
+
+.card.card-body
+  %h4.card-title Liste des games
+  %p.card-text 
+      
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Lieu
+          %th Titre
+          %th Terminé ?
+          %th
+          %th
+          %th
+    
+      %tbody
+        - @games.each do |game|
+          %tr
+            %td= game.location
+            %td= game.title
+            %td= game.is_finished? ? "Oui" : "Non"
+            %td= link_to 'Voir', game_recap_path(game.id)
+            %td= link_to 'Modifier', edit_game_path(game)
+            %td= link_to 'Supprimer', game, method: :delete, data: { confirm: 'Etes-vous sur?' }
+
+    %br
+  .flex-row
+
+    
+    = link_to 'Nouveau Game', new_game_path, :class=>"card-link btn btn-primary"

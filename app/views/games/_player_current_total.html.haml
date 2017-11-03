@@ -1,0 +1,9 @@
+-@players_total_scores.each_with_index do |(p,s),index|
+    -mc="col "
+    -mc+=" text-danger" if index<2
+    #playerscorerecap.text-center.p-0.py-2{:class=>mc, :style=>"white-space: nowrap;overflow: hidden;text-overflow: clip;"}
+      =Player.where(:id=>p).try(:first).try(:name)
+      %br/
+      %span.lead=s
+      %br
+      BOUBOMU

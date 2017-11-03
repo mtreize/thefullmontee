@@ -1,0 +1,28 @@
+
+.card.card-body
+  %h4.card-title Liste des rounds
+  %p.card-text 
+      
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Game
+          %th Number
+          %th
+          %th
+          %th
+    
+      %tbody
+        - @rounds.each do |round|
+          %tr
+            %td= round.game.title
+            %td= round.number
+            %td= link_to 'Voir', round
+            %td= link_to 'Modifier', edit_round_path(round)
+            %td= link_to 'Supprimer', round, method: :delete, data: { confirm: 'Etes-vous sur?' }
+
+    %br
+  .flex-row
+
+    
+    = link_to 'Nouveau Round', new_round_path, :class=>"card-link btn btn-primary"

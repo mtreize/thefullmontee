@@ -1,0 +1,10 @@
+.card.card-body
+  %h4.card-title Nouveau round
+  %p.card-text 
+    %p
+      %b Game:
+      = @round.game
+  .flex-row
+    = link_to 'Retour', rounds_path, :class=>"card-link"
+    = link_to 'Modifier', edit_round_path(@round), :class=>"pull-right card-link btn btn-info"
+    
