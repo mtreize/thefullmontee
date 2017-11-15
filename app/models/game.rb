@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
     has_and_belongs_to_many :players
-    has_many :rounds
+    has_many :rounds, dependent: :destroy
     has_many :scores, :through=>:rounds
     after_save :generate_title
     

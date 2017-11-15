@@ -1,9 +1,20 @@
--@players_total_scores.each_with_index do |(p,s),index|
-    -mc="col "
-    -mc+=" text-danger" if index<2
-    #playerscorerecap.text-center.p-0.py-2{:class=>mc, :style=>"white-space: nowrap;overflow: hidden;text-overflow: clip;"}
+
+-p_scores=Player.find(p).scores_in_game(g)
+#playerscorerecap.badge_player_current_score.text-center.p-0.py-2{:class=>mc, :style=>"white-space: nowrap;overflow: hidden;text-overflow: clip;"}
+  .wrap{:class=>"#{"wrap-winner" if @round.number>2 && p_scores.pluck(:value).all? {|v| v >= 0}} #{"wrap-loser" if @round.number>2 && p_scores.pluck(:value).all? {|v| v <= 0}}"}
+    .inner
       =Player.where(:id=>p).try(:first).try(:name)
       %br/
       %span.lead=s
       %br
-      BOUBOMU
+      -p_scores.where(:round=>@round.previous_rounds_in_game).last(4).each do |prev_score|
+        - case prev_score.value
+          - when -25..-1
+            %span.badge.badge-danger.badge-pill{ :style=>"font-size: 7px;padding: 0.1em 0.4em;"}
+              &nbsp;
+          - when 0
+            %span.badge.badge-secondary.badge-pill{ :style=>"font-size: 7px;padding: 0.1em 0.4em;"}
+              &nbsp;
+          - when 1..25
+            %span.badge.badge-success.badge-pill{ :style=>"font-size: 7px;padding: 0.1em 0.4em;"}
+              &nbsp;

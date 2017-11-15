@@ -10,15 +10,15 @@
     %link{:href => "/favicon.ico", :rel => "icon", :type => "image/x-icon"}/
     %link{:href => "/app_icon.png", :rel => "apple-touch-icon"}/
     %title TheFullMontee
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false
-    = javascript_include_tag 'application', 'data-turbolinks-track' => false
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => "reload"
+    = javascript_include_tag 'application', 'data-turbolinks-track' => "reload"
     = csrf_meta_tags
   
     %link{:href => "https://fonts.googleapis.com/css?family=Lato", :rel => "stylesheet"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900", :rel => "stylesheet"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Muli", :rel => "stylesheet"}/
 
-
+    = javascript_tag "window._token = '#{form_authenticity_token}'" 
   %body#page-top{:style=>""}
 
     / Navigation

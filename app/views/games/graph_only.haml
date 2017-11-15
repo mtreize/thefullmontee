@@ -1,0 +1,112 @@
+
+%img#imgcontainer{:src=>""}
+.well.card
+  %section
+    %canvas#myChart{:height => "250", :width => "400", :style=>"background-color:white;"}
+  
+:javascript
+
+  var ctx = document.getElementById("myChart").getContext('2d');
+
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: #{@chart_data.to_json.html_safe},
+      options: {
+        layout: {
+          padding: {
+            left: 5,
+            right: 20,
+            top: 10,
+            bottom: 20
+          }
+        },
+        responsive: true,
+        title:{
+            display:true,
+            text: "#{@game.title}",
+            fontSize:16
+        },
+        legend: {
+            display: true
+        },
+        elements: {
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              stepSize: 1,
+              callback: function(value, index, values){
+                if(value % 5 == 0){ 
+                  return value;
+                }
+                else{
+               	  return "";
+                }
+              }
+            },
+            gridLines:{
+              zeroLineColor: "#ffbbbb",
+              zeroLineWidth: 2,
+              borderDash:[5, 5],
+              zeroLineBorderDash:[3, 3]
+            }
+          }]
+        }
+      }
+    });
+    Chart.plugins.register({
+      beforeDraw: function(myChart) {
+        var ctx = myChart.chart.ctx;
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, myChart.chart.width, myChart.chart.height);
+      }
+    });
+    
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    async function demo() {
+      console.log('Taking a break...');
+      await sleep(2000);
+      console.log('Two second later');
+      var dataURL =  $("#myChart")[0].toDataURL('image/png');
+      window.location = dataURL;
+      $("#imgcontainer").prop("src", dataURL);
+    }
+    
+    demo();
+    
+    
+    
+    
+
+    
+    // $("#save-btn").click(function() {
+    // 	    .toBlob(function(blob) {
+    //     		var url = "https://hooks.slack.com/services/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"
+    //         var text = "Game export"
+    //         $.ajax({
+    //             data: 'payload=' + JSON.stringify({
+    //                 	"text": "Game export",
+    //                   "attachments": [
+    //                       {
+    //                           "fallback": "Network traffic (kb/s): How does this look? @slack-ops - Sent by Julie Dodd - https://datadog.com/path/to/event",
+    //                           "title": "Network traffic (kb/s)",
+    //                           "title_link": "blob:"+window.URL.createObjectURL(blob),
+    //                           "text": "blob:"+window.URL.createObjectURL(blob),
+    //                           "image_url": "blob:"+window.URL.createObjectURL(blob),
+    //                           "color": "#764FA5"
+    //                       }
+    //                   ]
+    //             }),
+    //             dataType: 'json',
+    //             processData: false,
+    //             type: 'POST',
+    //             url: url
+    //         });
+    //     		// saveAs(blob, "#{@game.title}.png");
+    // 		});
+    // });
+    
+    

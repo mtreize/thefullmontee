@@ -1,37 +1,36 @@
 .well.card
-  =@game.rounds.count
-  \/
-  =@game.nb_rounds
-  ROUNDS
+  .text-muted.text-center
+    ="#{@game.players.count} joueurs"
+    %br
+    ="#{@game.rounds.count}/#{@game.nb_rounds} manches"
+    
   
-  =@game.players.count 
-  PLAYERS
-  
-  =@game.scores.count 
-  SCORES
+  //=@game.scores.count 
+  //SCORES
   // -raise @curves.first.second.inspect
   %section
     
     %canvas#myChart{:height => "250", :width => "400", :style=>"background-color:white;"}
     
     .text-center
-      %button#save-btn.btn.btn-primary Save Chart Image
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Value
-        %th Player
-        %th Round
+      %button#save-btn.btn.btn-danger
+        =fa_icon "slack"
+        Poster sur Slack
+  // %table.table.table-striped
+  //   %thead
+  //     %tr
+  //       %th Value
+  //       %th Player
+  //       %th Round
 
-    %tbody
-      - @game.scores.each do |score|
-        %tr
-          %td= score.value
-          %td= score.player.name
-          %td= score.round.number
+  //   %tbody
+  //     - @game.scores.each do |score|
+  //       %tr
+  //         %td= score.value
+  //         %td= score.player.name
+  //         %td= score.round.number
 
 :javascript
-  // var FileSaver = require('file-saver');
 
   var ctx = document.getElementById("myChart").getContext('2d');
 
@@ -92,7 +91,58 @@
     
     
     $("#save-btn").click(function() {
-     	    $("#myChart").get(0).toBlob(function(blob) {
-        		saveAs(blob, "#{@game.title}.png");
+     	    $("#myChart").get(0).toBlob(function(blob) { 
+     	      var post_url="#{game_save_graph_path(@game)}";
+     	      
+     	      
+     	      var blobBin = atob($("#myChart").get(0).toDataURL().split(',')[1]);
+            var array = [];
+            for(var i = 0; i < blobBin.length; i++) {
+                array.push(blobBin.charCodeAt(i));
+            }
+            var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
+            
+            
+            var formdata = new FormData();
+            formdata.append("myNewFileName", file);
+            $.ajax({
+               url: post_url,
+               type: "POST",
+               data: formdata,
+               processData: false,
+               contentType: false,
+            });
+     	      
+     	      
+     	      
+        		var url = "https://hooks.slack.com/services/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"
+            var text = "Game Recap"
+            
+            
+            $.ajax({
+                data: 'payload=' + JSON.stringify({
+                      "attachments": [
+                          {
+                              "fallback": "Game Recap : https://thefullmontee-mtreize.c9users.io/games_graphs/game_#{@game.id}.png",
+                              "title": "#{@game.title}",
+                              //"title_link": "https://thefullmontee-mtreize.c9users.io/games/#{@game.id}/recap",
+                              "title_link": "https://thefullmontee-mtreize.c9users.io/games_graphs/game_#{@game.id}.png",
+                              "text": ":coffee:",
+                              "unfurl_links": true,
+                              "unfurl_media": true,
+                              "image_url": "https://thefullmontee-mtreize.c9users.io/games_graphs/game_#{@game.id}.png",
+                              "color": "#764FA5"
+                          }
+                      ]
+                }),
+                dataType: 'json',
+                processData: false,
+                type: 'POST',
+                url: url
+            }).done(function(respond){
+              alert("Ca devrait être bon");
+            });
+     	      
+        		// saveAs(blob, "#{@game.title}.png");
     		});
     });

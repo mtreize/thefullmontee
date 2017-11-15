@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   include ApplicationHelper
-  
+  skip_before_action :verify_authenticity_token, :only => [:save_graph]
+
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   # GET /games
@@ -58,15 +59,16 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
+    # @game.rounds.destroy_all
+    # raise @game.inspect
     @game.destroy
     respond_to do |format|
-      format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Game was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   def edit_round
-    
     @game=Game.find(params[:id])
     @round=@game.rounds.where(:number=>params[:round_number]).first
     @players=@game.players
@@ -126,7 +128,15 @@ class GamesController < ApplicationController
         }
       @chart_data[:datasets].push c
     end
+  end
+  
+  def save_graph
+    set_game
 
+    @incoming_file = params[:myNewFileName]
+    filename="game_#{@game.id}.png"
+    FileUtils.mv @incoming_file.tempfile, "public/games_graphs/#{filename}"
+  
   end
 
   private
@@ -137,6 +147,6 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:location)
+      params.require(:game).permit(:location, :blob)
     end
 end

@@ -25,4 +25,7 @@
           %b=g.players.pluck(:name).to_sentence
           %br
           =link_to "Reprendre", game_edit_round_path(g, g.rounds.order(:number).last.number), :class=>"btn btn-secondary", :style=>"margin-top:15px;", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+          %br
+          .pull-right
+            =link_to "Supprimer la partie", game_path(g), :method=>"delete", data: {confirm: "T'es sur?"}
       %br

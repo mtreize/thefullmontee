@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "games/:id/round/:round_number", to: "games#edit_round", as: "game_edit_round"
   post "games/:id/round/:round_number", to: "games#save_round", as: "game_save_round"
   get "games/:id/recap", to: "games#recap", as: "game_recap"
+  post "games/:id/save_graph", to: "games#save_graph", as: "game_save_graph"
   
   root to: 'home#index'
   

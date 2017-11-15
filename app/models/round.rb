@@ -1,7 +1,7 @@
 class Round < ApplicationRecord
   belongs_to :game
   validates_uniqueness_of :number, :scope => :game
-  has_many :scores
+  has_many :scores , dependent: :destroy
     
     def previous_rounds_in_game
       Round.where("game_id = ? AND number < ?", self.game_id, self.number)

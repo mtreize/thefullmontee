@@ -49,3 +49,41 @@ body{
 .specialw .btn {
   flex: 1
 }
+
+
+.badge_player_current_score{
+  
+  
+  .inner {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .wrap:after {
+    
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    z-index: 1;
+  }
+  .wrap-winner:after{
+    content: "\f135"; 
+    font-size: 80px;
+    color: #eee;
+    top: 50%;
+    left: 50%;
+    margin: -76px 0 0 -40px;
+  }
+  .wrap-loser:after{
+    content: "\f1b3"; 
+    
+    font-size: 66px;
+    color: #eee;
+    top: 50%;
+    left: 50%;
+    margin: -62px 0 0 -40px;
+  }
+  
+}
