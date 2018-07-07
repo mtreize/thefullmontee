@@ -17,11 +17,17 @@
           
             .btn.btn-info.btn-lg{:style=>"cursor:pointer;"}
               = check_box_tag 'players_ids[]', p.id
+              &nbsp;
               = h p.name
-            // %label.btn.btn-secondary
-            //   %input{:autocomplete => "off", :type => "checkbox", :name=>"players_ids[#{p.id}]"}/
-            //   =p.name
+              %span.position_nb.text-info
+                &nbsp;
+              .hidden
+                = number_field_tag "position[#{p.id}]", '1', class: 'special_input', disabled: true, :style=>"display:none;"
+      .text-center
+        = link_to new_game_wizard_path, :class=>"btn btn-sm btn-secondary", 'data-disable-with' => fa_icon("spinner spin ").html_safe, :style=>"margin-top:8px;", :id=>"reset_players" do
+          reset
       %br/
+
       =button_tag "C'est parti", :class=>"creategamebtn btn btn-block btn-lg btn-secondary", :type=>"submit", :disabled=>"disabled", 'data-disable-with' => fa_icon("spinner spin ").html_safe
 
 
@@ -31,7 +37,9 @@
 
         
 :javascript
-  function checkPlayers(){ 
+  //npa = next position available
+  var npa=1;
+  function checkPlayers(){
     condition_presence=false;
 
     //CONDITION PRESENCE
@@ -49,4 +57,12 @@
     }
   }
   
-  $("#playerchoiceform .btn :input").change(function (){checkPlayers()});
+  $("#playerchoiceform .btn :input").change(function (playerinput){
+
+    checkPlayers();
+    id_player=playerinput.target.value
+    // $(playerinput.target.parentNode).find(".position_nb")[0].innerHTML=npa;
+    $("#position_"+id_player).val(npa)
+    $("#position_"+id_player).prop( "disabled", false );
+    npa++;
+  });

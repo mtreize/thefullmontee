@@ -13,7 +13,7 @@
     %canvas#myChart{:height => "250", :width => "400", :style=>"background-color:white;"}
     
     .text-center
-      %button#save-btn.btn.btn-danger
+      %button#save-btn.btn.btn-danger{'data-disable-with' => fa_icon("spinner spin ").html_safe}
         =fa_icon "slack"
         Poster sur Slack
   // %table.table.table-striped
