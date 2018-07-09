@@ -9,6 +9,7 @@
           %th Name
           %th Technical name
           %th Description
+          %th Active ?
           %th
           %th
           %th
@@ -19,6 +20,7 @@
             %td= trophy.name
             %td= trophy.technical_name
             %td= trophy.description
+            %td= trophy.active ? "Yes" : "Nope"
             %td= link_to 'Voir', trophy
             %td= link_to 'Modifier', edit_trophy_path(trophy)
             %td= link_to 'Supprimer', trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }

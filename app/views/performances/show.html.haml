@@ -1,0 +1,16 @@
+.card.card-body
+  %h4.card-title Nouveau performance
+  %p.card-text 
+    %p
+      %b Player:
+      = @performance.player
+    %p
+      %b Trophy:
+      = @performance.trophy
+    %p
+      %b Game:
+      = @performance.game
+  .flex-row
+    = link_to 'Retour', performances_path, :class=>"card-link"
+    = link_to 'Modifier', edit_performance_path(@performance), :class=>"pull-right card-link btn btn-info"
+    

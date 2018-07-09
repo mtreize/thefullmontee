@@ -1,0 +1,20 @@
+
+.card.card-body
+  %h4.card-title Liste des performances
+  %p.card-text 
+      
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Player
+          %th Trophy
+          %th Game
+    
+      %tbody
+        - @performances.each do |performance|
+          %tr
+            %td= performance.player.name
+            %td= performance.trophy.name
+            %td= performance.game.title
+
+    

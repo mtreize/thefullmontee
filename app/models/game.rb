@@ -4,6 +4,8 @@ class Game < ApplicationRecord
     has_many :scores, :through=>:rounds
     after_save :generate_title
     scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
+    
+    has_many :results
 
     
     def rules
@@ -61,10 +63,10 @@ class Game < ApplicationRecord
       d=I18n.l(self.created_at, format: '%a %d %b').titleize
       h=I18n.l(self.created_at, format: '%H').to_i
       daypart= case h
-        when 0..6 then "Nuit"
-        when 7..11 then "Matin"
-        when 12..14 then "Midi"
-        when 15..16 then "Aprem"
+        when 0..4 then "Nuit"
+        when 5..9 then "Matin"
+        when 10..13 then "Midi"
+        when 14..16 then "Aprem"
         when 17..23 then "Soir"
         else "wtf "+h.to_s
       end
@@ -86,4 +88,44 @@ class Game < ApplicationRecord
     def recap_image_path
       "/games_graphs/game_#{self.id}.png"
     end
+    
+    def compute_results
+      scores={}
+      self.players.each do |p|
+        scores[p.id]= p.scores_in_game(self).pluck(:value).sum
+      end
+      sorted=Hash[scores.sort_by{|k, v| v}.reverse]
+      rankings={}
+      previous=[]
+      sorted.each_with_index do |res, i|
+        if previous.present? && res.second==previous.second
+          rankings[res.first]=rankings[previous.first]
+        else
+          rankings[res.first]=i+1
+        end
+        previous=res
+      end
+      
+      self.players.each do |p|
+        r=Result.where(:player=>p, :game=>self).first_or_initialize
+        r.total_score = scores[p.id]
+        r.ranking = rankings[p.id]
+        r.save
+      end
+    end
+    
+    def compute_performances
+      compute_results
+      something_unlocked=false
+      self.players.each do |p|
+        Trophy.active.each do |trophy|
+          if Trophy.send("unlock_#{trophy.technical_name}", self, p)
+            something_unlocked=true
+          end
+        end
+      end
+      return something_unlocked
+    end
+    
+    
 end

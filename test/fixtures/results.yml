@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_score: 1
+  ranking: 1
+  game: one
+  player: one
+
+two:
+  total_score: 1
+  ranking: 1
+  game: two
+  player: two

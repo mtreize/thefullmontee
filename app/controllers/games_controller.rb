@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   include ApplicationHelper
   skip_before_action :verify_authenticity_token, :only => [:save_graph]
 
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :compute_results]
 
   # GET /games
   # GET /games.json
@@ -15,6 +15,15 @@ class GamesController < ApplicationController
   def show
     # @game.generate_title
     # @game.generate_title if @game.title.blank?
+  end
+
+  def compute_results
+    if @game.compute_performances
+      flash[:success] = "Trophée débloqués ! YOUHOU"
+    else  
+      flash[:info] = "Aucun trophée débloqué :("
+    end
+    redirect_to game_recap_path(@game)
   end
 
   # GET /games/new

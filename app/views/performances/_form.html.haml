@@ -1,0 +1,21 @@
+= form_for @performance do |f|
+  - if @performance.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@performance.errors.count, "error")} prohibited this performance from being saved:"
+      %ul
+        - @performance.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :player
+    = f.text_field :player
+  .field
+    = f.label :trophy
+    = f.text_field :trophy
+  .field
+    = f.label :game
+    = f.text_field :game
+  %br/
+  .actions
+    = f.submit 'Enregistrer', :class=>"btn btn-primary"
+  %hr

@@ -43,6 +43,10 @@
               
     %section
       .container{:style=>"-webkit-overflow-scrolling: touch;"}
+        -flash.each do |key, value| 
+          %div{:class=>"alert alert-#{key}"}
+            = value
+
         =yield
     :javascript
       var a=document.getElementsByTagName("a");

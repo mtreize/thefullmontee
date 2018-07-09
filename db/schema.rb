@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180709131604) do
+ActiveRecord::Schema.define(version: 20180709204705) do
 
   create_table "games", force: :cascade do |t|
     t.string "location"
@@ -25,10 +25,32 @@ ActiveRecord::Schema.define(version: 20180709131604) do
     t.integer "position"
   end
 
+  create_table "performances", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "trophy_id"
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_performances_on_game_id"
+    t.index ["player_id"], name: "index_performances_on_player_id"
+    t.index ["trophy_id"], name: "index_performances_on_trophy_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.integer "total_score"
+    t.integer "ranking"
+    t.integer "game_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_results_on_game_id"
+    t.index ["player_id"], name: "index_results_on_player_id"
   end
 
   create_table "rounds", force: :cascade do |t|
@@ -55,6 +77,7 @@ ActiveRecord::Schema.define(version: 20180709131604) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active"
   end
 
   create_table "users", force: :cascade do |t|

@@ -7,29 +7,46 @@
         
     .row  
       .col-4
-        .card.border-dark
-          .card-header.bg-dark.text-white
+        .card.border-secondary
+          .card-header.bg-secondary.text-white
             PARTIES JOUEES
-          .card-body.text-center
+          .card-body.text-center.bg-secondary.text-white
             %h2= @player.games.count
       .col-4
         .card.border-primary
           .card-header.bg-primary.text-white
             DERNIERE PARTIE
-          .card-body.text-center
+          .card-body.text-center.bg-primary.text-white
             -if @player_last_game.nil?
-              %small.text-muted
-                Aucune partie
+              .muted{:style=>"margin-top:20px;"}
+                %small.text-light
+                  Aucune partie
+                  %br/
+                  %br/
+                
             -else
-              %h2= l(@player_last_game.created_at, :format=>:short) 
-              %img{:class=>"img-fluid", :src=> "http://#{request.host}#{@player_last_game.recap_image_path}"}
-              =link_to "Game Recap", game_recap_path(@player_last_game), :class=>"pull-right"
+              %h2=link_to l(@player_last_game.created_at, :format=>:short), game_recap_path(@player_last_game), :class=>"text-white"
       .col-4
         .card.border-info
           .card-header.bg-info.text-white
             CE MOIS CI
-          .card-body.text-center
+          .card-body.text-center.bg-info.text-white
             %h2="#{@this_month_games.count} partie(s)"
+            
+            
+            
+  .card-footer.bg-dark.text-white.px-5.pt-4.pb-5
+    %h3.text-center.pb-3 Trophées débloqués
+    .row.pb-5
+      -@player.performances.group(:trophy_id).count.each do |t, count|
+        .col-2.text-center
+          .card.bg-danger.pt-3.text-center
+            =fa_icon 'trophy 2x'
+            %p
+              =Trophy.find(t).name
+              -if count>1
+                %span.badge.badge-light=count
+  
   .card-footer.bg-white
     .flex-row
       = link_to 'Retour', players_path, :class=>"card-link btn btn-secondary"
