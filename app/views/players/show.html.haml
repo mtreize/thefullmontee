@@ -17,9 +17,13 @@
           .card-header.bg-primary.text-white
             DERNIERE PARTIE
           .card-body.text-center
-            %h2= l(@player_last_game.created_at, :format=>:short)
-            %img{:class=>"img-fluid", :src=> "http://#{request.host}#{@player_last_game.recap_image_path}"}
-            =link_to "Game Recap", game_recap_path(@player_last_game), :class=>"pull-right"
+            -if @player_last_game.nil?
+              %small.text-muted
+                Aucune partie
+            -else
+              %h2= l(@player_last_game.created_at, :format=>:short) 
+              %img{:class=>"img-fluid", :src=> "http://#{request.host}#{@player_last_game.recap_image_path}"}
+              =link_to "Game Recap", game_recap_path(@player_last_game), :class=>"pull-right"
       .col-4
         .card.border-info
           .card-header.bg-info.text-white
