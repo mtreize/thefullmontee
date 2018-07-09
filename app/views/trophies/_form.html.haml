@@ -1,0 +1,21 @@
+= form_for @trophy, :class=>"form" do |f|
+  - if @trophy.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@trophy.errors.count, "error")} prohibited this trophy from being saved:"
+      %ul
+        - @trophy.errors.full_messages.each do |message|
+          %li= message
+  .col-6.offset-3
+    .field
+      = f.label :name
+      = f.text_field :name,  :class=>"form-control"
+    .field
+      = f.label :technical_name
+      = f.text_field :technical_name,  :class=>"form-control"
+    .field
+      = f.label :description
+      = f.text_area :description,  :class=>"form-control"
+    %br/
+    .actions
+      = f.submit 'Enregistrer', :class=>"btn btn-primary"
+    %hr

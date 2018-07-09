@@ -1,0 +1,16 @@
+.card.card-body
+  %h4.card-title Nouveau trophy
+  %p.card-text 
+    %p
+      %b Name:
+      = @trophy.name
+    %p
+      %b Technical name:
+      = @trophy.technical_name
+    %p
+      %b Description:
+      = @trophy.description
+  .flex-row
+    = link_to 'Retour', trophies_path, :class=>"card-link"
+    = link_to 'Modifier', edit_trophy_path(@trophy), :class=>"pull-right card-link btn btn-info"
+    

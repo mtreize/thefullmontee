@@ -1,0 +1,30 @@
+
+.card.card-body
+  %h4.card-title Liste des trophies
+  %p.card-text 
+      
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th Technical name
+          %th Description
+          %th
+          %th
+          %th
+    
+      %tbody
+        - @trophies.each do |trophy|
+          %tr
+            %td= trophy.name
+            %td= trophy.technical_name
+            %td= trophy.description
+            %td= link_to 'Voir', trophy
+            %td= link_to 'Modifier', edit_trophy_path(trophy)
+            %td= link_to 'Supprimer', trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }
+
+    %br
+  .flex-row
+
+    
+    = link_to 'Nouveau Trophy', new_trophy_path, :class=>"card-link btn btn-primary"
