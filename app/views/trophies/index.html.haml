@@ -23,7 +23,9 @@
             %td= trophy.active ? "Yes" : "Nope"
             %td= link_to 'Voir', trophy
             %td= link_to 'Modifier', edit_trophy_path(trophy)
-            %td= link_to 'Supprimer', trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }
+            %td
+              -unless trophy.active
+                = link_to 'Supprimer', trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }
 
     %br
   .flex-row
