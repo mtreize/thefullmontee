@@ -20,8 +20,6 @@
             %td= game.title
             %td= game.is_finished? ? "Oui" : "Non"
             %td= link_to 'Voir', game_recap_path(game.id)
-            %td= link_to 'Modifier', edit_game_path(game)
-            %td= link_to 'Supprimer', game, method: :delete, data: { confirm: 'Etes-vous sur?' }
 
     %br
   .flex-row
