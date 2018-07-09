@@ -43,14 +43,14 @@
     %section
       .container{:style=>"-webkit-overflow-scrolling: touch;"}
         =yield
-      
+    :javascript
+      var a=document.getElementsByTagName("a");
+      for(var i=0;i<a.length;i++)
+      {
+          a[i].onclick=function()
+          {
+              window.location=this.getAttribute("href");
+              return false
+          }
+      }
     
-
-    // %footer
-    //   .container
-    //     %p © 2017 TheFullMontee by MeGusa
-    //     %ul.list-inline
-    //       %li.list-inline-item
-    //         Environnement de dev
-    //       %li.list-inline-item
-    //         Version 0.1.102

@@ -136,6 +136,7 @@ class GamesController < ApplicationController
     @incoming_file = params[:myNewFileName]
     filename="game_#{@game.id}.png"
     FileUtils.mv @incoming_file.tempfile, "public/games_graphs/#{filename}"
+    FileUtils.chmod 0777, "public/games_graphs/#{filename}"
   
   end
 

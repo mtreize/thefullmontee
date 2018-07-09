@@ -34,7 +34,7 @@ group :development do
   gem 'rails_layout'
 end
 
-
+gem "passenger"
 
 gem "font-awesome-rails"
 gem 'bootstrap', '~> 4.0.0.beta2.1'

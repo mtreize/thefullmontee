@@ -9,13 +9,18 @@
   //SCORES
   // -raise @curves.first.second.inspect
   %section
-    
-    %canvas#myChart{:height => "250", :width => "400", :style=>"background-color:white;"}
+  
+    %canvas#myChart2{:height => "250", :width => "400", :style=>"background-color:white;"}
+    .fixed-height-chart.d-none{:style=>"border: 1px solid black;"}
+      %canvas#myChart{:height=>"550", :width=> "1000", :style=>"background-color:white;"}
     
     .text-center
       %button#save-btn.btn.btn-danger{'data-disable-with' => fa_icon("spinner spin ").html_safe}
         =fa_icon "slack"
         Poster sur Slack
+      %br/
+      %br/
+      =link_to "Afficher l'image", "http://thefullmontee.space/games_graphs/game_#{@game.id}.png"
   // %table.table.table-striped
   //   %thead
   //     %tr
@@ -33,116 +38,163 @@
 :javascript
 
   var ctx = document.getElementById("myChart").getContext('2d');
-
+  var ctx2 = document.getElementById("myChart2").getContext('2d');
+    
   var myChart = new Chart(ctx, { 
-      type: 'line',
-      data: #{@chart_data.to_json.html_safe},
-      options: {
-        layout: {
-          padding: {
-            left: 5,
-            right: 20,
-            top: 10,
-            bottom: 20
-          }
-        },
-        responsive: true,
-        title:{
-            display:true,
-            text: "#{@game.title}",
-            fontSize:16
-        },
-        legend: {
-            display: true
-        },
-        elements: {
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              stepSize: 1,
-              callback: function(value, index, values){
-                if(value % 5 == 0){ 
-                  return value;
-                }
-                else{
-               	  return "";
-                }
-              }
-            },
-            gridLines:{
-              zeroLineColor: "#ffbbbb",
-              zeroLineWidth: 2,
-              borderDash:[5, 5],
-              zeroLineBorderDash:[3, 3]
-            }
-          }]
+    type: 'line',
+    data: #{@chart_data.to_json.html_safe},
+    options: {
+      layout: {
+        padding: {
+          left: 5,
+          right: 20,
+          top: 10,
+          bottom: 20
         }
-      }
-    });
-    Chart.plugins.register({
-      beforeDraw: function(myChart) {
-        var ctx = myChart.chart.ctx;
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, myChart.chart.width, myChart.chart.height);
-      }
-    });
-    
-    
-    
-    $("#save-btn").click(function() {
-     	    $("#myChart").get(0).toBlob(function(blob) { 
-     	      var post_url="#{game_save_graph_path(@game)}";
-     	      
-     	      
-     	      var blobBin = atob($("#myChart").get(0).toDataURL().split(',')[1]);
-            var array = [];
-            for(var i = 0; i < blobBin.length; i++) {
-                array.push(blobBin.charCodeAt(i));
+      },
+      responsive: false,
+      title:{
+          display:true,
+          text: "#{@game.title}",
+          fontSize:16
+      },
+      legend: {
+          display: true
+      },
+      elements: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            stepSize: 1,
+            callback: function(value, index, values){
+              if(value % 5 == 0){ 
+                return value;
+              }
+              else{
+                return "";
+              }
             }
-            var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
-            
-            
-            var formdata = new FormData();
-            formdata.append("myNewFileName", file);
-            $.ajax({
-               url: post_url,
-               type: "POST",
-               data: formdata,
-               processData: false,
-               contentType: false,
-            });
-     	      
-     	      
-     	      
-        		var url = "https://hooks.slack.com/services/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"
-            var text = "Game Recap"
-            
-            
-            $.ajax({
-                data: 'payload=' + JSON.stringify({
-                      "attachments": [
-                          {
-                              "fallback": "Game Recap : https://thefullmontee-mtreize.c9users.io/games_graphs/game_#{@game.id}.png",
-                              "title": "#{@game.title}",
-                              //"title_link": "https://thefullmontee-mtreize.c9users.io/games/#{@game.id}/recap",
-                              "title_link": "https://thefullmontee-mtreize.c9users.io/games_graphs/game_#{@game.id}.png",
-                              "text": ":coffee:",
-                              "unfurl_links": true,
-                              "unfurl_media": true,
-                              "image_url": "https://thefullmontee-mtreize.c9users.io/games_graphs/game_#{@game.id}.png",
-                              "color": "#764FA5"
-                          }
-                      ]
-                }),
-                dataType: 'json',
-                processData: false,
-                type: 'POST',
-                url: url
-            }).done(function(respond){
-              alert("Ca devrait être bon");
-            });
-     	      
-        		// saveAs(blob, "#{@game.title}.png");
-    		});
-    });
+          },
+          gridLines:{
+            zeroLineColor: "#ffbbbb",
+            zeroLineWidth: 2,
+            borderDash:[5, 5],
+            zeroLineBorderDash:[3, 3]
+          }
+        }]
+      }
+    }
+  });    
+  var myChart2 = new Chart(ctx2, { 
+    type: 'line',
+    data: #{@chart_data.to_json.html_safe},
+    options: {
+      layout: {
+        padding: {
+          left: 5,
+          right: 20,
+          top: 10,
+          bottom: 20
+        }
+      },
+      responsive: true,
+      title:{
+          display:true,
+          text: "#{@game.title}",
+          fontSize:16
+      },
+      legend: {
+          display: true
+      },
+      elements: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            stepSize: 1,
+            callback: function(value, index, values){
+              if(value % 5 == 0){ 
+                return value;
+              }
+              else{
+                return "";
+              }
+            }
+          },
+          gridLines:{
+            zeroLineColor: "#ffbbbb",
+            zeroLineWidth: 2,
+            borderDash:[5, 5],
+            zeroLineBorderDash:[3, 3]
+          }
+        }]
+      }
+    }
+  });
+  Chart.plugins.register({
+    beforeDraw: function(myChart) {
+      var ctx = myChart.chart.ctx;
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, myChart.chart.width, myChart.chart.height);
+    }
+  });
+    
+    
+    
+  $("#save-btn").click(function() {
+        $("#myChart").get(0).toBlob(function(blob) { 
+          var post_url="#{game_save_graph_path(@game)}";
+
+
+          var blobBin = atob($("#myChart").get(0).toDataURL().split(',')[1]);
+          var array = [];
+          for(var i = 0; i < blobBin.length; i++) {
+              array.push(blobBin.charCodeAt(i));
+          }
+          var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+
+          var formdata = new FormData();
+          formdata.append("myNewFileName", file);
+          $.ajax({
+             url: post_url,
+             type: "POST",
+             data: formdata,
+             processData: false,
+             contentType: false,
+          });
+
+
+
+          var url = "https://hooks.slack.com/services/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"
+          var text = "Game Recap"
+
+
+          $.ajax({
+              data: 'payload=' + JSON.stringify({
+                    "attachments": [
+                        {
+                            "fallback": "Game Recap : http://thefullmontee.space/games_graphs/game_#{@game.id}.png",
+                            "title": "#{@game.title}",
+                            //"title_link": "http://thefullmontee.space/games/#{@game.id}/recap",
+                            "title_link": "http://thefullmontee.space/games_graphs/game_#{@game.id}.png",
+                            "text": ":coffee:",
+                            "unfurl_links": true,
+                            "unfurl_media": true,
+                            "image_url": "http://thefullmontee.space/games_graphs/game_#{@game.id}.png",
+                            "color": "#764FA5"
+                        }
+                    ]
+              }),
+              dataType: 'json',
+              processData: false,
+              type: 'POST',
+              url: url
+          }).done(function(respond){
+            alert("Ca devrait être bon");
+          });
+
+          // saveAs(blob, "#{@game.title}.png");
+      });
+  });

@@ -5,7 +5,8 @@ class WizardController < ApplicationController
     end
     
     def game_step_1
-        raise params.inspect
+        #on garde l'orodre des clics pour les positions => possible, checke les params ;)
+        #raise params.inspect
         @players=Player.where(:id=> params[:players_ids])
         @players_count=@players.count
         
