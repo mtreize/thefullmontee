@@ -3,7 +3,8 @@ class Game < ApplicationRecord
     has_many :rounds, dependent: :destroy
     has_many :scores, :through=>:rounds
     after_save :generate_title
-    
+    scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
+
     
     def rules
         case self.players.count
@@ -82,5 +83,7 @@ class Game < ApplicationRecord
     def is_finished?
       self.scores.count == self.nb_scores_needed
     end
-    
+    def recap_image_path
+      "/games_graphs/game_#{self.id}.png"
+    end
 end

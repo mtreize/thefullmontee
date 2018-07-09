@@ -20,7 +20,7 @@
         Poster sur Slack
       %br/
       %br/
-      =link_to "Afficher l'image", "http://thefullmontee.space/games_graphs/game_#{@game.id}.png"
+      =link_to "Afficher l'image", "/games_graphs/game_#{@game.id}.png"
   // %table.table.table-striped
   //   %thead
   //     %tr
@@ -141,9 +141,7 @@
   });
     
     
-    
-  $("#save-btn").click(function() {
-        $("#myChart").get(0).toBlob(function(blob) { 
+  $("#myChart").get(0).toBlob(function(blob) { 
           var post_url="#{game_save_graph_path(@game)}";
 
 
@@ -164,6 +162,9 @@
              processData: false,
              contentType: false,
           });
+          
+  $("#save-btn").click(function() {
+        
 
 
 

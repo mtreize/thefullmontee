@@ -10,6 +10,8 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
+    @player_last_game=@player.games.order(:created_at).last
+    @this_month_games= @player.games.this_month
   end
 
   # GET /players/new
