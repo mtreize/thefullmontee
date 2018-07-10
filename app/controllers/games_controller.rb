@@ -2,19 +2,29 @@ class GamesController < ApplicationController
   include ApplicationHelper
   skip_before_action :verify_authenticity_token, :only => [:save_graph]
 
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :compute_results]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :compute_results, :spectator]
 
-  # GET /games
-  # GET /games.json
   def index
     @games = Game.all.order(:created_at).reverse
   end
 
-  # GET /games/1
-  # GET /games/1.json
   def show
-    # @game.generate_title
-    # @game.generate_title if @game.title.blank?
+
+  end
+  
+  def spectator
+    @display_details=true
+    @game=Game.find(params[:id])
+    @round=@game.rounds.last
+    @players=@game.players
+    pts={}
+    @players_score_for_this_round={}
+    @players.each do |p|
+      pts[p.id]=@round.current_total_for_player(p).to_i
+      @players_score_for_this_round[p.id]=Score.where(:player=>p, :round=>@round).try(:first).try(:value)
+    end
+    @players_total_scores=pts.sort_by{ |k,v| v }
+    
   end
 
   def compute_results
@@ -78,6 +88,7 @@ class GamesController < ApplicationController
   end
 
   def edit_round
+    @display_details=false
     @game=Game.find(params[:id])
     @round=@game.rounds.where(:number=>params[:round_number]).first
     @players=@game.players

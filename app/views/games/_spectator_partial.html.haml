@@ -1,0 +1,31 @@
+%h4.pt-0.text-white
+  ="#{@round.number.to_s}ᵉ manche"
+  =fa_icon "long-arrow-right"
+  
+  =" #{@game.nb_cards_for_round(@round.number)} carte#{"s" if @game.nb_cards_for_round(@round.number)>1}"
+.card#current_totals
+  .card-body
+    .row
+      -@players_total_scores.each_with_index do |(p,s),index|
+        -mc="col "
+        -mc+=" text-danger" if index<2
+        =render :partial=>"player_current_total", :locals => {:mc => mc, :p=>p, :s=>s, :g=>@game}
+%small.text-white.pull-right
+  Encore  
+  =@game.nb_rounds-@round.number+1
+  manches à jouer
+  
+  
+  
+:javascript
+  $(function() {
+    $(document).ready(function() {
+      setInterval(function() {
+        jQuery.ajax({
+          url: "#{game_spectator_path(@game.id)}",
+          type: "GET",
+          dataType: "script"
+        });
+      }, 6000); // In every 30 seconds
+    });
+  });

@@ -1,14 +1,9 @@
 
 .text-center
 
-  %hr
-  = link_to new_game_wizard_path, :class=>"btn btn-lg btn-info", 'data-disable-with' => fa_icon("spinner spin ").html_safe do
-    Nouvelle partie
   %br
-  %hr
-  %hr
   %h4.text-white
-    Reprendre une partie :
+    Parties en cours :
   -if @unfinished_games.blank? 
     %p.text-white
       Aucune partie en cours   
@@ -24,8 +19,13 @@
           %br
           %b=g.players.pluck(:name).to_sentence
           %br
-          =link_to "Reprendre", game_edit_round_path(g, g.rounds.order(:number).last.number), :class=>"btn btn-secondary", :style=>"margin-top:15px;", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+          =link_to "Edition", game_edit_round_path(g, g.rounds.order(:number).last.number), :class=>"btn btn-primary", :style=>"margin-top:15px;", 'data-disable-with' => fa_icon("spinner spin ").html_safe
+          =link_to "Spectateur", game_spectator_path(g), :class=>"btn btn-info", :style=>"margin-top:15px;", 'data-disable-with' => fa_icon("spinner spin ").html_safe
           %br
           .pull-right
             =link_to "Supprimer la partie", game_path(g), :method=>"delete", data: {confirm: "T'es sur?"}
       %br
+
+  %hr
+  = link_to new_game_wizard_path, :class=>"btn btn-lg btn-info", 'data-disable-with' => fa_icon("spinner spin ").html_safe do
+    Nouvelle partie

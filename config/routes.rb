@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post "games/:id/round/:round_number", to: "games#save_round", as: "game_save_round"
   get "games/:id/recap", to: "games#recap", as: "game_recap"
   get "games/:id/compute_results", to: "games#compute_results", as: "game_compute_results"
+  get "games/:id/spectator", to: "games#spectator", as: "game_spectator"
   post "games/:id/save_graph", to: "games#save_graph", as: "game_save_graph"
   
   root to: 'home#index'

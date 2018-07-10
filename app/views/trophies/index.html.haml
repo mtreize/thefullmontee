@@ -8,25 +8,27 @@
       %thead
         %tr
           %th Name
-          %th.d-none.d-md-block tech_name
+          %th Technical Name
           %th Description
-          %th Active ?
-          %th.nosort
-          %th.nosort
+          %th Active
           %th.nosort
     
       %tbody
         - @trophies.each do |trophy|
           %tr
             %td= trophy.name
-            %td.d-none.d-md-block= trophy.technical_name
+            %td= trophy.technical_name
             %td= trophy.description
             %td= trophy.active ? "Yes" : "Nope"
-            %td= link_to 'Voir', trophy
-            %td= link_to 'Modifier', edit_trophy_path(trophy)
             %td
-              -unless trophy.active
-                = link_to 'Supprimer', trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }
+              .btn-group
+                = link_to trophy, :class=>"btn btn-secondary" do
+                  =fa_icon 'eye'
+                = link_to edit_trophy_path(trophy), :class=>"btn btn-secondary" do
+                  =fa_icon 'edit'
+                -unless trophy.active
+                  = link_to trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }, :class=>"btn btn-secondary" do
+                    =fa_icon 'trash'
   .card-footer
     
     = link_to 'Nouveau Trophy', new_trophy_path, :class=>"card-link btn btn-primary"

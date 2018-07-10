@@ -1,20 +1,28 @@
 
 -p_scores=Player.find(p).scores_in_game(g)
-#playerscorerecap.badge_player_current_score.text-center.p-0.py-2{:class=>mc, :style=>"white-space: nowrap;overflow: hidden;text-overflow: clip;"}
+#playerscorerecap.badge_player_current_score.text-center.p-0.py-1{:class=>mc, :style=>"white-space: nowrap;overflow: hidden;text-overflow: clip;"}
   .wrap{:class=>"#{"wrap-winner" if @round.number>2 && p_scores.pluck(:value).all? {|v| v >= 0}} #{"wrap-loser" if @round.number>2 && p_scores.pluck(:value).all? {|v| v <= 0}}"}
     .inner
       =Player.where(:id=>p).try(:first).try(:name)
       %br/
       %span.lead=s
       %br
-      -p_scores.where(:round=>@round.previous_rounds_in_game).last(4).each do |prev_score|
-        - case prev_score.value
-          - when -25..-1
-            %span.badge.badge-danger.badge-pill{ :style=>"font-size: 7px;padding: 0.1em 0.4em;"}
-              &nbsp;
-          - when 0
-            %span.badge.badge-secondary.badge-pill{ :style=>"font-size: 7px;padding: 0.1em 0.4em;"}
-              &nbsp;
-          - when 1..25
-            %span.badge.badge-success.badge-pill{ :style=>"font-size: 7px;padding: 0.1em 0.4em;"}
-              &nbsp;
+      .forme{:style=>"font-size: 20px;Letter-Spacing: -1pt;"}
+        -last_scores=[]
+        -p_scores.where(:round=>@round.previous_rounds_in_game).last(4).each_with_index do |prev_score, i|
+          - case 
+            - when prev_score.value < 0
+              -colorclass="text-danger"
+            - when prev_score.value == 0
+              -colorclass="text-secondary"
+            - when prev_score.value > 0
+              -colorclass="text-success"
+          %span{:class=>colorclass}
+            = i==3? "<small>◉</small>".html_safe : "●"
+          -last_scores << prev_score.value
+      -if @display_details
+        -last_scores.reverse.each_with_index do |ls, i|
+          %small.text-center
+            %i{:style=>'color:grey;'}
+              =i==0? "<b style='color:black;'>#{ls}</b>".html_safe : i==3? "<b style='color:lightgrey;'>#{ls}</b>".html_safe : ls
+            %br
