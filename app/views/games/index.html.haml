@@ -1,26 +1,16 @@
 
-.card.card-body
-  %h4.card-title Liste des games
-  %p.card-text 
-      
-    %table.table.table-striped
-      %thead
+.card.border-dark
+  .card-header.text-center.bg-dark.text-white
+    %h4.card-title Games
+
+  %table.table.table-striped.card-body
+  
+    %tbody
+      - @games.each do |game|
         %tr
-          %th Lieu
-          %th Titre
-          %th Terminé ?
-          %th
-    
-      %tbody
-        - @games.each do |game|
-          %tr
-            %td= game.location
-            %td= game.title
-            %td= game.is_finished? ? "Oui" : "Non"
-            %td= link_to 'Voir', game_recap_path(game.id)
-
-    %br
-  .flex-row
-
-    
-    = link_to 'Nouveau Game', new_game_path, :class=>"card-link btn btn-primary"
+          %td
+            = link_to  game_recap_path(game.id) do
+              = game.location
+              = game.title
+          
+  %br

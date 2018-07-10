@@ -1,26 +1,16 @@
 
 .card.card-body
-  %h4.card-title Liste des players
+  %h4.card-title.text-center Players
   %p.card-text 
-      
-    %table.table.table-striped
-      %thead
-        %tr
-          %th Name
-          %th
-          %th
-          %th
-    
-      %tbody
-        - @players.each do |player|
-          %tr
-            %td= player.name
-            %td= link_to 'Voir', player
-            %td= link_to 'Modifier', edit_player_path(player)
-            %td= link_to 'Supprimer', player, method: :delete, data: { confirm: 'Etes-vous sur?' }
-
-    %br
-  .flex-row
+    .row
+      - @players.each do |player|
+        .col-6.text-center
+          = link_to player, :class=>"card bg-dark text-white py-3" do
+            =player.name 
+          %br
+     
+  
+  .flex-row.text-center
 
     
     = link_to 'Nouveau Player', new_player_path, :class=>"card-link btn btn-primary"
