@@ -1,6 +1,8 @@
 class Trophy < ApplicationRecord
     scope :active, -> { where(active: true) }
 
+    
+    
     def self.unlock_victory(game, player)
         t=Trophy.find_by_technical_name('victory')
         if Result.for_game_and_player(game, player).ranking==1
@@ -13,17 +15,21 @@ class Trophy < ApplicationRecord
         end
     end
     
-    def self.unlock_bienvenue(game, player)
-        t=Trophy.find_by_technical_name('bienvenue')
+    { "bienvenue" => 2, "debutant" => 10, "competent" => 30, "expert" => 50, "master" => 100 }.each do |techname, threshold|
+      define_singleton_method("unlock_#{techname}") do |game, player|
+        t=Trophy.find_by_technical_name(techname)
+        return false if t.nil?
         if Performance.where(:player=>player, :trophy=>t).present?
             # il a deja le trophée
             return false
-        elsif player.results.count==2
+        elsif player.results.count==threshold
             Performance.create(:game=>game,:player=>player, :trophy=>t)
             return true
         else
             return false
         end
+      end
     end
+
     
 end
