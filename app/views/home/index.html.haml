@@ -2,12 +2,14 @@
 .text-center
 
   %br
-  %h4.text-white
-    Parties en cours :
+
   -if @unfinished_games.blank? 
-    %p.text-white
+    %p.text-white{:style=>"opacity:0.6;"}
       Aucune partie en cours   
   -else
+  
+    %h4.text-white
+      Parties en cours :
     -@unfinished_games.each do |g|
       .card
         .card-body
