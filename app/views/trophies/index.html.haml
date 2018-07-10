@@ -1,24 +1,25 @@
 
-.card.card-body
-  %h4.card-title Liste des trophies
-  %p.card-text 
-      
-    %table.table.table-striped
+.card.border-dark
+  .card-header.bg-dark.text-white
+    %h4.card-title.text-center Trophies
+  
+  .card-body
+    %table.table.table-striped#trophies_table
       %thead
         %tr
           %th Name
-          %th Technical name
+          %th.d-none.d-md-block Technical name
           %th Description
           %th Active ?
-          %th
-          %th
-          %th
+          %th.nosort
+          %th.nosort
+          %th.nosort
     
       %tbody
         - @trophies.each do |trophy|
           %tr
             %td= trophy.name
-            %td= trophy.technical_name
+            %td.d-none.d-md-block= trophy.technical_name
             %td= trophy.description
             %td= trophy.active ? "Yes" : "Nope"
             %td= link_to 'Voir', trophy
@@ -26,9 +27,17 @@
             %td
               -unless trophy.active
                 = link_to 'Supprimer', trophy, method: :delete, data: { confirm: 'Etes-vous sur?' }
-
-    %br
-  .flex-row
-
+  .card-footer
     
     = link_to 'Nouveau Trophy', new_trophy_path, :class=>"card-link btn btn-primary"
+  :javascript
+      $(document).ready( function () {
+        $('#trophies_table').DataTable({
+          'paging': false,
+          "info": false,
+          'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': ['nosort']
+          }]
+        });
+      } );
