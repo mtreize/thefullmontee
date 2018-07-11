@@ -18,16 +18,17 @@
   .card-footer.bg-dark.text-white
     .pt-3.pb-0.h5 
       Détenu par:
-      .row.performances_div.pl-5.pt-2
+      .row.performances_div.px-2.pt-2
         -@trophy.performances.group(:player).count.each do |p, count|
-          .card.bg-dark.col-4.text-center
-            .card-body
-              =p.name
-              %br
-              -if count>1
-                %span.badge.badge-info.text-dark=count
-              -else
-                %small.text-info=@trophy.performances.where(:player=>p).first.game.title
+          .col-sm-12.col-md-4.m-0.p-0
+            .card.bg-dark.text-center.m-2
+              .card-body
+                =p.name
+                %br
+                -if count>1
+                  %span.badge.badge-info.text-dark=count
+                -else
+                  %small.text-info=@trophy.performances.where(:player=>p).first.game.title
                 
               
           
