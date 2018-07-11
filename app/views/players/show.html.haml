@@ -40,7 +40,7 @@
     .row
       -@player.performances.group(:trophy_id).count.each do |t, count|
         .col-lg-2.col-md-4.col-6.text-center.pb-2
-          .card.bg-danger.pt-3.text-center
+          .card.bg-danger.pt-3.text-center{"data-content" => Trophy.find(t).description, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
             =fa_icon 'trophy 2x'
             %p
               =Trophy.find(t).name

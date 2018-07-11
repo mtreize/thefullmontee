@@ -89,6 +89,12 @@
 
         =yield
     :javascript
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+        $('.popover-dismiss').popover({
+          trigger: 'focus'
+        })
+      })
       var a=document.getElementsByTagName("a");
       for(var i=0;i<a.length;i++)
       {
