@@ -87,12 +87,14 @@ body{
   }
   
 }
-html {
-    overflow: hidden;
-    height: 100%;
+
+.popover-info {
+    background: #1EA2B8;
 }
 
-body {
-    height: 100%;
-    overflow: auto;
+.popover-info .arrow:after {
+    border-bottom-color: #1EA2B8;
+}
+.popover.popover-info.bs-popover-top .arrow::after, .popover.popover-info.bs-popover-auto[x-placement^="top"] .arrow::after {
+    border-top-color: #1EA2B8;
 }
