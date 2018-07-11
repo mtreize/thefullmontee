@@ -1,10 +1,12 @@
 .well.card
-  .text-muted.text-center
-    ="#{@game.players.count} joueurs"
-    %br
-    ="#{@game.rounds.count}/#{@game.nb_rounds} manches"
-    
-  
+  -thanks=[]
+  -many_coffee_desc=["délicieux cafés","petits cafés","sacrés cafés", "cafés merveilleux", "succulents cafés", "cafés inoubliables", "merveilles de cafés", " si bons cafés", "incroyables cafés" ]
+  -@game.coffee_bills.each do |bill|
+    -thanks << " à #{bill.player.name}"
+  .row.justify-content-center
+    .col-8.text-center.border.rounded.py-2.mt-2
+      %b.lead
+        ="Merci #{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
   //=@game.scores.count 
   //SCORES
   // -raise @curves.first.second.inspect

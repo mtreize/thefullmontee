@@ -12,6 +12,7 @@ class PlayersController < ApplicationController
   def show
     @player_last_game=@player.games.order(:created_at).last
     @this_month_games= @player.games.this_month
+    @this_month_bills=@player.coffee_bills.where(:game=>@this_month_games)
   end
 
   # GET /players/new

@@ -6,6 +6,7 @@ class Game < ApplicationRecord
     scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
     
     has_many :results
+    has_many :coffee_bills
 
     
     def rules
@@ -27,20 +28,20 @@ class Game < ApplicationRecord
         end
     end
     def nb_rounds
-        case self.players.count
-            when 2
-              26
-            when 3
-              17
-            when 4
-              13
-            when 5, 6
-              12
-            when 7
-              14
-            else
-              0
-        end
+      case self.players.count
+        when 2
+          26
+        when 3
+          17
+        when 4
+          13
+        when 5, 6
+          12
+        when 7
+          14
+        else
+          0
+      end
     end
     def nb_scores_needed
         self.nb_rounds * self.players.count
@@ -115,7 +116,8 @@ class Game < ApplicationRecord
     end
     
     def compute_performances
-      compute_results
+      self.compute_results
+      self.calculate_coffees
       something_unlocked=false
       self.players.each do |p|
         Trophy.active.each do |trophy|
@@ -127,5 +129,118 @@ class Game < ApplicationRecord
       return something_unlocked
     end
     
+    def calculate_coffees
+      CoffeeBill.erase_all_bills_for_game(self)
+      
+      results= self.results.order(:total_score)
+      case self.players.count
+        when 2
+          if results.first.ranking==results.second.ranking
+            results.first(2).pluck(:player_id).each do |pid|
+              CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 1)
+            end
+          else
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player.id, self.players.count)
+          end
+          
+        when 3
+          if results.first.ranking==results.second.ranking
+            if results.second.ranking==results.third.ranking
+              results.first(3).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 1)
+              end
+            else
+              results.first(2).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 1)
+              end
+            end
+          else
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player.id, self.players.count)
+          end
+          
+        when 4
+          if results.first.ranking==results.second.ranking
+            if results.second.ranking==results.third.ranking
+              results.first(3).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 1)
+              end
+            else
+              results.first(2).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 2)
+              end
+            end
+          else
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player.id, self.players.count)
+          end
+          
+        when 5
+          
+          if results.first.ranking==results.second.ranking
+            if results.second.ranking==results.third.ranking
+              results.first(3).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 2)
+              end
+            else
+              results.first(2).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 3)
+              end
+            end
+          elsif results.second.ranking==results.third.ranking
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player_id, 3)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.second.player_id, 1)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.third.player_id, 1)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.fourth.player_id, 1) if results.third.ranking==results.fourth.ranking
+          else
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player.id, 3)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.second.player.id, 2)
+          end
+          
+        when 6
+          
+          if results.first.ranking==results.second.ranking
+            if results.second.ranking==results.third.ranking
+              results.first(3).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 2)
+              end
+            else
+              results.first(2).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 3)
+              end
+            end
+          elsif results.second.ranking==results.third.ranking
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player_id, 4)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.second.player_id, 1)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.third.player_id, 1)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.fourth.player_id, 1) if results.third.ranking==results.fourth.ranking
+          else
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player.id, 4)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.second.player.id, 2)
+          end
+          
+        when 7          
+          if results.first.ranking==results.second.ranking
+            if results.second.ranking==results.third.ranking
+              results.first(3).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 2)
+              end
+            else
+              results.first(2).pluck(:player_id).each do |pid|
+                CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, pid, 3)
+              end
+            end
+          elsif results.second.ranking==results.third.ranking
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player_id, 4)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.second.player_id, 2)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.third.player_id, 2)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.fourth.player_id, 2) if results.third.ranking==results.fourth.ranking
+          else
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.first.player.id, 4)
+            CoffeeBill.create_or_update_bill_for_gameid_and_playerid_and_coffeenumber(self.id, results.second.player.id, 3)
+          end
+          
+        else
+          0
+      end
+    end
     
 end

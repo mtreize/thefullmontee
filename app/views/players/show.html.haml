@@ -1,18 +1,24 @@
-.card.border-dark
+.card.border-dark.mb-3
   .card-header.bg-dark.text-center.text-white
     %h2.pt-2
       %b= @player.name
-  .card-body
-    %h4.card-title
-        
+  .card-body.p-2.bg-dark
     .row  
-      .col-md-4.col-sm-12.mt-1
-        .card.border-secondary
-          .card-header.bg-secondary.text-white
-            PARTIES JOUEES
-          .card-body.text-center.bg-secondary.text-white
-            %h3= @player.games.count
-      .col-md-4.col-sm-12.mt-1
+      .col-md-4.col-sm-12.my-1
+        .card.border-info
+          .card-header.bg-info.text-white
+            PARTIES
+          .card-body.text-center.bg-info.text-white.p-2
+            .statline
+              %span.h3.font-weight-bold.text-dark
+                ="#{@this_month_games.count}"
+              %span ce mois-ci
+            .statline
+              %span.h3.font-weight-bold.text-dark
+                ="#{@player.games.count}"
+              %span dans l'histoire
+
+      .col-md-4.col-sm-12.my-1
         .card.border-primary
           .card-header.bg-primary.text-white
             DERNIERE PARTIE
@@ -26,15 +32,21 @@
                 
             -else
               %h3=link_to l(@player_last_game.created_at, :format=>:short), game_recap_path(@player_last_game), :class=>"text-white"
-      .col-md-4.col-sm-12.mt-1
-        .card.border-info
-          .card-header.bg-info.text-white
-            CE MOIS CI
-          .card-body.text-center.bg-info.text-white
-            %h3="#{@this_month_games.count} partie(s)"
             
             
-            
+      .col-md-4.col-sm-12.my-1
+        .card.border-secondary
+          .card-header.bg-secondary.text-white
+            CAFES
+          .card-body.text-center.bg-secondary.text-white.p-2
+            .statline
+              %span.h3.font-weight-bold.text-dark
+                ="#{@this_month_bills.pluck(:nb_coffee).sum}"
+              %span ce mois-ci
+            .statline
+              %span.h3.font-weight-bold.text-dark
+                ="#{@player.coffee_bills.pluck(:nb_coffee).sum}"
+              %span dans l'histoire
   .card-footer.bg-dark.text-white.pt-4.pb-5
     %h3.text-center.pb-3 Trophées débloqués
     .row
@@ -47,9 +59,8 @@
               -if count>1
                 %span.badge.badge-light=count
   
-  .card-footer.bg-white
-    .flex-row
-      = link_to 'Retour', players_path, :class=>"card-link btn btn-secondary"
-      
-      = link_to 'Modifier', edit_player_path(@player), :class=>"pull-right card-link btn btn-info d-none d-lg-block"
+.flex-row
+  = link_to 'Retour', players_path, :class=>"card-link btn btn-secondary"
+  
+  = link_to 'Modifier', edit_player_path(@player), :class=>"pull-right card-link btn btn-info d-none d-lg-block"
       
