@@ -52,7 +52,12 @@
     .row
       -@player.performances.group(:trophy_id).count.each do |t, count|
         .col-lg-2.col-md-4.col-6.text-center.pb-2
-          .card.bg-danger.pt-3.text-center{"data-content" => Trophy.find(t).description, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
+          -popovercontent=capture_haml do
+            =Trophy.find(t).description
+            %br
+            =link_to "Détails", trophy_path(t)
+              
+          .card.bg-danger.pt-3.text-center{"data-html"=>"true","data-template"=>'<div class="popover text-center" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',  "data-content" => popovercontent, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
             =fa_icon 'trophy 2x'
             %p
               =Trophy.find(t).name
