@@ -6,20 +6,20 @@
   .card-body
     %table.table.table-striped#trophies_table
       %thead
-        %tr
+        %tr.bg-dark.text-white
           %th Name
           %th Technical Name
           %th Description
           %th Active
           %th.nosort
     
-      %tbody
+      %tbody.text-dark
         - @trophies.each do |trophy|
           %tr
             %td= trophy.name
             %td= trophy.technical_name
             %td= trophy.description
-            %td= trophy.active ? "Yes" : "Nope"
+            %td{:class=>trophy.active ? "table-success" : "table-secondary"}= trophy.active ? "Yes" : "Nope"
             %td
               .btn-group
                 = link_to trophy, :class=>"btn btn-secondary" do

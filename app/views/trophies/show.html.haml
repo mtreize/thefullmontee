@@ -1,16 +1,39 @@
-.card.card-body
-  %h4.card-title Nouveau trophy
-  %p.card-text 
-    %p
-      %b Name:
-      = @trophy.name
-    %p
-      %b Technical name:
-      = @trophy.technical_name
-    %p
-      %b Description:
-      = @trophy.description
-  .flex-row
-    = link_to 'Retour', trophies_path, :class=>"card-link"
-    = link_to 'Modifier', edit_trophy_path(@trophy), :class=>"pull-right card-link btn btn-info"
+.card.border-dark.mb-3
+  .card-header.bg-dark.text-center.text-white
+    %h2.pt-2
+      =fa_icon "trophy"
+      %b= @trophy.name
+  
+  .card-body
+    %p.card-text 
+      %p
+        %b Name:
+        = @trophy.name
+      %p
+        %b Technical name:
+        = @trophy.technical_name
+      %p
+        %b Description:
+        = @trophy.description
+  .card-footer.bg-dark.text-white
+    .pt-3.pb-0.h5 
+      Détenu par:
+      .row.performances_div.pl-5.pt-2
+        -@trophy.performances.group(:player).count.each do |p, count|
+          .card.bg-dark.col-4.text-center
+            .card-body
+              =p.name
+              %br
+              -if count>1
+                %span.badge.badge-info.text-dark=count
+              -else
+                %small.text-info=@trophy.performances.where(:player=>p).first.game.title
+                
+              
+          
+    
+
+.flex-row
+  = link_to 'Retour', trophies_path, :class=>"card-link"
+  = link_to 'Modifier', edit_trophy_path(@trophy), :class=>"pull-right card-link btn btn-info"
     

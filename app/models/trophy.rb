@@ -1,4 +1,5 @@
 class Trophy < ApplicationRecord
+    has_many :performances
     scope :active, -> { where(active: true) }
 
     
