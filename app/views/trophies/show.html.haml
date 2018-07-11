@@ -45,7 +45,6 @@
           
     
 
-.flex-row.d-none.d-lg-block
-  = link_to 'Retour', trophies_path, :class=>"btn btn-secondary card-link"
-  = link_to 'Modifier', edit_trophy_path(@trophy), :class=>"pull-right card-link btn btn-info"
-    
+.flex-row
+  = link_to 'Retour', :back, :class=>"btn btn-secondary"
+  = link_to 'Modifier', edit_trophy_path(@trophy), :class=>"pull-right card-link btn btn-info d-none d-lg-block"
