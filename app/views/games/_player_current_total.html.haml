@@ -18,11 +18,12 @@
             - when prev_score.value > 0
               -colorclass="text-success"
           %span{:class=>colorclass}
-            = i==3? "<small>◉</small>".html_safe : "●"
+            = (i==3 || i== (@round.previous_rounds_in_game.count - 1))? "<small>◉</small>".html_safe : "●"
           -last_scores << prev_score.value
       -if @display_details
         -last_scores.reverse.each_with_index do |ls, i|
           %small.text-center
+            -sls= ls>0 ? "+#{ls}" : ls
             %i{:style=>'color:grey;'}
-              =i==0? "<b style='color:black;'>#{ls}</b>".html_safe : i==3? "<b style='color:lightgrey;'>#{ls}</b>".html_safe : ls
+              =i==0? "<b style='color:black;'>#{sls}</b>".html_safe : i==3? "<b style='color:lightgrey;'>#{sls}</b>".html_safe : sls
             %br

@@ -1,3 +1,17 @@
 
 #div_spectator
   = render :partial => "spectator_partial"
+
+
+:javascript
+  $(function() {
+    $(document).ready(function() {
+      setInterval(function() {
+        jQuery.ajax({
+          url: "#{game_spectator_path(@game.id)}",
+          type: "GET",
+          dataType: "script"
+        });
+      }, 10000); // In every 30 seconds
+    });
+  });
