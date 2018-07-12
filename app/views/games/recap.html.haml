@@ -6,7 +6,7 @@
   .row.justify-content-center
     .col-8.text-center.border.rounded.py-2.mt-2
       %b.lead
-        -thanks_all="Merci #{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
+        -thanks_all="Merci#{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
         =thanks_all
   //=@game.scores.count 
   //SCORES
