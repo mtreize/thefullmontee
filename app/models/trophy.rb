@@ -15,6 +15,20 @@ class Trophy < ApplicationRecord
             return false
         end
     end
+    def self.unlock_boring(game, player)
+        # t=Trophy.find_by_technical_name('boring')
+        # if Result.for_game_and_player(game, player).ranking==1
+        #   # raise game.results.inspect
+        #   # if game.results
+            
+        #     p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+        #     p.save
+        #     return true
+        # else
+        #     Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+        #     return false
+        # end
+    end
     def self.unlock_back_2_back(game, player)
       t=Trophy.find_by_technical_name('back_2_back')
       Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all

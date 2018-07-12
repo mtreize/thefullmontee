@@ -31,9 +31,9 @@ class GamesController < ApplicationController
 
   def compute_results
     if @game.compute_performances
-      flash[:success] = "Trophée débloqués ! YOUHOU"
+      flash[:info] = "Tous les calculs sont terminés."
     else  
-      flash[:info] = "Aucun trophée débloqué :("
+      flash[:info] = "Calculs terminés. Tiens, aucun trophée débloqué, c'est chelou."
     end
     redirect_to game_recap_path(@game)
   end
@@ -117,7 +117,7 @@ class GamesController < ApplicationController
       new_round=Round.create(:game=>@game, :number=>(@round.number)+1)
       redirect_to game_edit_round_path(@game.id, new_round.number)
     else
-      redirect_to game_recap_path(@game.id)
+      redirect_to game_compute_results(@game.id)
     end
   end
   

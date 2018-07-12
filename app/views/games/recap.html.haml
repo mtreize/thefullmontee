@@ -6,7 +6,8 @@
   .row.justify-content-center
     .col-8.text-center.border.rounded.py-2.mt-2
       %b.lead
-        ="Merci #{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
+        -thanks_all="Merci #{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
+        =thanks_all
   //=@game.scores.count 
   //SCORES
   // -raise @curves.first.second.inspect
@@ -29,7 +30,7 @@
       
       =link_to game_compute_results_path(@game), :class=>"btn btn-info" do
         =fa_icon "trophy"
-        Distribuer les trophées
+        Recalculer les résultats et les trophées
       %br/
   // %table.table.table-striped
   //   %thead
@@ -190,7 +191,7 @@
                             "title": "#{@game.title}",
                             //"title_link": "http://thefullmontee.space/games/#{@game.id}/recap",
                             "title_link": "https://thefullmontee.space/games_graphs/game_#{@game.id}.png",
-                            "text": ":coffee:",
+                            "text": ":coffee:<br/>#{thanks_all}",
                             "unfurl_links": true,
                             "unfurl_media": true,
                             "image_url": "https://thefullmontee.space/games_graphs/game_#{@game.id}.png",
