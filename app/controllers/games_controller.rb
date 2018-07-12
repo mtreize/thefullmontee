@@ -13,8 +13,10 @@ class GamesController < ApplicationController
   end
   
   def spectator
-    @display_details=true
     @game=Game.find(params[:id])
+    redirect_to game_recap_path(@game) if @game.is_finished?
+
+    @display_details=true
     @round=@game.rounds.last
     @players=@game.players
     pts={}
@@ -120,7 +122,9 @@ class GamesController < ApplicationController
   end
   
   def recap
+    
     @game=Game.find(params[:id])
+    redirect_to game_spectator_path(@game) unless @game.is_finished?
     @curves={}
     @chart_data = {
       labels: @game.rounds.pluck(:number).insert(0,0),

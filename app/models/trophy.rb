@@ -15,6 +15,38 @@ class Trophy < ApplicationRecord
             return false
         end
     end
+    def self.unlock_back_2_back(game, player)
+      t=Trophy.find_by_technical_name('back_2_back')
+      Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+      if Result.for_game_and_player(game, player).ranking==1
+        prevgame=player.games.order(:created_at).where("created_at < ?",game.created_at).try(:last)
+        if Result.for_game_and_player(prevgame, player).try(:ranking)==1
+          return false if Performance.where(:game=>prevgame,:player=>player, :trophy=>t).present?
+          p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+          p.save
+          return true
+        end
+      end
+      return false
+    end
+    def self.unlock_back_3_back(game, player)
+      t=Trophy.find_by_technical_name('back_3_back')
+      Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+      if Result.for_game_and_player(game, player).ranking==1
+        prevgame=player.games.order(:created_at).where("created_at < ?",game.created_at).try(:last)
+        # raise prevgame.inspect
+        if Result.for_game_and_player(prevgame, player).try(:ranking)==1
+          prevgame2=player.games.order(:created_at).where("created_at < ?", prevgame.created_at).try(:last)
+          if Result.for_game_and_player(prevgame2, player).try(:ranking)==1
+            p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+            p.save
+            return true
+          end
+        end
+      end
+      return false
+    end
+    
     
     { "bienvenue" => 2, "debutant" => 10, "competent" => 30, "expert" => 50, "master" => 100 }.each do |techname, threshold|
       define_singleton_method("unlock_#{techname}") do |game, player|
