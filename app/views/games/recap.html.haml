@@ -1,3 +1,6 @@
+-coffee_string=[]
+-@game.players.count.times{coffee_string<<":coffee:"}
+-coffee_str=coffee_string.join
 .well.card
   -thanks=[]
   -many_coffee_desc=["délicieux cafés","petits cafés","sacrés cafés", "cafés merveilleux", "succulents cafés", "cafés inoubliables", "merveilles de cafés", " si bons cafés", "incroyables cafés" ]
@@ -191,7 +194,7 @@
                             "title": "#{@game.title}",
                             "title_link": "https://thefullmontee.space/games/#{@game.id}/recap",
                             // "title_link": "https://thefullmontee.space/games_graphs/game_#{@game.id}.png",
-                            "text": "#{@game.players.count.times{ ':coffee:' }} \n #{thanks_all}",
+                            "text": "#{coffee_str} \n #{thanks_all}",
                             "unfurl_links": true,
                             "unfurl_media": true,
                             "image_url": "https://thefullmontee.space/games_graphs/game_#{@game.id}.png",
