@@ -6,9 +6,10 @@
 .card#current_totals
   .card-body
     .row
+      -nb_losers=@players_total_scores.count< 5 ? 1 : 2
       -@players_total_scores.each_with_index do |(p,s),index|
         -mc="col "
-        -mc+=" text-danger" if index<2
+        -mc+=" text-danger" if index<nb_losers
         =render :partial=>"player_current_total", :locals => {:mc => mc, :p=>p, :s=>s, :g=>@game}
 %small.text-white.pull-right
   Encore  
