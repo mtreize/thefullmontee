@@ -54,7 +54,9 @@
         .col-lg-2.col-md-4.col-6.text-center.pb-2
           -popovercontent=capture_haml do
             %br
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             =Trophy.find(t).description
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %br
             %br
             =link_to "Détails", 'javascript:;', :class=>"btn btn-dark btn-sm", :onclick=>"replaceclick(this)", "data-to-href"=>trophy_path(t)
