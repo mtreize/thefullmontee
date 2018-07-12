@@ -57,7 +57,7 @@
             =Trophy.find(t).description
             %br
             %br
-            =link_to "Détails", trophy_path(t), :class=>"btn btn-dark btn-sm", :onclick=>"replaceclick(this)"
+            =link_to "Détails", 'javascript:;', :class=>"btn btn-dark btn-sm", :onclick=>"replaceclick(this)", "data-to-href"=>trophy_path(t)
               
           .card.bg-danger.pt-3.text-center{"data-html"=>"true","data-template"=>'<div class="popover text-center" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',  "data-content" => popovercontent, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
             =fa_icon 'trophy 2x'
