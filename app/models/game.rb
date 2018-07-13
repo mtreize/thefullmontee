@@ -106,7 +106,7 @@ class Game < ApplicationRecord
         end
         previous=res
       end
-      
+      self.results.destroy_all
       self.players.each do |p|
         r=Result.where(:player=>p, :game=>self).first_or_initialize
         r.total_score = scores[p.id]
