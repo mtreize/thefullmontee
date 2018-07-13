@@ -27,6 +27,28 @@ class Trophy < ApplicationRecord
           return false
       end
     end
+    
+    def self.unlock_dix_cafes(game, player)
+      t=Trophy.find_by_technical_name("dix_cafes")
+      return false if t.nil?
+      if Performance.where(:player=>player, :trophy=>t).blank? && player.nb_payed_coffees_all_time > 10
+          Performance.create(:game=>game,:player=>player, :trophy=>t)
+          return true
+      else
+          return false
+      end
+    end
+    def self.unlock_cent_cafes(game, player)
+      t=Trophy.find_by_technical_name("cent_cafes")
+      return false if t.nil?
+      if Performance.where(:player=>player, :trophy=>t).blank? && player.nb_payed_coffees_all_time > 100
+          Performance.create(:game=>game,:player=>player, :trophy=>t)
+          return true
+      else
+          return false
+      end
+    end
+    
     def self.unlock_back_2_back(game, player)
       t=Trophy.find_by_technical_name('back_2_back')
       Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all

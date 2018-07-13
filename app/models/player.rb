@@ -9,5 +9,9 @@ class Player < ApplicationRecord
     Score.where(:player=>self, :round=>rounds)
   end
   
+  def nb_payed_coffees_all_time
+    self.coffee_bills.pluck(:nb_coffee).sum
+  end
+  
     
 end
