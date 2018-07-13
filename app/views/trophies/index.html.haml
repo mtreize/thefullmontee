@@ -39,8 +39,10 @@
   :javascript
       $(document).ready( function () {
         $('#trophies_table').DataTable({
-          'paging': false,
-          "info": false,
+          'paging': true,
+          'pageLength': 20,
+          'lengthChange': false,
+          "info": true,
           'aoColumnDefs': [{
             'bSortable': false,
             'aTargets': ['nosort']
