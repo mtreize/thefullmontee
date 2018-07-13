@@ -92,6 +92,11 @@
         }).length > 0){
       condition_au_moins_un_echec=true;
     }
+    else if($("#editroundform input.otherinput[type='radio']:checked").filter(function() {
+            return parseInt($(this).val(), 10) < 0;
+        }).length > 0){
+      condition_au_moins_un_echec=true;
+    }
     
     if (condition_presence==true && condition_au_moins_un_echec==true){
       $(".saveroundbtn").attr( "class", "saveroundbtn btn btn-primary btn-xl" );
