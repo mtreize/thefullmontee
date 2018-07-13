@@ -60,6 +60,20 @@ class TrophiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def recalculate_all_trophies_for_all_games
+    Game.all.each do |g|
+      g.compute_performances
+      puts "======= GAME recalculé    : #{g.title} =========="
+    end
+    
+    flash[:info] = "Tous les calculs sont terminés."
+   
+    redirect_to trophies_path
+    
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

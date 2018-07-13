@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "games/:id/compute_results", to: "games#compute_results", as: "game_compute_results"
   get "games/:id/spectator", to: "games#spectator", as: "game_spectator"
   post "games/:id/save_graph", to: "games#save_graph", as: "game_save_graph"
+  post "trophies/recompute_all", to: "trophies#recalculate_all_trophies_for_all_games", as: "trophies_recompute_all"
   
   root to: 'home#index'
   

@@ -18,7 +18,12 @@ class Trophy < ApplicationRecord
     def self.unlock_boring(game, player)
       t=Trophy.find_by_technical_name('boring')
       p_result=Result.for_game_and_player(game, player)
-      if p_result.ranking==1 && (p_result.total_score - game.results.where(:ranking=>2).first.total_score > 14)
+      p2_total_score=game.results.where(:ranking=>2).first.try(:total_score)
+      if p2_total_score.nil?
+        Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+        return false
+      end
+      if p_result.ranking==1 && (p_result.total_score - p2_total_score > 14)
           p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
           p.save
           return true
