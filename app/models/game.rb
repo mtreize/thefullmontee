@@ -116,6 +116,7 @@ class Game < ApplicationRecord
     end
     
     def compute_performances
+      return nil unless self.is_finished?
       self.compute_results
       self.calculate_coffees
       something_unlocked=false
