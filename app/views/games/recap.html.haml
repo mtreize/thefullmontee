@@ -11,6 +11,10 @@
       %b.lead
         -thanks_all="Merci#{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
         =thanks_all
+  .row.justify-content-center
+    .col-8.text-center.text-muted
+      Game Time :
+      =@game.gametime
   //=@game.scores.count 
   //SCORES
   // -raise @curves.first.second.inspect

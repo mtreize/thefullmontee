@@ -8,7 +8,10 @@ class Game < ApplicationRecord
     has_many :results
     has_many :coffee_bills
 
-    
+    include ActionView::Helpers
+    def gametime
+      distance_of_time_in_words(self.rounds.last.created_at, self.rounds.first.created_at)
+    end
     def rules
         case self.players.count
             when 2
