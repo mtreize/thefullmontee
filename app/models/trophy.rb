@@ -116,4 +116,15 @@ class Trophy < ApplicationRecord
     end
   end
     
+  def self.unlock_tout_ca_pour_ca(game,player)
+    t=Trophy.find_by_technical_name('tout_ca_pour_ca')
+    if Result.for_game_and_player(game, player).total_score==0
+        p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+        p.save
+        return true
+    else
+        Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+        return false
+    end
+  end
 end
