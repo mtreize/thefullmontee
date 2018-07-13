@@ -10,6 +10,7 @@ class Game < ApplicationRecord
 
     include ActionView::Helpers
     def gametime
+      return "" if self.rounds.first.nil?
       distance_of_time_in_words(self.rounds.last.created_at, self.rounds.first.created_at)
     end
     def rules
