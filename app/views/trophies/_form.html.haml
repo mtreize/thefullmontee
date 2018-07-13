@@ -14,6 +14,11 @@
       .field
         = f.label :technical_name
         = f.text_field :technical_name,  :class=>"form-control"
+        
+    .form-group
+      .checkbox-inline
+        = f.check_box :active
+        = f.label "Active"
     .field
       = f.label :description
       = f.text_area :description,  :class=>"form-control"

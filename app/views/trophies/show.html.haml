@@ -7,13 +7,16 @@
   .card-body
     %p.card-text 
       %p
-        %b Name:
+        %b.text-primary Name:
         = @trophy.name
       %p
-        %b Technical name:
+        %b.text-primary Technical name:
         = @trophy.technical_name
       %p
-        %b Description:
+        %b.text-primary Active ?
+        = @trophy.active ? "Yep" : "Nope"
+      %p
+        %b.text-primary Description:
         = @trophy.description
   .card-footer.bg-dark.text-white
     .pt-3.pb-0.h5 
@@ -46,5 +49,6 @@
     
 
 .flex-row
-  = link_to 'Retour', :back, :class=>"btn btn-secondary"
+  = link_to 'Retour', :back, :class=>"btn btn-secondary d-lg-none"
+  = link_to 'Retour', trophies_path, :class=>"btn btn-secondary d-none d-lg-inline-block"
   = link_to 'Modifier', edit_trophy_path(@trophy), :class=>"pull-right card-link btn btn-info d-none d-lg-block"
