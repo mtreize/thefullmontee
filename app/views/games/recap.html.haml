@@ -52,7 +52,18 @@
   //         %td= score.value
   //         %td= score.player.name
   //         %td= score.round.number
-
+  %section
+    .card
+      .card-header
+        Trophées distribués sur cette partie
+      %table.card-body.table.table-striped
+        -@game.performances.each do |perf|
+          %tr
+            %td=link_to perf.player.name, perf.player
+            %td
+              =link_to perf.trophy do
+                =fa_icon 'trophy'
+                ="#{perf.trophy.name}"
 :javascript
 
   var ctx = document.getElementById("myChart").getContext('2d');
