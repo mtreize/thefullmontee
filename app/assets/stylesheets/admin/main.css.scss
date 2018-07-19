@@ -1,7 +1,7 @@
 body{
-  background: asset-data-url("bg-pattern.png"), #4792DA;
-  background: asset-data-url("bg-pattern.png"), -webkit-linear-gradient(to left, #4792DA, #915B87);
-  background: asset-data-url("bg-pattern.png"), linear-gradient(to left, #4792DA, #915B87); 
+  background: asset-data-url("cardpattern.png"), #4792DA;
+  background: asset-data-url("cardpattern.png"), -webkit-linear-gradient(to left, #4792DA, #915B87);
+  background: asset-data-url("cardpattern.png"), linear-gradient(to left, #4792DA, #915B87);
 }
 
 .navigation{
