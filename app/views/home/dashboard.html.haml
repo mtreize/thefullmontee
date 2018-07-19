@@ -1,0 +1,25 @@
+.text-center
+  .card.mt-2
+    .card-body
+      .row
+        .col
+          =Game.all.count
+          parties enregistrées
+  .card.mt-2
+    .card-body
+      .row
+        .col
+          =Trophy.active.count
+          trophées disponibles
+        .col
+          -perf_games_html=capture_haml do
+            -Trophy.where.not(:id=>Performance.all.pluck(:trophy_id).uniq).each do |t|
+              =link_to t do
+                =t.name
+                %br
+                
+          
+          %span{"data-html"=>"true", "data-content" => perf_games_html.html_safe, "data-toggle" => "popover", "data-placement" => "bottom", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
+            =Trophy.where.not(:id=>Performance.all.pluck(:trophy_id).uniq).count
+            trophées jamais débloqués
+            

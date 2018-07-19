@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post "games/:id/save_graph", to: "games#save_graph", as: "game_save_graph"
   post "trophies/recompute_all", to: "trophies#recalculate_all_trophies_for_all_games", as: "trophies_recompute_all"
   
+  get "dashboard", to: "home#dashboard", as: "dashboard"
+
   root to: 'home#index'
   
   devise_for :users
