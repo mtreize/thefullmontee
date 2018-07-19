@@ -122,15 +122,19 @@ class Game < ApplicationRecord
     
     def compute_performances
       return nil unless self.is_finished?
+      specials_trophies=["collectionneur"]
       self.compute_results
       self.calculate_coffees
       something_unlocked=false
       self.players.each do |p|
         Trophy.active.each do |trophy|
-          if Trophy.send("unlock_#{trophy.technical_name}", self, p)
-            something_unlocked=true
+          unless specials_trophies.include? trophy.technical_name
+            if Trophy.send("unlock_#{trophy.technical_name}", self, p)
+              something_unlocked=true
+            end
           end
         end
+        Trophy.unlock_collectionneur(self,p)
       end
       return something_unlocked
     end

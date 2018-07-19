@@ -39,8 +39,6 @@ class Trophy < ApplicationRecord
     return false
   end
   
-  
-  
   def self.unlock_boring(game, player)
     t=Trophy.find_by_technical_name('boring')
     p_result=Result.for_game_and_player(game, player)
@@ -153,4 +151,18 @@ class Trophy < ApplicationRecord
         return false
     end
   end
+  
+  def self.unlock_collectionneur(game, player)
+    t=Trophy.find_by_technical_name('collectionneur')
+    if player.performances.pluck(:trophy_id).uniq.count >= 10
+      return false if Performance.where(:player=>player, :trophy=>t).present?
+      p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+      p.save
+      return true
+    else
+      Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+      return false
+    end
+  end
+  
 end
