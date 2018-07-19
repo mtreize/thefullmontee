@@ -3,6 +3,8 @@ class Trophy < ApplicationRecord
   scope :active, -> { where(active: true) }
 
   enum positive: { pasbien: 4, neutre: 5, bien: 6}
+  enum only_once: { une_seule_fois: 1, plusieurs_fois: 0}
+  
   
   def self.unlock_victory(game, player)
     t=Trophy.find_by_technical_name('victory')

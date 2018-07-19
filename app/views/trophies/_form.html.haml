@@ -24,6 +24,11 @@
       .checkbox-inline
         = f.label :positive 
         = f.select :positive, Trophy.positives.keys
+    
+    .form-group
+      .checkbox-inline
+        = f.label :positive, "Combien de fois peut-on l'obtenir ?" 
+        = f.select :only_once, Trophy.only_onces.keys
         
     .field
       = f.label :description

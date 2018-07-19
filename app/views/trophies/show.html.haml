@@ -26,6 +26,16 @@
           -when "pasbien" 
             %small.badge.badge-sm.badge-danger Mauvais
       %p
+        %b.text-primary Combien de fois peut on l'avoir ?
+        
+        - case @trophy.only_once
+          -when "une_seule_fois" 
+            Une seule
+          -when "plusieurs_fois" 
+            Plusieurs
+          -when "pasbien" 
+            ?
+      %p
         %b.text-primary Description:
         = @trophy.description
   .card-footer.bg-dark.text-white

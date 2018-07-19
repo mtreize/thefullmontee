@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180719135859) do
+ActiveRecord::Schema.define(version: 20180719155127) do
 
   create_table "coffee_bills", force: :cascade do |t|
     t.integer "player_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20180719135859) do
     t.datetime "updated_at", null: false
     t.boolean "active"
     t.integer "positive"
+    t.integer "only_once"
   end
 
   create_table "users", force: :cascade do |t|
