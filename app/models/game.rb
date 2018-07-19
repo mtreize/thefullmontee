@@ -5,9 +5,9 @@ class Game < ApplicationRecord
     after_save :generate_title
     scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
     
-    has_many :results
-    has_many :coffee_bills
-    has_many :performances
+    has_many :results, :dependent => :destroy
+    has_many :coffee_bills, :dependent => :destroy
+    has_many :performances, :dependent => :destroy
 
     include ActionView::Helpers
     def gametime

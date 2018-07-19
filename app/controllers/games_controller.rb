@@ -117,7 +117,7 @@ class GamesController < ApplicationController
       new_round=Round.create(:game=>@game, :number=>(@round.number)+1)
       redirect_to game_edit_round_path(@game.id, new_round.number)
     else
-      redirect_to game_compute_results(@game.id)
+      redirect_to game_compute_results_path(@game.id)
     end
   end
   

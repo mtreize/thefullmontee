@@ -31,7 +31,8 @@ class Trophy < ApplicationRecord
   def self.unlock_after_2_pm(game,player)
     t=Trophy.find_by_technical_name('after_2_pm')
     Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
-    if game.rounds.order(:created_at).last.created_at.time.hour >= 12
+    h=game.rounds.order(:created_at).last.created_at.time.hour
+    if h >= 12 && h<14 
         Performance.create(:game=>game,:player=>player, :trophy=>t)
         return true
     end
