@@ -10,6 +10,7 @@
           %th Name
           %th Technical Name
           %th Description
+          %th Positive
           %th Active
           %th.nosort
     
@@ -19,6 +20,14 @@
             %td= trophy.name
             %td= trophy.technical_name
             %td= trophy.description
+            %td.text-center
+              - case trophy.positive
+                -when "bien" 
+                  %small.badge.badge-sm.badge-success Bon
+                -when "neutre" 
+                  %small.badge.badge-sm.badge-secondary Neutre
+                -when "pasbien" 
+                  %small.badge.badge-sm.badge-danger Mauvais
             %td{:class=>trophy.active ? "table-success" : "table-secondary"}= trophy.active ? "Yes" : "Nope"
             %td
               .btn-group

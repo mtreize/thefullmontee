@@ -19,6 +19,12 @@
       .checkbox-inline
         = f.check_box :active
         = f.label "Active"
+        
+    .form-group
+      .checkbox-inline
+        = f.label :positive 
+        = f.select :positive, Trophy.positives.keys
+        
     .field
       = f.label :description
       = f.text_area :description,  :class=>"form-control"

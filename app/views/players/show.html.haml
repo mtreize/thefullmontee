@@ -51,22 +51,42 @@
     %h3.text-center.pb-3 Trophées débloqués
     .row
       -@player.performances.group(:trophy_id).count.each do |t, count|
-        .col-lg-2.col-md-4.col-6.text-center.pb-2
+        -troph=Trophy.find(t)
+        .col-lg-2.col-md-4.col-6.text-center.pb-2.pt-3
           -popovercontent=capture_haml do
             %br
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            =Trophy.find(t).description
+            =troph.description
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %br
             %br
             =link_to "Détails", 'javascript:;', :class=>"btn btn-dark btn-sm", :onclick=>"replaceclick(this)", "data-to-href"=>trophy_path(t)
               
-          .card.bg-danger.pt-3.text-center{"data-html"=>"true","data-template"=>'<div class="popover text-center" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',  "data-content" => popovercontent, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
-            =fa_icon 'trophy 2x'
-            %p
-              =Trophy.find(t).name
+          -bdgclass= case troph.positive
+            -when "bien" then "tbadge-12-good"
+            -when "neutre" then "tbadge-12-neutral"
+            -when "pasbien" then "tbadge-12-bad"
+            -else ""
+          -textstyle= case troph.positive
+            -when "bien" then "color:LightGreen;"
+            -when "neutre" then "color:lightgrey;"
+            -when "pasbien" then "color:salmon;"
+            -else ""
+          -countstyle= case troph.positive
+            -when "bien" then "background-color:LightGreen;"
+            -when "neutre" then "background-color:lightgrey;"
+            -when "pasbien" then "background-color:salmon;"
+            -else "background-color:white;"
+          .text-center
+            .tbadge-12{:class=>"#{bdgclass}", :style=>"margin-left: auto;margin-right: auto;","data-html"=>"true","data-template"=>'<div class="popover text-center" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',  "data-content" => popovercontent, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
+              .pt-2.position-sticky.text-white{:style=>"z-index: 1000;"}
+                =fa_icon 'trophy 4x'
+            %br
+            
+            %p{:style=>"#{textstyle}"}
+              =troph.name.try(:capitalize)
               -if count>1
-                %span.badge.badge-light=count
+                %span.badge.text-dark{:style=>"#{countstyle}"}=count
   
 .flex-row
   = link_to 'Retour', players_path, :class=>"card-link btn btn-secondary"

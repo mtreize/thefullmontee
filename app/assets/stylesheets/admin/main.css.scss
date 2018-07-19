@@ -98,3 +98,64 @@ body{
 .popover.popover-info.bs-popover-top .arrow::after, .popover.popover-info.bs-popover-auto[x-placement^="top"] .arrow::after {
     border-top-color: #1EA2B8;
 }
+
+
+.tbadge-12 {
+    background: black;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    text-align: center;
+}
+.tbadge-12:before, .tbadge-12:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 80px;
+    background: black;
+}
+.tbadge-12:before {
+    -webkit-transform: rotate(30deg);
+       -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+         -o-transform: rotate(30deg);
+}
+.tbadge-12:after {
+    -webkit-transform: rotate(60deg);
+       -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+         -o-transform: rotate(60deg);
+}
+
+.tbadge-12-bad, .tbadge-12-bad:before, .tbadge-12-bad:after {
+    background: red;
+  background: -moz-radial-gradient(center, ellipse cover, rgba(56,12,12,1) 0%, rgba(255,0,0,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(56,12,12,1)), color-stop(100%, rgba(255,0,0,1))); /* safari4+,chrome */
+  background:-webkit-radial-gradient(center, ellipse cover, rgba(56,12,12,1) 0%, rgba(255,0,0,1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-radial-gradient(center, ellipse cover, rgba(56,12,12,1) 0%, rgba(255,0,0,1) 100%); /* opera 11.10+ */
+  background: -ms-radial-gradient(center, ellipse cover, rgba(56,12,12,1) 0%, rgba(255,0,0,1) 100%); /* ie10+ */
+  background:radial-gradient(ellipse at center, rgba(56,12,12,1) 0%, rgba(255,0,0,1) 100%); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#380C0C', endColorstr='#FF0000',GradientType=1 ); /* ie6-9 */
+}
+.tbadge-12-good, .tbadge-12-good:before, .tbadge-12-good:after {
+    background: green;
+  background: -moz-radial-gradient(center, ellipse cover, rgba(15,56,13,1) 0%, rgba(0,199,0,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(15,56,13,1)), color-stop(100%, rgba(0,199,0,1))); /* safari4+,chrome */
+  background:-webkit-radial-gradient(center, ellipse cover, rgba(15,56,13,1) 0%, rgba(0,199,0,1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-radial-gradient(center, ellipse cover, rgba(15,56,13,1) 0%, rgba(0,199,0,1) 100%); /* opera 11.10+ */
+  background: -ms-radial-gradient(center, ellipse cover, rgba(15,56,13,1) 0%, rgba(0,199,0,1) 100%); /* ie10+ */
+  background:radial-gradient(ellipse at center, rgba(15,56,13,1) 0%, rgba(0,199,0,1) 100%); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0F380D', endColorstr='#00C700',GradientType=1 ); /* ie6-9 */
+}
+.tbadge-12-neutral, .tbadge-12-neutral:before, .tbadge-12-neutral:after {
+    background: lightgrey;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(148,148,148,1) 0%, rgba(235,235,235,1) 100%); /* ff3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(148,148,148,1)), color-stop(100%, rgba(235,235,235,1))); /* safari4+,chrome */
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(148,148,148,1) 0%, rgba(235,235,235,1) 100%); /* safari5.1+,chrome10+ */
+    background: -o-radial-gradient(center, ellipse cover, rgba(148,148,148,1) 0%, rgba(235,235,235,1) 100%); /* opera 11.10+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(148,148,148,1) 0%, rgba(235,235,235,1) 100%); /* ie10+ */
+    background:radial-gradient(ellipse at center, rgba(148,148,148,1) 0%, rgba(235,235,235,1) 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#949494', endColorstr='#EBEBEB',GradientType=1 ); /* ie6-9 */
+}

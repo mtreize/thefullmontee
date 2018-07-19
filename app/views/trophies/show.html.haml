@@ -16,6 +16,16 @@
         %b.text-primary Active ?
         = @trophy.active ? "Yep" : "Nope"
       %p
+        %b.text-primary Positive ?
+        
+        - case @trophy.positive
+          -when "bien" 
+            %small.badge.badge-sm.badge-success Bon
+          -when "neutre" 
+            %small.badge.badge-sm.badge-secondary Neutre
+          -when "pasbien" 
+            %small.badge.badge-sm.badge-danger Mauvais
+      %p
         %b.text-primary Description:
         = @trophy.description
   .card-footer.bg-dark.text-white

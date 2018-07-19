@@ -2,7 +2,7 @@ class Trophy < ApplicationRecord
   has_many :performances
   scope :active, -> { where(active: true) }
 
-  
+  enum positive: { pasbien: 4, neutre: 5, bien: 6}
   
   def self.unlock_victory(game, player)
     t=Trophy.find_by_technical_name('victory')
