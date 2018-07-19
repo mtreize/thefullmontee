@@ -15,6 +15,17 @@ class Trophy < ApplicationRecord
         return false
     end
   end
+  
+  def self.unlock_modjo(game, player)
+    t=Trophy.find_by_technical_name('modjo')
+    Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+    if player.scores_in_game(game).pluck(:value).max > 9
+        Performance.create(:game=>game,:player=>player, :trophy=>t)
+        return true
+    end
+    return false
+  end
+  
   def self.unlock_boring(game, player)
     t=Trophy.find_by_technical_name('boring')
     p_result=Result.for_game_and_player(game, player)
