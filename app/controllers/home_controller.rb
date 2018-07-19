@@ -5,6 +5,6 @@ class HomeController < ApplicationController
     end    
     
     def dashboard
-        
+        @still_locked_trophies=Trophy.active.where.not(:id=>Performance.all.pluck(:trophy_id).uniq)
     end
 end
