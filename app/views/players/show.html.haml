@@ -50,6 +50,10 @@
   .card-footer.bg-dark.text-white.pt-4.pb-5
     %h3.text-center.pb-3 Trophées débloqués
     .row
+      
+      -if @player.performances.blank?
+        .col-12.text-muted.text-center.h3
+          ¯\_(ツ)_/¯
       -@player.performances.group(:trophy_id).count.each do |t, count|
         -troph=Trophy.find(t)
         .col-lg-2.col-md-4.col-6.text-center.pb-2.pt-3
