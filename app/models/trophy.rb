@@ -26,6 +26,18 @@ class Trophy < ApplicationRecord
     return false
   end
   
+  def self.unlock_after_2_pm(game,player)
+    t=Trophy.find_by_technical_name('after_2_pm')
+    Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+    if game.rounds.order(:created_at).last.created_at.time.hour >= 12
+        Performance.create(:game=>game,:player=>player, :trophy=>t)
+        return true
+    end
+    return false
+  end
+  
+  
+  
   def self.unlock_boring(game, player)
     t=Trophy.find_by_technical_name('boring')
     p_result=Result.for_game_and_player(game, player)
