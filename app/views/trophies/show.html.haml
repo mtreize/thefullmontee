@@ -57,16 +57,31 @@
             .col-sm-12.col-md-4.m-0.p-0
   
               -if count>1
-                .card.bg-dark.text-center.m-2{"data-html"=>"true","data-template"=>'<div class="popover popover-info border-info bg-info" role="tooltip"><div class="arrow border-info bg-info"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>', "data-content" => perf_games_html.html_safe, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
+                .card.bg-dark.text-center.m-2
   
                   .card-body
-                    =p.name
+                    =link_to p, :class=>"text-white" do
+                      .text-center
+                        -if p.avatar.present?
+                          =image_tag "animals/#{p.avatar}.png", size: "40"
+                        -else
+                          =image_tag "animals/sheep-1.png", size: "40"
+  
+                      =p.name
                     %br
-                      %span.badge.badge-info.text-dark=count
+                      %span.badge.badge-info.text-dark{"data-html"=>"true","data-template"=>'<div class="popover popover-info border-info bg-info" role="tooltip"><div class="arrow border-info bg-info"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>', "data-content" => perf_games_html.html_safe, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
+                        =count
               -else
                 .card.bg-dark.text-center.m-2
                   .card-body
-                    =p.name
+                    =link_to p, :class=>"text-white" do
+                      .text-center
+                        -if p.avatar.present?
+                          =image_tag "animals/#{p.avatar}.png", size: "40"
+                        -else
+                          =image_tag "animals/sheep-1.png", size: "40"
+  
+                      =p.name
                     %br
                     %small.text-info=perf_games_html.html_safe
                 
