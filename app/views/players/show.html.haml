@@ -8,9 +8,9 @@
             %b= @player.name
       .col-2.text-right
         -if @player.avatar.present?
-          =image_tag "animals/#{@player.avatar}", size: "80"
+          =image_tag "animals/#{@player.avatar}.png", size: "80"
         -else
-          =image_tag "animals/sheep-1", size: "80"
+          =image_tag "animals/sheep-1.png", size: "80"
 
   .card-body.p-2.bg-dark
     .row  
