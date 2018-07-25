@@ -4,29 +4,30 @@
     %h4.card-title.text-center Matrice Trophées/Joueurs
   
   .card-body
-    %table.table.table-bordered#trophies_table
-      %thead
+    %table.table.table-bordered.table-hover#trophies_table.border-dark.border.border-2
+      %thead.border-dark
         %tr.bg-dark.text-white
-          %th.bg-dark
+          %th.bg-dark.border-dark.border.border-bottom-0
           -Player.all.order(:id).each do |p|
-            %th.text-center
-              -if p.avatar.present?
-                =image_tag "animals/#{p.avatar}.png", size: "30"
-              -else
-                =image_tag "animals/sheep-1.png", size: "30"
+            %th.text-center.border-dark.border.border-bottom-0
+              .p-0.m-0
+                -if p.avatar.present?
+                  =image_tag "animals/#{p.avatar}.png", size: "30"
+                -else
+                  =image_tag "animals/sheep-1.png", size: "30"
               =link_to p.name, p, :class=>"text-white"
 
-      %tbody.text-dark
+      %tbody.text-dark.border-dark
         - @trophies.each do |trophy|
-          %tr
-            %td.bg-dark.text-white
+          %tr.border-dark.border
+            %td.bg-dark.text-white.border.border-left-0.border-right-0.border-secondary{:style=>"width:20%;"}
               =link_to trophy.name, trophy, :class=>"text-white"
             -Player.all.order(:id).each do |p|
               -case nb=p.count_trophy(trophy)
               -when 0
-                %td.bg-white
+                %td.bg-white{:style=>"width:#{80/Player.all.count}%;"}
               -when 1
-                %td.bg-info.text-center.text-dark 
+                %td.bg-info.text-center.text-dark
                   =fa_icon 'trophy'
               -else
                 %td.bg-info.text-center
