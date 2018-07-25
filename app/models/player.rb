@@ -13,5 +13,10 @@ class Player < ApplicationRecord
     self.coffee_bills.pluck(:nb_coffee).sum
   end
   
-    
+  def has_trophy?(t)
+    Performance.where(:player=>self, :trophy=>t).present?
+  end
+  
+  
+  
 end

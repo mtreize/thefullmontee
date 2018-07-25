@@ -12,6 +12,10 @@ class TrophiesController < ApplicationController
   def show
   end
 
+  def matrice
+    @trophies=Trophy.active
+  end
+
   # GET /trophies/new
   def new
     @trophy = Trophy.new

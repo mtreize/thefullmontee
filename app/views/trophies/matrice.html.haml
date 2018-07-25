@@ -1,0 +1,30 @@
+
+.card.border-dark
+  .card-header.bg-dark.text-white
+    %h4.card-title.text-center Matrice Trophées/Joueurs
+  
+  .card-body
+    %table.table.table-bordered#trophies_table
+      %thead
+        %tr.bg-dark.text-white
+          %th.bg-dark
+          -Player.all.order(:id).each do |p|
+            %th.text-center
+              -if p.avatar.present?
+                =image_tag "animals/#{p.avatar}.png", size: "30"
+              -else
+                =image_tag "animals/sheep-1.png", size: "30"
+              =link_to p.name, p, :class=>"text-white"
+
+      %tbody.text-dark
+        - @trophies.each do |trophy|
+          %tr
+            %td.bg-dark.text-white
+              =link_to trophy.name, trophy, :class=>"text-white"
+            -Player.all.order(:id).each do |p|
+              -if p.has_trophy?(trophy)
+                %td.bg-success.text-center.text-dark 
+                  =fa_icon 'trophy'
+              -else
+                %td.bg-white
+                  
