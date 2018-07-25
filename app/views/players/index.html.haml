@@ -5,8 +5,14 @@
     .row
       - @players.each do |player|
         .col-6.text-center
-          = link_to player, :class=>"card bg-dark text-white py-3" do
-            =player.name 
+          = link_to player, :class=>"card bg-dark text-white text-center py-3" do
+            .text-center
+              -if player.avatar.present?
+                =image_tag "animals/#{player.avatar}", size: "40"
+              -else
+                =image_tag "animals/sheep-1", size: "40"
+            .h4.mt-2.mb-0
+              =player.name 
           %br
      
   

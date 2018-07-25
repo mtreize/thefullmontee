@@ -1,7 +1,17 @@
 .card.border-dark.mb-3
-  .card-header.bg-dark.text-center.text-white
-    %h2.pt-2
-      %b= @player.name
+  .card-header.bg-dark.text-left.text-white
+    .row
+      .col-2
+      .col-8.text-center
+        %h2.pl-3
+          .pt-3
+            %b= @player.name
+      .col-2.text-right
+        -if @player.avatar.present?
+          =image_tag "animals/#{@player.avatar}", size: "80"
+        -else
+          =image_tag "animals/sheep-1", size: "80"
+
   .card-body.p-2.bg-dark
     .row  
       .col-md-4.col-sm-12.my-1
