@@ -22,9 +22,15 @@
             %td.bg-dark.text-white
               =link_to trophy.name, trophy, :class=>"text-white"
             -Player.all.order(:id).each do |p|
-              -if p.has_trophy?(trophy)
+              -case nb=p.count_trophy(trophy)
+              -when 0
+                %td.bg-white
+              -when 1
                 %td.bg-success.text-center.text-dark 
                   =fa_icon 'trophy'
               -else
-                %td.bg-white
+                %td.bg-success.text-center
+                  .badge.badge-dark.text-white
+                    =nb
+                    =fa_icon 'trophy'
                   
