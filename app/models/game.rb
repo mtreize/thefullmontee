@@ -11,8 +11,12 @@ class Game < ApplicationRecord
 
     include ActionView::Helpers
     def gametime
-      return "" if self.rounds.first.nil? 
+      return 0 if self.rounds.first.nil? 
       distance_of_time_in_words(self.rounds.last.created_at, self.created_at)
+    end
+    def gametime_maths
+      return 0 if self.rounds.first.nil? 
+      self.rounds.last.created_at.to_i - self.created_at.to_i
     end
     def rules
         case self.players.count

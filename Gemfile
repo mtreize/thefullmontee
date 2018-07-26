@@ -44,3 +44,4 @@ gem 'filesaverjs-rails'
 gem 'slack-poster'
 
 gem "handle_invalid_percent_encoding_requests"
+

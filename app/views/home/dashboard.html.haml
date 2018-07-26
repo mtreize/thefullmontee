@@ -1,33 +1,118 @@
--Trophy.unlock_collectionneur(Game.last, Game.last.players.first)
 
 
 .text-center
-  .card.mt-2
-    .card-body
-      .row
-        .col
-          =Game.all.count
-          parties enregistrées
-  .card.mt-2
-    .card-body
-      .row
-        .col
-          =Trophy.active.count
-          trophées disponibles
-        .col
-          -perf_games_html=capture_haml do
-            -@still_locked_trophies.each do |t|
-              =link_to t do
-                =t.name
-                %br
-
+  .card.mt-2.p-1.pt-3.bg-dark.border-dark.text-info
+    %h1 
+      %b DASHBOARD
+  .row
+    .col-4.px-1.pl-3
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark
+          .row
+            .col-4
+              %h2.text-info
+                %b=Performance.all.count
+            .col-8.pt-3.text-left
+              .pt-1.text-white attributions de trophée
+        .card-body{:style=>"height:350px;"}
+          = chartjs_doughnut_chart @perf_by_player_data, @perf_by_player_options
           
-          %span{"data-html"=>"true", "data-content" => perf_games_html.html_safe, "data-toggle" => "popover", "data-placement" => "bottom", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
-            =@still_locked_trophies.count
-            trophées jamais débloqués
+          
+    .col-4.px-1
+        
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark
+          .row
+            .col-4
+              %h2.text-info
+                %b=@still_locked_trophies.count
+            .col-8.pt-3.text-left
+              .pt-1.text-white trophées jamais débloqués
+        .card-body{:style=>"height:350px;overflow:scroll;"}
+          -@still_locked_trophies.each do |t|
+            =link_to t do
+              =fa_icon 'trophy'
+              =t.name
+              =fa_icon 'trophy'
+              %br
+
+    .col-4.px-1.pr-3
+        
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark
+          .row
+            .col-4
+              %h2.text-info
+                %b=Trophy.active.count
+            .col-8.pt-3.text-left
+              .pt-1.text-white trophées disponibles
+        .card-body{:style=>"height:350px;"}
+                  
+          
+          
+          = chartjs_doughnut_chart @unlocked_trophies_data, @unlocked_trophies_options
+
+      
+  .row
+    .col-12
+        
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark.text-white
+          Ratio cafés
+        .card-body
+          
+          
+          
+          = chartjs_bar_chart @kf_ratio_data, @kf_ratio_options
+
             
-                
-      .row
-        .col
-          =Performance.all.count
-          récompenses distribués
+            
+
+  .row
+    .col-4.px-1.pl-3
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark
+          .row
+            .col-4
+              %h2.text-info
+                %b=Game.all.count
+            .col-8.pt-3.text-left
+              .pt-1.text-white parties jouées
+        .card-body{:style=>"height:350px;"}
+          = chartjs_doughnut_chart @player_by_game_data, @player_by_game_options
+          
+    .col-4.px-1
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark
+          .pt-1.text-white Temps moyen
+        .card-body.bg-dark.border-dark.p-0{:style=>"height:95px;"}
+          %h2.text-info.mb-0
+            %b
+              = (mean(Game.all.map{|g| g.gametime_maths})/60).round
+              Minutes
+        .card-header.bg-dark.border-dark
+          .pt-1.text-white Partie la plus courte
+        .card-body.bg-dark.border-dark.p-0{:style=>"height:94px;"}
+          %h2.text-info.mb-0
+            %b
+              = (Game.all.map{|g| g.gametime_maths}).min/60
+              Minutes
+        .card-header.bg-dark.border-dark
+          .pt-1.text-white Partie la plus longue
+        .card-body.bg-dark.border-dark.p-0{:style=>"height:95px;"}
+          %h2.text-info.mb-0
+            %b
+              = (Game.all.map{|g| g.gametime_maths}).max/60
+              Minutes
+    .col-4.px-1.pr-3
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark
+          .row
+            .col-4
+              %h2.text-info
+                %b=Trophy.where(:technical_name=>"victory").first.performances.count
+            .col-8.pt-3.text-left
+              .pt-1.text-white Victoriiies
+        .card-body{:style=>"height:350px;"}
+          = chartjs_doughnut_chart @victories_by_player_data, @victories_by_player_options
+          
