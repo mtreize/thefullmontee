@@ -30,13 +30,13 @@ class HomeController < ApplicationController
         diff=[]
         kfbus=[]
         kfpayes=[]
-        Player.all.order(:id).each do |p|
+        Player.all.order(:id).reject{|p| p.games.count==0}.each do |p|
             kfbus << p.games.count
             kfpayes << p.nb_payed_coffees_all_time
             diff << p.games.count-p.nb_payed_coffees_all_time
         end
         @kf_ratio_data ={
-			labels: Player.all.order(:id).pluck(:name),
+			labels: Player.all.order(:id).reject{|p| p.games.count==0}.pluck(:name),
 			datasets: [{
 				label: 'Différence : Cafés Bus - Cafés payés',
 				borderColor: "#18A2B8",
