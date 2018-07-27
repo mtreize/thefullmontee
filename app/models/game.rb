@@ -19,8 +19,7 @@ class Game < ApplicationRecord
     #  self.results.first.created_at.to_i - self.created_at.to_i
     #end
     def gametime
-      return 0 if self.scores.last.nil? 
-      distance_of_time_in_words(self.scores.last.created_at, self.created_at)
+      "#{self.gametime_maths/60} minutes"
     end
     def gametime_maths
       return 0 if self.scores.last.nil? 
