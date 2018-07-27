@@ -29,12 +29,13 @@
             .col-8.pt-3.text-left
               .pt-1.text-white trophées jamais débloqués
         .card-body{:style=>"height:350px;overflow:scroll;"}
-          -@still_locked_trophies.each do |t|
-            =link_to t do
-              =fa_icon 'trophy'
-              =t.name
-              =fa_icon 'trophy'
-              %br
+          %p
+            -@still_locked_trophies.each do |t|
+              =link_to t do
+                =fa_icon 'trophy'
+                =t.name
+                =fa_icon 'trophy'
+                %br
 
     .col-4.px-1.pr-3
         
