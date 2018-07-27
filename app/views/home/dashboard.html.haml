@@ -5,7 +5,7 @@
     %h1 
       %b DASHBOARD
   .row
-    .col-4.px-1.pl-3
+    .col-sm-12.col-md-4.px-md-1.pl-md-3
       .card.mt-2.border-dark
         .card-header.bg-dark.border-dark
           .row
@@ -18,7 +18,7 @@
           = chartjs_doughnut_chart @perf_by_player_data, @perf_by_player_options
           
           
-    .col-4.px-1
+    .col-sm-12.col-md-4.px-md-1
         
       .card.mt-2.border-dark
         .card-header.bg-dark.border-dark
@@ -37,7 +37,7 @@
                 =fa_icon 'trophy'
                 %br
 
-    .col-4.px-1.pr-3
+    .col-sm-12.col-md-4.px-md-1.pr-md-3
         
       .card.mt-2.border-dark
         .card-header.bg-dark.border-dark
@@ -85,7 +85,7 @@
             
 
   .row
-    .col-4.px-1.pl-3
+    .col-sm-12.col-md-4.px-md-1.pl-md-3
       .card.mt-2.border-dark
         .card-header.bg-dark.border-dark
           .row
@@ -97,7 +97,7 @@
         .card-body{:style=>"height:350px;"}
           = chartjs_doughnut_chart @player_by_game_data, @player_by_game_options
           
-    .col-4.px-1
+    .col-sm-12.col-md-4.px-md-1
       .card.mt-2.border-dark
         .card-header.bg-dark.border-dark
           .pt-1.text-white Temps moyen
@@ -120,7 +120,7 @@
             %b
               = (Game.all.map{|g| g.gametime_maths}).max/60
               Minutes
-    .col-4.px-1.pr-3
+    .col-sm-12.col-md-4.px-md-1.pr-md-3
       .card.mt-2.border-dark
         .card-header.bg-dark.border-dark
           .row
