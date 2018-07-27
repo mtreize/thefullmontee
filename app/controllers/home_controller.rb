@@ -27,22 +27,26 @@ class HomeController < ApplicationController
         }
         @unlocked_trophies_options = { }
         #############
-        diff=[]
+        diff={}
+        diff2={}
         kfbus=[]
         kfpayes=[]
         Player.all.order(:id).reject{|p| p.games.count==0}.each do |p|
             kfbus << p.games.count
             kfpayes << p.nb_payed_coffees_all_time
-            diff << p.games.count-p.nb_payed_coffees_all_time
+            diff[p.name] = p.games.count-p.nb_payed_coffees_all_time
         end
+        diff2=diff
+        @rentables=diff2.select{|key, val| val == diff.max_by{|k,v| v}.second}
+        @pasrentables=diff2.select{|key, val| val == diff.min_by{|k,v| v}.second}
         @kf_ratio_data ={
-			labels: Player.all.order(:id).reject{|p| p.games.count==0}.pluck(:name),
+			labels: diff.keys,
 			datasets: [{
 				label: 'Différence : Cafés Bus - Cafés payés',
 				borderColor: "#18A2B8",
 				backgroundColor: "#18A2B8",
 				fill: false,
-				data: diff,
+				data: diff.values,
 				type: 'line'
 			}, {
 				label: 'Cafés Bus',

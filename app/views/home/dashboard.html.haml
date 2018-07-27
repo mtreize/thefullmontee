@@ -66,7 +66,22 @@
           
           = chartjs_bar_chart @kf_ratio_data, @kf_ratio_options
 
-            
+        .card-footer.bg-dark.border-dark.text-white
+          .row
+            .col-6
+              =@rentables.count>1 ? "Joueurs les plus rentables" : "Joueur le plus rentable"
+              .text-info
+                %b
+                  =@rentables.keys.to_sentence
+                %br
+                %b="+#{@rentables.values.first} cafés"
+            .col-6
+              =@pasrentables.count>1 ? "Joueurs les moins rentables" : "Joueur le moins rentable"
+              .text-info
+                %b
+                  =@pasrentables.keys.to_sentence
+                %br
+                %b="#{@pasrentables.values.first} cafés"
             
 
   .row
