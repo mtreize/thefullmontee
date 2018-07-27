@@ -4,6 +4,9 @@ class Player < ApplicationRecord
   has_many :performances
   has_many :coffee_bills
     
+  def name
+    self.results.try(:last).try(:ranking)==1 ? "#{self[:name]}*" : "#{self[:name]}"
+  end
   def scores_in_game(g)
     rounds=g.rounds
     Score.where(:player=>self, :round=>rounds)
