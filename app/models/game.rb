@@ -19,12 +19,12 @@ class Game < ApplicationRecord
     #  self.results.first.created_at.to_i - self.created_at.to_i
     #end
     def gametime
-      return 0 if self.rounds.first.nil? 
-      distance_of_time_in_words(self.rounds.last.created_at, self.created_at)
+      return 0 if self.scores.last.nil? 
+      distance_of_time_in_words(self.scores.last.created_at, self.created_at)
     end
     def gametime_maths
-      return 0 if self.rounds.first.nil? 
-      self.rounds.last.created_at.to_i - self.created_at.to_i
+      return 0 if self.scores.last.nil? 
+      self.scores.last.created_at.to_i - self.created_at.to_i
     end
     def rules
         case self.players.count
