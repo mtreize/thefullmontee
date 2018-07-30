@@ -18,6 +18,22 @@ class Trophy < ApplicationRecord
     end
   end
   
+  def self.unlock_one_point_winner(game, player)
+    t=Trophy.find_by_technical_name('one_point_winner')
+    
+    score_premier= Result.where(:game=>game, :ranking=>1).try(:first).try(:total_score) || 1000
+    score_second= Result.where(:game=>game, :ranking=>2).try(:first).try(:total_score) || 1000
+    diff=score_premier-score_second
+    if Result.for_game_and_player(game, player).ranking==1 && diff==1
+        p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+        p.save
+        return true
+    else
+        Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+        return false
+    end
+  end
+  
   def self.unlock_modjo(game, player)
     t=Trophy.find_by_technical_name('modjo')
     Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
