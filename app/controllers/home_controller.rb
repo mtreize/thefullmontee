@@ -8,9 +8,10 @@ class HomeController < ApplicationController
     
     def dashboard
         #############
+        groupcount= Performance.all.group(:player_id).count
+        l=groupcount.keys.map{|pid|Player.find(pid).name}
+        d=groupcount.values
         
-        l=Player.all.order(:id).pluck(:name)
-        d=Player.all.order(:id).map{|p|p.performances.count}
         @perf_by_player_data = {
             datasets: [{ data: d, backgroundColor: color_array_for_stats_graphs}], 
             labels: l
