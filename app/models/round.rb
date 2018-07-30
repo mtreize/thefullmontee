@@ -15,6 +15,9 @@ class Round < ApplicationRecord
     def previous
       Round.where(:game=>self.game, :number=>(self.number-1)).try(:first)
     end
+    def next
+      Round.where(:game=>self.game, :number=>(self.number+1)).try(:first)
+    end
     def score_for_player(p)
       Score.where(:player=>p, :round=>self).try(:first)
     end

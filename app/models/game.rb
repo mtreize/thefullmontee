@@ -59,6 +59,9 @@ class Game < ApplicationRecord
           0
       end
     end
+    def first_round
+      self.rounds.where(:number=>1).try(:first)
+    end
     def nb_scores_needed
         self.nb_rounds * self.players.count
     end

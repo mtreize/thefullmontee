@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180720002037) do
+ActiveRecord::Schema.define(version: 20180730221718) do
 
   create_table "coffee_bills", force: :cascade do |t|
     t.integer "player_id"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 20180720002037) do
     t.integer "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tmp_ranking"
+    t.integer "tmp_total"
     t.index ["player_id"], name: "index_scores_on_player_id"
     t.index ["round_id"], name: "index_scores_on_round_id"
   end

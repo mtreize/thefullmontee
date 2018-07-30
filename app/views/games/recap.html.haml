@@ -64,6 +64,69 @@
               =link_to perf.trophy do
                 =fa_icon 'trophy'
                 ="#{perf.trophy.name}"
+  
+  %section#black_verif.d-none.d-lg-block
+    .text-center
+      %button.btn.btn-sm.btn-dark{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#collapseVerif", "data-toggle" => "collapse", :type => "button"}
+        Afficher les vérifications
+    %br
+    #collapseVerif.collapse
+
+  
+      .card.bg-dark.text-white.border-dark
+        .card-header.border-dark
+          Varification des calculs
+        %table.card-body.table.table-striped.border-dark.table-dark.text-right
+          %tr
+            %td 
+            %td 
+              %small 
+                round
+                %br
+                total_cumule
+            -@game.rounds.order(:number).each do |r|
+              %td=r.number
+          -@game.players.each do |p|
+            %tr
+              %td=p.name
+              %td
+                0
+              -@game.rounds.order(:number).each do |r|
+                %td
+                  -s=Score.where(:player=>p, :round=>r).first
+                  %small.text-muted
+                    = s.value>0 ? "+#{s.value}":s.value
+                  =s.tmp_total    
+      %br
+      .card.bg-dark.text-white.border-dark
+        .card-header.border-dark
+          Varification des calculs des positions
+        %table.card-body.table.table-striped.border-dark.table-dark.text-right
+          %tr
+            %td 
+            %td 
+              %small 
+                round
+                %br
+                positions
+            -@game.rounds.order(:number).each do |r|
+              %td=r.number
+          -@game.players.each do |p|
+            %tr
+              %td=p.name
+              %td
+                0
+              -@game.rounds.order(:number).each do |r|
+                %td
+                  -s=Score.where(:player=>p, :round=>r).first
+                  =s.tmp_ranking
+                  
+                  
+                  
+                  
+                  
+                  
+                  
 :javascript
 
   var ctx = document.getElementById("myChart").getContext('2d');
