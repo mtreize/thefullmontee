@@ -5,7 +5,10 @@ class Player < ApplicationRecord
   has_many :coffee_bills
     
   def name
-    self.results.try(:last).try(:ranking)==1 ? "#{self[:name]}*" : "#{self[:name]}"
+    nam="#{self[:name]}"
+    nam+=self.results.try(:last).try(:ranking)==1 ? "*" : ""
+    nam+=self.results.try(:last, 2).try(:first).try(:ranking)==1 ? "*" : ""
+    return nam
   end
   def scores_in_game(g)
     rounds=g.rounds
