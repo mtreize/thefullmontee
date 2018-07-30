@@ -6,8 +6,7 @@ class Player < ApplicationRecord
     
   def name
     nam="#{self[:name]}"
-    nam+=self.results.try(:last).try(:ranking)==1 ? "*" : ""
-    nam+=self.results.try(:last, 2).try(:first).try(:ranking)==1 ? "*" : ""
+    nam+=self.results.try(:last).try(:ranking)==1 ? self.results.try(:last, 2).try(:first).try(:ranking)==1 ? "**" : "*" : ""
     return nam
   end
   def scores_in_game(g)
