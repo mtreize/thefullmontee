@@ -5,7 +5,7 @@ class Score < ApplicationRecord
 
   def self.recompute_all_tmp_totals
     Score.order(:round_id).each do |s|
-      tot=Score.where(scores, :round_id=>s.round.game.rounds.where("number <= ?",s.round.number).pluck(:id)).sum(:value)
+      tot=Score.where(:player_id=>s.player_id, :round_id=>s.round.game.rounds.where("number <= ?",s.round.number).pluck(:id)).sum(:value)
       s.tmp_total=tot
       s.save
     end
