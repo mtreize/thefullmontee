@@ -1,19 +1,18 @@
 -coffee_string=[]
 -@game.players.count.times{coffee_string<<":coffee:"}
 -coffee_str=coffee_string.join
-.well.card
+.well.card.border-dark
   -thanks=[]
   -many_coffee_desc=["délicieux cafés","petits cafés","sacrés cafés", "cafés merveilleux", "succulents cafés", "cafés inoubliables", "merveilles de cafés", " si bons cafés", "incroyables cafés" ]
   -@game.coffee_bills.each do |bill|
     -thanks << " à #{bill.player.name}"
-  .row.justify-content-center
-    .col-8.text-center.border.rounded.py-2.mt-2
-      %b.lead
-        -thanks_all="Merci#{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
-        =thanks_all
+  .card-header.bg-dark.border-dark.text-white
+    %h3.text-center.pt-2
+      -thanks_all="Merci#{thanks.to_sentence} pour ces #{@game.players.count} "+many_coffee_desc.sample+" !"
+      =thanks_all
   .row.justify-content-center
     .col-8.text-center.text-muted
-      Game Time :
+      Temps de jeu :
       =@game.gametime
   //=@game.scores.count 
   //SCORES
@@ -26,7 +25,8 @@
     
     .text-center
       %button#save-btn.btn.btn-danger{'data-disable-with' => fa_icon("spinner spin ").html_safe}
-        =fa_icon "slack"
+        %i.fab.fa-slack-hash
+
         Poster sur Slack
       %br/
       %br/
@@ -52,27 +52,25 @@
   //         %td= score.value
   //         %td= score.player.name
   //         %td= score.round.number
-  %section
-    .card
-      .card-header
-        Trophées distribués sur cette partie
-      %table.card-body.table.table-striped
-        -@game.performances.each do |perf|
-          %tr
-            %td=link_to perf.player.name, perf.player
-            %td
-              =link_to perf.trophy do
-                =fa_icon 'trophy'
-                ="#{perf.trophy.name}"
+  .card-header
+    %h5 Trophées distribués sur cette partie :
+    %table.card-body.table.table-striped
+      -@game.performances.each do |perf|
+        %tr
+          %td=link_to perf.player.name, perf.player
+          %td
+            =link_to perf.trophy do
+              =fa_icon 'trophy'
+              ="#{perf.trophy.name}"
   
-  %section#black_verif.d-none.d-lg-block
-    .text-center
-      %button.btn.btn-sm.btn-dark{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#collapseVerif", "data-toggle" => "collapse", :type => "button"}
+  #black_verif.d-none.d-lg-block.bg-dark.text-white.pt-2.card-footer
+    .text-center.mt-2
+      %button.btn.btn-sm.btn-secondary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#collapseVerif", "data-toggle" => "collapse", :type => "button"}
         Afficher les vérifications
-    %br
     #collapseVerif.collapse
 
       %p.text-center
+        %br
         Vous vous en foutez, mais j'en ai besoin pour vérifier certaines choses.
         %br
         Désormais, beaucoup plus de choses sont stockées, pour pouvoir gérer plus efficacement les trophées.

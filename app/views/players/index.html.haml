@@ -1,6 +1,6 @@
 
 .card.card-body
-  %h4.card-title.text-center Players
+  %h4.card-title.text-center Joueurs
   %p.card-text 
     .row
       - @players.each do |player|
@@ -19,4 +19,4 @@
   .flex-row.text-center
 
     
-    = link_to 'Nouveau Player', new_player_path, :class=>"card-link btn btn-primary"
+    = link_to 'Nouveau joueur', new_player_path, :class=>"card-link btn btn-primary"

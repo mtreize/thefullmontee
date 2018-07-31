@@ -1,17 +1,20 @@
 
 .card.border-dark
   .card-header.bg-dark.text-white
-    %h4.card-title.text-center Trophies
+    %h4.card-title.text-center Trophées
   
   .card-body
+  
+    = link_to 'Nouveau Trophée', new_trophy_path, :class=>"card-link btn btn-sm btn-primary"
+    = link_to 'Matrice joueurs/trophées', matrice_path, :class=>"card-link btn btn-sm btn-primary"
     %table.table.table-striped#trophies_table
       %thead
         %tr.bg-dark.text-white
-          %th Name
-          %th Technical Name
+          %th Nom
+          %th Nom Technique
           %th Description
-          %th Positive
-          %th Active
+          %th Positif
+          %th Activé
           %th.nosort
     
       %tbody.text-dark
@@ -28,7 +31,7 @@
                   %small.badge.badge-sm.badge-secondary Neutre
                 -when "pasbien" 
                   %small.badge.badge-sm.badge-danger Mauvais
-            %td{:class=>trophy.active ? "table-success" : "table-secondary"}= trophy.active ? "Yes" : "Nope"
+            %td{:class=>trophy.active ? "table-success" : "table-secondary"}= trophy.active ? "Ouaip" : "Nan"
             %td
               .btn-group
                 = link_to trophy, :class=>"btn btn-secondary" do
@@ -40,8 +43,6 @@
                     =fa_icon 'trash'
   .card-footer
     
-    = link_to 'Nouveau Trophy', new_trophy_path, :class=>"card-link btn btn-primary"
-    = link_to 'Matrice joueurs/trophées', matrice_path, :class=>"card-link btn btn-primary"
     
     = button_to trophies_recompute_all_path, :class=>"d-none d-lg-block card-link pull-right btn-sm btn btn-danger", 'data-disable-with' => fa_icon("spinner spin ").html_safe, data: { confirm: 'Etes-vous sur? Cliquez uniquement si vous comprenez ce que vous faites.' } do
       =fa_icon 'warning'
