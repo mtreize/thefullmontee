@@ -133,10 +133,43 @@ class Game < ApplicationRecord
         r.save
       end
     end
+     
+    def compute_tmp_totals
+      self.scores.order(:round_id).each do |s|
+        tot=Score.where(:player_id=>s.player_id, :round_id=>self.rounds.where("number <= ?",s.round.number).pluck(:id)).sum(:value)
+        s.tmp_total=tot
+        s.save
+      end
+    end
+    
+    def compute_rankings
+      self.scores.order(:round_id).each do |s|
+        scores=s.round.scores.pluck(:player_id, :tmp_total).to_h
+        sorted=Hash[scores.sort_by{|k, v| v}.reverse]
+        rankings={}
+        previous=[]
+        sorted.each_with_index do |res, i|
+          if previous.present? && res.second==previous.second
+            rankings[res.first]=rankings[previous.first]
+          else
+            rankings[res.first]=i+1
+          end
+          previous=res
+        end
+        rank=rankings[s.player_id]
+        s.tmp_ranking=rank
+        s.save
+      end
+    end
+    
+    
+    
     
     def compute_performances
       return nil unless self.is_finished?
       specials_trophies=["collectionneur"]
+      self.compute_tmp_totals
+      self.compute_rankings
       self.compute_results
       self.calculate_coffees
       something_unlocked=false

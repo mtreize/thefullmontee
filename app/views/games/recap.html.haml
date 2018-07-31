@@ -72,7 +72,10 @@
     %br
     #collapseVerif.collapse
 
-  
+      %p.text-center
+        Vous vous en foutez, mais j'en ai besoin pour vérifier certaines choses.
+        %br
+        Désormais, beaucoup plus de choses sont stockées, pour pouvoir gérer plus efficacement les trophées.
       .card.bg-dark.text-white.border-dark
         .card-header.border-dark
           Vérification des calculs
@@ -89,13 +92,17 @@
           -@game.players.each do |p|
             %tr
               %td=p.name
-              %td
+              %td.text-right
+                %small.text-muted
+                  = "0"
+                %br
                 0
               -@game.rounds.order(:number).each do |r|
-                %td
+                %td.text-right
                   -s=Score.where(:player=>p, :round=>r).first
                   %small.text-muted
                     = s.value>0 ? "+#{s.value}":s.value
+                  %br
                   =s.tmp_total    
       %br
       .card.bg-dark.text-white.border-dark
