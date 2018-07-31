@@ -13,7 +13,7 @@
         %br/
         .btn-group-vertical.select_players_group{"data-toggle" => "buttons"}
           
-          -Player.all.each do |p|
+          -Player.left_joins(:games).group(:id).order('COUNT(games.id) DESC').each do |p|
           
             .btn.btn-info.btn-lg{:style=>"cursor:pointer;"}
               = check_box_tag 'players_ids[]', p.id
