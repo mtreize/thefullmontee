@@ -15,7 +15,7 @@
         .card-body
           =g.title
           %br
-          %small.text-muted="Créée à #{l(g.created_at, :format=>"%Hh%M")}"
+          %small.text-muted="Créée à #{l(g.created_at.in_time_zone("Europe/Paris"), :format=>"%Hh%M")}"
           %br
           %span.text-primary="Manche #{g.rounds.order(:number).last.number}"
           %br
