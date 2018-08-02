@@ -1,20 +1,27 @@
 
 .card.border-dark
-  .card-header.text-center.bg-dark.text-white
-    %h4.card-title Parties
+  .card-header.text-center.bg-dark.text-white.border-dark.pb-0.mb-0
+    %h4.my-0.card-title Parties
 
-  %table.table.table-striped.card-body
-  
+  %table.table.table-striped.card-body.border-dark.mt-0.pt-0
+    %thead.border-dark.pt-0.mt-0
+      %tr.bg-dark.border-dark.text-info
+        %td.border-dark Partie
+        %td.border-dark Créée à
+        %td.border-dark 
+        %td.border-dark.d-none.d-lg-table-cell Temps de jeu
     %tbody
       - @games.each do |game|
         %tr
           %td
+            %span.mr-2.px-1.border.rounded.border-primary.text-primary= "#{game.location}"
             = link_to  game_recap_path(game.id) do
-              = game.location
               = game.title
           
           %td
-            =game.is_finished? ? "Terminée" : "En cours"
+            =" #{l(game.created_at.in_time_zone("Europe/Paris"), :format=>"%Hh%M")}"
+          %td
+            =game.is_finished? ? "<span class='text-muted'>Terminée</span>".html_safe : "En cours"
           %td.d-none.d-lg-table-cell
             =game.gametime
   %br
