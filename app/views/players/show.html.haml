@@ -41,8 +41,10 @@
                   %br/
                 
             -else
-              %h3=link_to l(@player_last_game.created_at, :format=>:short), game_recap_path(@player_last_game), :class=>"text-white"
-            
+              %h3
+                =link_to game_recap_path(@player_last_game), :class=>"text-white" do
+                  =" #{l(@player_last_game.created_at.in_time_zone("Europe/Paris"), :format=>:short)}"
+
             
       .col-md-4.col-sm-12.my-1
         .card.border-secondary
