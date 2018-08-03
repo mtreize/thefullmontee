@@ -56,7 +56,11 @@
     - if user_signed_in?
       %nav#mainNav.navbar.navbar-expand-lg.navbar-light.static-top
         .container
-          =link_to "TheFullMontee", root_path, :class=>" navbar-brand js-scroll-trigger"
+          =link_to root_path, :class=>" d-none d-lg-block navbar-brand js-scroll-trigger" do
+            =image_tag "tfmlogo", :alt=>"TheFullMontee", "height"=>"60px", :class=>"pt-1"
+          
+          =link_to root_path, :class=>" d-inline-block d-lg-none navbar-brand js-scroll-trigger", :style=>"width:60%" do
+            =image_tag "tfmlogo", :alt=>"TheFullMontee", :width=>"100%"
           %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
             Menu
             %i.fa.fa-bars
