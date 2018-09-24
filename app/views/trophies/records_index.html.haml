@@ -16,12 +16,12 @@
               
               .card-body.bg-dark{:style=>"min-height:140px;"}
                 -if r.player.present?
-                  %h2
-                    .text-center
-                      -if r.player.avatar.present?
-                        =image_tag "animals/#{r.player.avatar}.png", size: "40"
-                      -else
-                        =image_tag "animals/sheep-1.png", size: "40"
+                  .text-center
+                    -if r.player.avatar.present?
+                      =image_tag "animals/#{r.player.avatar}.png", size: "40"
+                    -else
+                      =image_tag "animals/sheep-1.png", size: "40"
+                    %h2
                       .badge{:style=>"color:Gold"}=r.player.name
                   %small.text-secondary.text-center
                     =r.value
