@@ -172,6 +172,7 @@ class Game < ApplicationRecord
       self.compute_rankings
       self.compute_results
       self.calculate_coffees
+      Record.compute_records_for_game(self)
       something_unlocked=false
       self.players.each do |p|
         Trophy.active.each do |trophy|

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "trophies/matrice", to: "trophies#matrice", as: "matrice"
 
   resources :performances
+  get "trophies/records", to: "trophies#records_index", as: "records_index"
   resources :trophies
   resources :scores
   resources :rounds

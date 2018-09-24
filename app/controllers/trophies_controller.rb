@@ -7,6 +7,10 @@ class TrophiesController < ApplicationController
     @trophies = Trophy.all
   end
 
+  def records_index
+    @records = Record.all
+  end
+
   # GET /trophies/1
   # GET /trophies/1.json
   def show

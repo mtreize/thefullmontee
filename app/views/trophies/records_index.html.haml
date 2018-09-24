@@ -1,0 +1,35 @@
+
+.card.border-dark
+  .card-header.bg-dark.text-white
+    %h4.card-title.text-center Records
+  
+  .card-body.bg-dark
+    .row
+      - @records.order(:name).each do |r|
+        .col-lg-3.col-md-4.col-6.text-center.pb-2.pt-3.border-info
+          .card{:style=>"border-color:Gold"}
+            .card-header{:style=>"background-color:Gold"}
+              %b=r.name
+              %br
+              =fa_icon 'medal 3x'
+            
+            .card-body.bg-dark{:style=>"min-height:140px;"}
+              -if r.player.present?
+                %h2
+                  .text-center
+                    -if r.player.avatar.present?
+                      =image_tag "animals/#{r.player.avatar}.png", size: "40"
+                    -else
+                      =image_tag "animals/sheep-1.png", size: "40"
+                    .badge{:style=>"color:Gold"}=r.player.name
+                %small.text-secondary.text-center
+                  =r.value
+              -else
+                %h3.text-secondary Personne
+          %br
+      
+    
+    // = button_to trophies_recompute_all_path, :class=>"d-none d-lg-block card-link pull-right btn-sm btn btn-danger", 'data-disable-with' => fa_icon("spinner spin ").html_safe, data: { confirm: 'Etes-vous sur? Cliquez uniquement si vous comprenez ce que vous faites.' } do
+    //   =fa_icon 'warning'
+    //   Tout recalculer pour toutes les parties
+    //   =fa_icon 'warning'
