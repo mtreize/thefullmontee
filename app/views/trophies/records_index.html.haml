@@ -6,7 +6,7 @@
   .card-body.bg-dark
     .row
       - @records.order(:name).each do |r|
-        .col-lg-3.col-md-4.col-6.text-center.pb-2.pt-3.border-info
+        .col-lg-2.col-md-4.col-6.text-center.pb-2.pt-3.border-info
           .card{:style=>"border-color:Gold"}
             .card-header{:style=>"background-color:Gold"}
               %b=r.name
