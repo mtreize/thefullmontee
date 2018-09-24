@@ -3,41 +3,36 @@
     %h2.pt-2
       =fa_icon "trophy"
       %b= @trophy.name
-  
+      %br
+      
+    .pull-left
+      %small.badge.badge-sm.badge-secondary=@trophy.technical_name
+      
+      -case @trophy.active
+        -when true
+          %small.badge.badge-sm.badge-success Activé
+        -when false 
+          %small.badge.badge-sm.badge-danger Pas activé
+
+    .pull-right
+
+      - case @trophy.positive
+        -when "bien" 
+          %small.badge.badge-sm.badge-success Positif
+        -when "neutre" 
+          %small.badge.badge-sm.badge-secondary Neutre
+        -when "pasbien" 
+          %small.badge.badge-sm.badge-danger Négatif
+      - case @trophy.only_once
+        -when "une_seule_fois" 
+          %small.badge.badge-sm.badge-info Ne peut s'obtenir qu'une seule fois
+        -when "plusieurs_fois" 
+          %small.badge.badge-sm.badge-info Peut s'obtenir plusieurs fois
+        -else
+          %small.badge.badge-sm.badge-danger C'est chelou appelez Max
   .card-body
-    %p.card-text 
-      %p
-        %b.text-primary Name:
-        = @trophy.name
-      %p
-        %b.text-primary Technical name:
-        = @trophy.technical_name
-      %p
-        %b.text-primary Active ?
-        = @trophy.active ? "Yep" : "Nope"
-      %p
-        %b.text-primary Positive ?
-        
-        - case @trophy.positive
-          -when "bien" 
-            %small.badge.badge-sm.badge-success Bon
-          -when "neutre" 
-            %small.badge.badge-sm.badge-secondary Neutre
-          -when "pasbien" 
-            %small.badge.badge-sm.badge-danger Mauvais
-      %p
-        %b.text-primary Combien de fois peut on l'avoir ?
-        
-        - case @trophy.only_once
-          -when "une_seule_fois" 
-            Une seule
-          -when "plusieurs_fois" 
-            Plusieurs
-          -when "pasbien" 
-            ?
-      %p
-        %b.text-primary Description:
-        = @trophy.description
+    %p.card-text.text-center.px-5
+      = @trophy.description
   .card-footer.bg-dark.text-white
     .pt-3.pb-0.h5 
       Détenu par :
