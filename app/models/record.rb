@@ -33,7 +33,7 @@ class Record < ApplicationRecord
   end
   
   def self.longest_victory_serie(g)
-    r=Record.where(:name=>"Plus longue série de victoire").first
+    r=Record.where(:name=>"Série de victoires").first
     return false if r.blank?
     serie=Result.where(:game=>g, :ranking=>[1]).map(&:player).map(&:stars).map(&:length).max
     if serie > r.value
