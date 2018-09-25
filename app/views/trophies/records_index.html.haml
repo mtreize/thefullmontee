@@ -1,7 +1,7 @@
 
 .card.border-dark
   .card-header.bg-dark.text-white
-    %h4.card-title.text-center Records
+    %h4.card-title.text-center Records du monde
   
   .card-body.bg-dark
     -@records.order(:name).each_slice(5) do |r_slice|

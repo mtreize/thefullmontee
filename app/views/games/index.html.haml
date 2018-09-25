@@ -8,7 +8,7 @@
       %tr.bg-dark.border-dark.text-info
         %td.border-dark Partie
         %td.border-dark Créée à
-        %td.border-dark 
+        %td.border-dark Joueurs
         %td.border-dark.d-none.d-lg-table-cell Temps de jeu
     %tbody
       - @games.each do |game|
@@ -21,7 +21,7 @@
           %td
             =" #{l(game.created_at.in_time_zone("Europe/Paris"), :format=>"%Hh%M")}"
           %td
-            =game.is_finished? ? "<span class='text-muted'>Terminée</span>".html_safe : "En cours"
+            =" #{game.players.count}"
           %td.d-none.d-lg-table-cell
             =game.gametime
   %br
