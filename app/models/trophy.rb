@@ -183,7 +183,7 @@ class Trophy < ApplicationRecord
     t=Trophy.find_by_technical_name('chalumeau')
     ar=game.scores.where(:player=>player).pluck(:value)
     chalum=false
-    ar.each_cons(4) { |cons| chalum=cons.all?(&:negative?) if chalum==false } 
+    ar.each_cons(5) { |cons| chalum=cons.all?(&:negative?) if chalum==false } 
     if chalum
       p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
       p.save
