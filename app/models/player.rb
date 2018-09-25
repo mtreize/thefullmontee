@@ -5,10 +5,33 @@ class Player < ApplicationRecord
   has_many :coffee_bills
     
   def name
-    nam="#{self[:name]}"
-    nam+=self.results.try(:last).try(:ranking)==1 ? self.results.try(:last, 2).try(:first).try(:ranking)==1 && self.games.count>1 ?  "**" : "*" : ""
-    return nam
+    return "#{self[:name]}#{self.stars}"
+  end    
+  
+  def stars
+    if self.results.try(:last).try(:ranking)==1 
+      if self.results.try(:last, 2).try(:first).try(:ranking)==1 && self.games.count>1 
+        if self.results.try(:last, 3).try(:first).try(:ranking)==1 && self.games.count>2 
+          if self.results.try(:last, 4).try(:first).try(:ranking)==1 && self.games.count>3 
+            if self.results.try(:last, 5).try(:first).try(:ranking)==1 && self.games.count>4 
+              return "*****"
+            else
+              return "****"
+            end
+          else
+            return "***"
+          end
+        else
+          return "**"
+        end
+      else 
+        return "*"
+      end
+    else 
+      return ""
+    end
   end
+  
   def scores_in_game(g)
     rounds=g.rounds
     Score.where(:player=>self, :round=>rounds)

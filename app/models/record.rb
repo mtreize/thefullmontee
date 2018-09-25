@@ -5,6 +5,7 @@ class Record < ApplicationRecord
   def self.compute_records_for_game(g)
     self.highest_score_record(g)
     self.lowest_score_record(g)
+    self.longest_victory_serie(g)
   end
   
   def self.highest_score_record(g)
@@ -30,4 +31,22 @@ class Record < ApplicationRecord
       r.save
     end
   end
+  
+  def self.longest_victory_serie(g)
+    r=Record.where(:name=>"Plus longue série de victoire").first
+    return false if r.blank?
+    serie=Result.where(:game=>g, :ranking=>[1]).map(&:player).map(&:stars).map(&:length).max
+    if serie > r.value
+      h=Hash.new
+      Result.where(:game=>g, :ranking=>[1]).map(&:player).each do |p|
+        h[p.id]=p.stars.length
+      end
+      play=h.max_by{|k,v| v}.first
+      r.player=Player.find(play)
+      r.value=h.max_by{|k,v| v}.second
+      r.game=g
+      r.save
+    end
+  end
+
 end
