@@ -195,6 +195,7 @@ class Trophy < ApplicationRecord
   end
   
   def self.unlock_carambolage(game,player)
+    return false if game.players.count<4
     t=Trophy.find_by_technical_name('carambolage')
     car=false
     game.rounds.each do |r|
