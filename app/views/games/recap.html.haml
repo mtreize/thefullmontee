@@ -63,6 +63,21 @@
               =fa_icon 'trophy'
               ="#{perf.trophy.name}"
   
+
+      -Record.where(:game=>@game).each do |record|
+        %tr
+          %td=link_to record.player.name, record.player
+          %td
+            =link_to records_index_path, :class=>"text-warning" do
+              =fa_icon 'medal'
+              ="#{record.name}"
+  
+  
+  
+  
+  
+  
+  
   #black_verif.d-none.d-lg-block.bg-dark.text-white.pt-2.card-footer
     .text-center.mt-2
       %button.btn.btn-sm.btn-secondary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#collapseVerif", "data-toggle" => "collapse", :type => "button"}
