@@ -24,7 +24,10 @@
                     %h2
                       .badge{:style=>"color:Gold"}=r.player.name
                   %small.text-secondary.text-center
-                    =r.value
+                    -if r.game.present?
+                      =link_to r.value, game_recap_path(r.game) , :class=>"text-warning"
+                    -else
+                      =r.value
                 -else
                   %h3.text-secondary Personne
             %br
