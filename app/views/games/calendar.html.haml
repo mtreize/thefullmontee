@@ -3,28 +3,30 @@
     %span.pull-right.daynumber.rounded.rounded-circle.px-1
       = date.day
     %br
-    -winners=[]
-    -payers=[]
+    -winners={}
+    -payers={}
     -games.each do |game|
-      -winners<<game.winners unless game.winners.blank? 
-      -payers<<game.payers unless game.payers.blank?
+      -winners[game.id]=game.winners unless game.winners.blank? 
+      -payers[game.id]=game.payers unless game.payers.blank?
     .winnersdisplay
-      -winners.flatten.each do |player|
-        =link_to player, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{player.name}", :style=>"text-decoration: none;" do 
-          .avatar_winner.border.rounded-circle.border-warning.d-inline-block
-            -if player.avatar.present?
-              =image_tag "animals/#{player.avatar}.png", :class=>"avatar img-circle", size: "40"
-            -else
-              =image_tag "animals/sheep-1.png", :class=>"avatar img-circle", size: "40"
+      -winners.each do |gid,pla|
+        -pla.each do |player|
+          =link_to game_recap_path(Game.find(gid)), "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{player.name}", :style=>"text-decoration: none;" do 
+            .avatar_winner.border.rounded-circle.border-warning.d-inline-block
+              -if player.avatar.present?
+                =image_tag "animals/#{player.avatar}.png", :class=>"avatar img-circle", size: "40"
+              -else
+                =image_tag "animals/sheep-1.png", :class=>"avatar img-circle", size: "40"
     .payersdisplay{:style=>"display:none;"}
-      - payers.flatten.each do |player|
+      -payers.each do |gid,pla|
+        -pla.each do |player|
 
-        =link_to player, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{player.name}", :style=>"text-decoration: none;" do 
-          .avatar_loser.border.rounded-circle.border-danger.d-inline-block
-            -if player.avatar.present?
-              =image_tag "animals/#{player.avatar}.png", :class=>"avatar img-circle ", size: "40"
-            -else
-              =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", size: "40"
+          =link_to game_recap_path(Game.find(gid)), "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{player.name}", :style=>"text-decoration: none;" do 
+            .avatar_loser.border.rounded-circle.border-danger.d-inline-block
+              -if player.avatar.present?
+                =image_tag "animals/#{player.avatar}.png", :class=>"avatar img-circle ", size: "40"
+              -else
+                =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", size: "40"
 
 :javascript
   $('[data-toggle="tooltip"]').tooltip()

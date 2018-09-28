@@ -112,8 +112,10 @@
       {
           a[i].onclick=function()
           {
+            if (this.getAttribute("id")!="targetblank"){
               window.location=this.getAttribute("href");
               return false
+            }
           }
       }
       function replaceclick(t){
