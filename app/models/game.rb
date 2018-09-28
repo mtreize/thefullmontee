@@ -108,6 +108,12 @@ class Game < ApplicationRecord
     def recap_image_path
       "/games_graphs/game_#{self.id}.png"
     end
+    def losers
+      Player.where(:id=>Result.where(:game=>self, :total_score=>Result.where(:game=>self).pluck(:total_score).min).pluck(:player_id))
+    end
+    def winners
+      Player.where(:id=>Result.where(:game=>self, :total_score=>Result.where(:game=>self).pluck(:total_score).max).pluck(:player_id))
+    end
     
     def compute_results
       scores={}

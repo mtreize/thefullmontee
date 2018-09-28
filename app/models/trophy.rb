@@ -209,6 +209,22 @@ class Trophy < ApplicationRecord
       Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
       return false
     end
+  end 
+  
+  def self.unlock_glacons(game,player)
+    return false unless game.losers.include? player
+    return false if game.losers.count > 1
+    t=Trophy.find_by_technical_name('glacons')
+    loser_result=Result.for_game_and_player(game, player)
+    second_loser_result=Result.where(:game=>game, :ranking=>loser_result.ranking-1).first
+    if (second_loser_result.total_score - loser_result.total_score) >=15
+      p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+      p.save
+      return true
+    else
+      Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+      return false
+    end
   end
   
   def self.unlock_collectionneur(game, player)
