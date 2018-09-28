@@ -6,7 +6,7 @@
     -games.each do |game|
       -game.winners.each do |player|
         =link_to player, "data-toggle"=>"tooltip", "data-placement"=>"auto", :title=>"#{player.name}", :style=>"text-decoration: none;" do 
-          .avatar_winner.border.rounded-circle.border-warning
+          .avatar_winner.border.rounded-circle.border-warning.d-inline-block
             -if player.avatar.present?
               =image_tag "animals/#{player.avatar}.png", :class=>"avatar img-circle", size: "40"
             -else
@@ -14,7 +14,7 @@
       -# game.losers.each do |player|
 
         =link_to player, "data-toggle"=>"tooltip", "data-placement"=>"auto", :title=>"#{player.name}", :style=>"text-decoration: none;" do 
-          .avatar_loser.border.rounded-circle.border-danger
+          .avatar_loser.border.rounded-circle.border-danger.d-inline-block
             -if player.avatar.present?
               =image_tag "animals/#{player.avatar}.png", :class=>"avatar img-circle greyscale", size: "30"
             -else
