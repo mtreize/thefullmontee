@@ -170,3 +170,38 @@ body{
 }
 
 
+
+#calendar{
+  .avatar_winner, .avatar_loser{
+    border-width:2px !important;
+    display: inline-block;
+  }
+  .avatar{
+    display: block;
+  }
+}
+
+.simple-calendar {
+  .day {}
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today .daynumber {background-color:teal;}
+  .today {color:white}
+  .past {}
+  .future {}
+ 
+  .start-date {}
+
+  .prev-month {background-color:lightgrey!important;color:grey;}
+  .next-month {background-color:lightgrey!important;color:grey;}
+  .current-month {}
+
+  .has-events {}
+}
