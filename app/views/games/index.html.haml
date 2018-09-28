@@ -1,11 +1,15 @@
 
 .card.border-dark
   .card-header.text-center.bg-dark.text-white.border-dark.pb-0.mb-0
+    .pull-right.text-info.py-2
+      =link_to calendar_path, :class=>"btn  btn-outline-info btn-info-outline" do
+        =fa_icon "calendar-alt" 
+        Voir le calendrier
     %h4.my-0.card-title Parties
-
+  
   %table.table.table-striped.card-body.border-dark.mt-0.pt-0
     %thead.border-dark.pt-0.mt-0
-      %tr.bg-dark.border-dark.text-info
+      %tr.bg-dark.border-dark.text-secondary
         %td.border-dark Partie
         %td.border-dark Créée à
         %td.border-dark Joueurs
