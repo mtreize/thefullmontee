@@ -45,3 +45,4 @@ gem 'slack-poster'
 
 gem "handle_invalid_percent_encoding_requests"
 
+gem "simple_calendar", "~> 2.0"

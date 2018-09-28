@@ -159,3 +159,14 @@ body{
     background:radial-gradient(ellipse at center, rgba(148,148,148,1) 0%, rgba(235,235,235,1) 100%); /* w3c */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#949494', endColorstr='#EBEBEB',GradientType=1 ); /* ie6-9 */
 }
+
+
+
+
+
+.greyscale {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+

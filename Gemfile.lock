@@ -207,6 +207,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
     sexp_processor (4.10.0)
+    simple_calendar (2.3.0)
+      rails (>= 3.0)
     slack-poster (2.2.0)
       faraday (~> 0.9.2)
     spring (2.0.2)
@@ -273,6 +275,7 @@ DEPENDENCIES
   rails_layout
   sass-rails (~> 5.0)
   selenium-webdriver
+  simple_calendar (~> 2.0)
   slack-poster
   spring
   spring-watcher-listen (~> 2.0.0)

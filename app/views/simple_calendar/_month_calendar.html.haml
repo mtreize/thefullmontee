@@ -1,0 +1,29 @@
+.simple-calendar
+  .calendar-heading.bg-dark.py-4.text-center
+    .d-inline-block
+      = link_to calendar.url_for_previous_view, :style=>"text-decoration:none;"do
+        .text-info
+          =fa_icon 'arrow-left 2x'
+    .calendar-title.text-white.d-inline-block.px-3
+      %h3
+        = t('date.month_names')[start_date.month].capitalize
+        = start_date.year
+    .d-inline-block
+      = link_to calendar.url_for_next_view, :style=>"text-decoration:none" do
+        %span.text-info=fa_icon 'arrow-right 2x'
+    %br
+    %span.text-secondary Victoires
+  %table.table.table-striped.border-dark
+    %thead.border-dark
+      %tr.border-dark
+        - date_range.slice(0, 7).each do |day|
+          %th.bg-dark.text-info.border-dark= t('date.abbr_day_names')[day.wday]
+    %tbody
+      - date_range.each_slice(7) do |week|
+        %tr
+          - week.each do |day|
+            = content_tag :td, class: calendar.td_classes_for(day).push("bg-light"), :style=>"height:100px!important" do
+              - if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(block)
+                - capture_haml(day, sorted_events.fetch(day, []), &block)
+              - else
+                - block.call day, sorted_events.fetch(day, [])

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   post "games/:id/save_graph", to: "games#save_graph", as: "game_save_graph"
   post "trophies/recompute_all", to: "trophies#recalculate_all_trophies_for_all_games", as: "trophies_recompute_all"
   get "trophies/matrice", to: "trophies#matrice", as: "matrice"
-
+  
+  get "calendar", to:"games#calendar", as: "calendar"
+  
   resources :performances
   get "trophies/records", to: "trophies#records_index", as: "records_index"
   resources :trophies
