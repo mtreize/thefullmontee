@@ -33,20 +33,20 @@
                 -if p.avatar.present?
                   =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
                 -else
-                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", size: "30"
+                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
             -others.each do |p|
               .avatar_other.border.rounded-circle.border-secondary.d-inline-block
                 -if p.avatar.present?
                   =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
                 -else
-                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", size: "30"
+                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
             
             -payers.each do |p|
               .avatar_loser.border.rounded-circle.border-danger.d-inline-block.border-5
                 -if p.avatar.present?
                   =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
                 -else
-                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", size: "30"
+                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
           %td.align-middle
             =" #{l(game.created_at.in_time_zone("Europe/Paris"), :format=>"%Hh%M")}"
           %td.d-none.d-lg-table-cell.align-middle
