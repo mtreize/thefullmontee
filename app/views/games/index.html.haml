@@ -1,11 +1,14 @@
 
 .card.border-dark
   .card-header.text-center.bg-dark.text-white.border-dark.pb-0.mb-0
-    .pull-right.text-info.py-2
-      =link_to calendar_path, :class=>"btn  btn-outline-info btn-info-outline" do
-        =fa_icon "calendar-alt" 
-        Voir le calendrier
-    %h4.my-0.card-title Parties
+    .row
+      .col-4
+      .col-4.pt-2
+        %h4.my-0.card-title Parties
+      .col-4.text-right.text-info.py-2
+        =link_to calendar_path, :class=>"btn btn-sm btn-outline-info btn-info-outline" do
+          =fa_icon "calendar-alt" 
+          Voir le calendrier
   
   %table.table.table-striped.card-body.border-dark.mt-0.pt-0
     %thead.border-dark.pt-0.mt-0
