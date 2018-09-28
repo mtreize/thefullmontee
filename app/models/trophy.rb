@@ -217,6 +217,17 @@ class Trophy < ApplicationRecord
     t=Trophy.find_by_technical_name('glacons')
     loser_result=Result.for_game_and_player(game, player)
     second_loser_result=Result.where(:game=>game, :ranking=>loser_result.ranking-1).first
+    if (loser_result.nil? || second_loser_result.nil?)
+      puts "##################"
+      puts "###TRUC BIZARRE###"
+      puts "##################"
+      puts "sur la partie #{game.id}"
+      puts "dans la boucle du joueur #{player.name}"
+      puts "LOSER RESULT est NIL" if loser_result.nil?
+      puts "SECOND LOSER RESULT est NIL" if second_loser_result.nil?
+      puts "##################"
+      return false 
+    end
     if (second_loser_result.total_score - loser_result.total_score) >=15
       p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
       p.save
