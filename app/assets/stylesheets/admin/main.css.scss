@@ -182,7 +182,7 @@ body{
 }
 
 .simple-calendar {
-  .day {}
+  .day {background-color:White;}
 
   .wday-0 {}
   .wday-1 {}
@@ -203,5 +203,5 @@ body{
   .next-month {background-color:lightgrey!important;color:grey;}
   .current-month {}
 
-  .has-events {}
+  .has-events {background-color:PapayaWhip;}
 }

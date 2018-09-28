@@ -111,6 +111,9 @@ class Game < ApplicationRecord
     def losers
       Player.where(:id=>Result.where(:game=>self, :total_score=>Result.where(:game=>self).pluck(:total_score).min).pluck(:player_id))
     end
+    def payers
+      Player.where(:id=>self.coffee_bills.pluck(:player_id))
+    end
     def winners
       Player.where(:id=>Result.where(:game=>self, :total_score=>Result.where(:game=>self).pluck(:total_score).max).pluck(:player_id))
     end

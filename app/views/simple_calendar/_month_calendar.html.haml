@@ -12,7 +12,10 @@
       = link_to calendar.url_for_next_view, :style=>"text-decoration:none" do
         %span.text-info=fa_icon 'arrow-right 2x'
     %br
-    %span.text-secondary Victoires
+    #calendar_content.btn-group
+      %button#vainqueurs.btn.btn-sm.btn-outline-info.active{:type => "button"} Vainqueurs
+      %button#payeurs.btn.btn-sm.btn-outline-info{:type => "button"} Payeurs
+      -#%button#lesdeux.btn.btn-sm.btn-outline-info{:type => "button"} Les deux
   %table.table.table-striped.border-dark
     %thead.border-dark
       %tr.border-dark
@@ -22,8 +25,22 @@
       - date_range.each_slice(7) do |week|
         %tr
           - week.each do |day|
-            = content_tag :td, class: calendar.td_classes_for(day).push("bg-light"), :style=>"height:100px!important" do
+            = content_tag :td, class: calendar.td_classes_for(day), :style=>"height:100px!important" do
               - if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(block)
                 - capture_haml(day, sorted_events.fetch(day, []), &block)
               - else
                 - block.call day, sorted_events.fetch(day, [])
+:javascript
+  $('#calendar_content button').click(function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    if ($(this).attr("id")=="payeurs") {
+      $('.winnersdisplay').hide();
+      $('.payersdisplay').show();
+    }
+    else if($(this).attr("id")=="vainqueurs"){
+      $('.winnersdisplay').show();
+      $('.payersdisplay').hide();
+    }
+    
+  
+  });
