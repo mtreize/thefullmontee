@@ -170,7 +170,16 @@ body{
 }
 
 
-
+#gameindex{
+  .avatar_winner, .avatar_loser, .avatar_other{
+    border-width:6px !important;
+    display: inline-block;
+  }
+  .avatar{
+    display: block;
+  }
+  
+}
 #calendar{
   .avatar_winner, .avatar_loser{
     border-width:2px !important;
@@ -179,6 +188,7 @@ body{
   .avatar{
     display: block;
   }
+  
 }
 
 .simple-calendar {

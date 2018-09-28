@@ -1,5 +1,5 @@
 
-.card.border-dark
+.card.border-dark#gameindex
   .card-header.text-center.bg-dark.text-white.border-dark.pb-0.mb-0
     .row
       .col-md-4.col-12
@@ -14,21 +14,45 @@
     %thead.border-dark.pt-0.mt-0
       %tr.bg-dark.border-dark.text-secondary
         %td.border-dark Partie
+        %td.border-dark.d-none.d-lg-table-cell Joueurs
         %td.border-dark Créée à
-        %td.border-dark Joueurs
         %td.border-dark.d-none.d-lg-table-cell Temps de jeu
     %tbody
       - @games.each do |game|
+        -winners=game.winners
+        -payers=game.payers
+        -others=(game.players-winners)-payers
         %tr
-          %td
+          %td.align-middle
             %span.mr-2.px-1.border.rounded.border-primary.text-primary= "#{game.location}"
             = link_to  game_recap_path(game.id) do
               = game.title
-          
-          %td
+          %td.align-middle
+            -winners.each do |p|
+              .avatar_winner.border.rounded-circle.border-warning.d-inline-block
+                -if p.avatar.present?
+                  =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                -else
+                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", size: "30"
+            -others.each do |p|
+              .avatar_other.border.rounded-circle.border-secondary.d-inline-block
+                -if p.avatar.present?
+                  =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                -else
+                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", size: "30"
+            
+            -payers.each do |p|
+              .avatar_loser.border.rounded-circle.border-danger.d-inline-block.border-5
+                -if p.avatar.present?
+                  =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                -else
+                  =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", size: "30"
+          %td.align-middle
             =" #{l(game.created_at.in_time_zone("Europe/Paris"), :format=>"%Hh%M")}"
-          %td
-            =" #{game.players.count}"
-          %td.d-none.d-lg-table-cell
+          %td.d-none.d-lg-table-cell.align-middle
             =game.gametime
   %br
+  
+
+:javascript
+  $('[data-toggle="tooltip"]').tooltip()
