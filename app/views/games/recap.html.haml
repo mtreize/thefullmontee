@@ -37,7 +37,7 @@
       
       =link_to game_compute_results_path(@game), :class=>"btn btn-info" do
         =fa_icon "trophy"
-        Recalculer les résultats et les trophées
+        Recalculer tout
       %br/
   // %table.table.table-striped
   //   %thead
@@ -54,18 +54,18 @@
   //         %td= score.round.number
   .card-body.bg-dark.text-secondary
     .h5 Trophées distribués sur cette partie :
-  .card-body.bg-secondary
+  .card-body.bg-dark
     .row
       -@game.performances.pluck(:trophy_id).uniq.each do |tid|
         -t=Trophy.find(tid)
         .col-lg-3
-          .card.border-secondary
+          .card.border-dark.mb-3
             -if t.gifurl.present?
               %img.card-img-top{:alt => "#{t.name} illustration", :src => "#{t.gifurl}"}/
             -else
               %img.card-img-top{:alt => "Remplacez ce gif !", :src => "http://www.relaymark.com/wp-content/uploads/2016/04/img-placeholder.jpg"}/
               
-            .card-body.border-secondary
+            .card-body.border-dark
               .h5.card-title.text-left
                 =link_to t do
                   =fa_icon 'trophy'
@@ -86,10 +86,10 @@
       -Record.where(:game=>@game).each do |record|
 
         .col-lg-3
-          .card.border-secondary.bg-warning
+          .card.border-dark.bg-warning.mb-3
             %img.card-img-top{:alt => "Remplacez ce gif !", :src => "http://www.rc165fm.com/rcfils/2017/04/mlcRvYiMIEGx.gif"}/
               
-            .card-body.border-secondary.bg-warning
+            .card-body.border-dark.bg-warning
               .h5.card-title.text-left
                 =link_to records_index_path, :class=>"text-dark" do
                   =fa_icon 'medal'
