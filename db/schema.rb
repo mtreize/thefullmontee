@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180924151830) do
+ActiveRecord::Schema.define(version: 20181008125306) do
 
   create_table "coffee_bills", force: :cascade do |t|
     t.integer "player_id"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20180924151830) do
     t.boolean "active"
     t.integer "positive"
     t.integer "only_once"
+    t.string "gifurl"
   end
 
   create_table "users", force: :cascade do |t|
