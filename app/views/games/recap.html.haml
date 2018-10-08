@@ -52,26 +52,57 @@
   //         %td= score.value
   //         %td= score.player.name
   //         %td= score.round.number
-  .card-header
-    %h5 Trophées distribués sur cette partie :
-    %table.card-body.table.table-striped
-      -@game.performances.each do |perf|
-        %tr
-          %td=link_to perf.player.name, perf.player
-          %td
-            =link_to perf.trophy do
-              =fa_icon 'trophy'
-              ="#{perf.trophy.name}"
-  
+  .card-body.bg-dark.text-secondary
+    .h5 Trophées distribués sur cette partie :
+  .card-body.bg-secondary
+    .row
+      -@game.performances.pluck(:trophy_id).uniq.each do |tid|
+        -t=Trophy.find(tid)
+        .col-lg-3
+          .card.border-secondary
+            -if t.gifurl.present?
+              %img.card-img-top{:alt => "#{t.name} illustration", :src => "#{t.gifurl}"}/
+            -else
+              %img.card-img-top{:alt => "Remplacez ce gif !", :src => "http://www.relaymark.com/wp-content/uploads/2016/04/img-placeholder.jpg"}/
+              
+            .card-body.border-secondary
+              .h5.card-title.text-left
+                =link_to t do
+                  =fa_icon 'trophy'
+                  =t.name
+              %p.card-text.text-center
+                
+                -@game.performances.where(:trophy_id=>tid).each do |perf|
+                  -p=perf.player
+                  =link_to p, :class=>"text-primary text-center p-3", :style=>"text-decoration:none;display:inline-block;" do 
+                    -if p.avatar.present?
+                      =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                    -else
+                      =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                    %br
+                    =p.name
+                  
 
       -Record.where(:game=>@game).each do |record|
-        %tr
-          %td=link_to record.player.name, record.player
-          %td
-            =link_to records_index_path, :class=>"text-warning" do
-              =fa_icon 'medal'
-              ="#{record.name}"
-  
+
+        .col-lg-3
+          .card.border-secondary.bg-warning
+            %img.card-img-top{:alt => "Remplacez ce gif !", :src => "http://www.rc165fm.com/rcfils/2017/04/mlcRvYiMIEGx.gif"}/
+              
+            .card-body.border-secondary.bg-warning
+              .h5.card-title.text-left
+                =link_to records_index_path, :class=>"text-dark" do
+                  =fa_icon 'medal'
+                  ="#{record.name}"
+              %p.card-text.text-center
+                -p=record.player
+                =link_to p, :class=>"text-default text-center p-3", :style=>"text-decoration:none;display:inline-block;" do 
+                  -if p.avatar.present?
+                    =image_tag "animals/#{p.avatar}.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                  -else
+                    =image_tag "animals/sheep-1.png", :class=>"avatar img-circle ", "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>"#{p.name}", size: "30"
+                  %br
+                  =p.name
   
   
   
