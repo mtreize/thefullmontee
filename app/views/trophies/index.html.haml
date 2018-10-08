@@ -11,8 +11,8 @@
     %table.table.table-striped#trophies_table
       %thead
         %tr.bg-dark.text-white
+          %th.nosort
           %th Nom
-          %th Nom Technique
           %th Description
           %th Positif
           %th Activé
@@ -21,8 +21,11 @@
       %tbody.text-dark
         - @trophies.each do |trophy|
           %tr
+            %td 
+              -if trophy.gifurl.present?
+                =image_tag trophy.gifurl, :height=>"70px"
             %td= trophy.name
-            %td= trophy.technical_name
+            // %td= trophy.technical_name
             %td= trophy.description
             %td.text-center
               - case trophy.positive
