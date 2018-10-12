@@ -4,7 +4,6 @@ class Game < ApplicationRecord
     has_many :scores, :through=>:rounds
     after_save :generate_title
     scope :this_month, -> { where(created_at: Time.now.beginning_of_month..Time.now.end_of_month) }
-    
     has_many :results, :dependent => :destroy
     has_many :coffee_bills, :dependent => :destroy
     has_many :performances, :dependent => :destroy

@@ -135,3 +135,11 @@
         .card-body{:style=>"height:350px;"}
           = chartjs_doughnut_chart @victories_by_player_data, @victories_by_player_options
           
+  .row
+    .col-12
+        
+      .card.mt-2.border-dark
+        .card-header.bg-dark.border-dark.text-white
+          Nombre de parties par joueur
+        .card-body
+          = chartjs_bar_chart @games_by_player_data, @games_by_player_options

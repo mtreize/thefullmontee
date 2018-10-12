@@ -85,6 +85,46 @@ class HomeController < ApplicationController
             labels: perfs2.keys
         }
         @victories_by_player_options = { }
+        ######
+        #NBPARTIES
+        history_gamescount= Result.all.group(:player_id).count
+        month_gamescount= Result.all.where(:game_id=>Game.this_month).group(:player_id).count
+        p_array={}
+        Player.all.each do |p|
+          p_array[p.name]=[history_gamescount[p.id]||0 , month_gamescount[p.id]||0]
+        end
+        
+        p_array=p_array.sort_by{|k,v| v.first}.reverse.to_h
+        # raise p_array.inspect
+        
+        @games_by_player_data = {
+            labels: p_array.keys,
+    			datasets: [{
+    				label: "Nombre de parties dans l'histoire",
+    				backgroundColor: "#915B87",
+    				data: p_array.values.map(&:first)
+    			},{
+    				label: "Nombre de parties ce mois-ci",
+    				backgroundColor: "#4792DB",
+    				data: p_array.values.map(&:second)
+    			}]
+    
+    		}
+        @games_by_player_options ={ height: 150,
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
+            scales:{
+                yAxes:
+                    [{ticks: {
+                        beginAtZero:true
+                        
+                    }}]
+                
+            }
+        }
         
     end
 end
