@@ -113,7 +113,7 @@ class Trophy < ApplicationRecord
     Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
     if Result.for_game_and_player(game, player).ranking==1
       nb_echecs=game.scores.where(:player=>player).where("VALUE < 0").count
-      if nb_echecs<=1
+      if nb_echecs==1
         p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
         p.save
         return true
