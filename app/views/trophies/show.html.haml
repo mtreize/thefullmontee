@@ -49,7 +49,7 @@
             -perf_games_html=capture_haml do
               -perfs_games=Game.where(:id=>@trophy.performances.where(:player=>p).pluck(:game_id))
               -perfs_games.each do |g|
-                ="#{g.title}"
+                =link_to "#{g.title}", game_recap_path(g), :class=>"text-info", :style=>"text-decoration:none"
                 ="<br/>" unless perfs_games.last==g
                 
             .col-sm-12.col-md-4.m-0.p-0
@@ -67,7 +67,7 @@
   
                       =p.name
                     %br
-                      %span.badge.badge-info.text-dark{"data-html"=>"true","data-template"=>'<div class="popover popover-info border-info bg-info" role="tooltip"><div class="arrow border-info bg-info"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>', "data-content" => perf_games_html.html_safe, "data-toggle" => "popover", "data-placement" => "top", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
+                      %span.badge.badge-info.text-dark{"data-html"=>"true","data-template"=>'<div class="popover popover-secondary " role="tooltip"><div class="arrow "></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>', "data-content" => perf_games_html.html_safe, "data-toggle" => "popover", "data-placement" => "bottom", "data-trigger" => "focus", :role => "button", :tabindex => "0"}
                         =count
               -else
                 .card.bg-dark.text-center.m-2

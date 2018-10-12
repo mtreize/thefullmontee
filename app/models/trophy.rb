@@ -107,6 +107,19 @@ class Trophy < ApplicationRecord
       end
     end
     return false
+  end  
+  def self.unlock_petit_chelem(game, player)
+    t=Trophy.find_by_technical_name('petit_chelem')
+    Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+    if Result.for_game_and_player(game, player).ranking==1
+      nb_echecs=game.scores.where(:player=>player).where("VALUE < 0").count
+      if nb_echecs<=1
+        p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+        p.save
+        return true
+      end
+    end
+    return false
   end
   def self.unlock_back_3_back(game, player)
     t=Trophy.find_by_technical_name('back_3_back')
