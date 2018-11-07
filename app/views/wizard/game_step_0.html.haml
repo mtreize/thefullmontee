@@ -29,7 +29,11 @@
       %br/
 
       =button_tag "C'est parti", :class=>"creategamebtn btn btn-block btn-lg btn-secondary", :type=>"submit", :disabled=>"disabled", 'data-disable-with' => fa_icon("spinner spin ").html_safe
-
+      %br/
+      %small.text-secondary.text-right
+        =fa_icon "warning"
+        Partie officielle à partir de 3 joueurs pro.
+        
 
   .flex-row
     = link_to 'Annuler', root_path
