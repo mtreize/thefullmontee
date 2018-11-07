@@ -89,9 +89,10 @@ class HomeController < ApplicationController
         #NBPARTIES
         history_gamescount= Result.all.group(:player_id).count
         month_gamescount= Result.all.where(:game_id=>Game.this_month).group(:player_id).count
+        last_month_gamescount= Result.all.where(:game_id=>Game.last_month).group(:player_id).count
         p_array={}
         Player.all.each do |p|
-          p_array[p.name]=[history_gamescount[p.id]||0 , month_gamescount[p.id]||0]
+          p_array[p.name]=[history_gamescount[p.id]||0 , month_gamescount[p.id]||0 , last_month_gamescount[p.id]||0]
         end
         
         p_array=p_array.sort_by{|k,v| v.first}.reverse.to_h
@@ -107,6 +108,10 @@ class HomeController < ApplicationController
     				label: "Nombre de parties ce mois-ci",
     				backgroundColor: "#4792DB",
     				data: p_array.values.map(&:second)
+    			},{
+    				label: "Nombre de parties le mois dernier",
+    				backgroundColor: "#18A2B8",
+    				data: p_array.values.map(&:third)
     			}]
     
     		}
