@@ -11,7 +11,7 @@ class HomeController < ApplicationController
         groupcount= Performance.all.group(:player_id).count
         l=groupcount.keys.map{|pid|Player.find(pid).name}
         d=groupcount.values
-        
+        @nb_total_kf_payes=CoffeeBill.all.pluck(:nb_coffee).sum
         @perf_by_player_data = {
             datasets: [{ data: d, backgroundColor: color_array_for_stats_graphs}], 
             labels: l
@@ -41,25 +41,25 @@ class HomeController < ApplicationController
         @rentables=diff2.select{|key, val| val == diff.max_by{|k,v| v}.second}
         @pasrentables=diff2.select{|key, val| val == diff.min_by{|k,v| v}.second}
         @kf_ratio_data ={
-			labels: diff.keys,
-			datasets: [{
-				label: 'Différence : Cafés Bus - Cafés payés',
-				borderColor: "#18A2B8",
-				backgroundColor: "#18A2B8",
-				fill: false,
-				data: diff.values,
-				type: 'line'
-			}, {
-				label: 'Cafés Bus',
-				backgroundColor: "#4792DB",
-				data: kfbus
-			}, {
-				label: 'Cafés payés',
-				backgroundColor: "#915B87",
-				data: kfpayes
-			}]
-
-		}
+    			labels: diff.keys,
+    			datasets: [{
+    				label: 'Différence : Cafés Bus - Cafés payés',
+    				borderColor: "#18A2B8",
+    				backgroundColor: "#18A2B8",
+    				fill: false,
+    				data: diff.values,
+    				type: 'line'
+    			}, {
+    				label: 'Cafés Bus',
+    				backgroundColor: "#4792DB",
+    				data: kfbus
+    			}, {
+    				label: 'Cafés payés',
+    				backgroundColor: "#915B87",
+    				data: kfpayes
+    			}]
+    
+    		}
         @kf_ratio_options = { height: 150,
             elements: {
                 line: {

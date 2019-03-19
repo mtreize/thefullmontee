@@ -20,25 +20,37 @@
         .card-body{:style=>"height:350px;"}
           = chartjs_doughnut_chart @perf_by_player_data, @perf_by_player_options
           
-          
+              
     .col-sm-12.col-md-4.px-md-1
-        
-      .card.mt-2.border-dark
+      .card.mt-2.border-dark{:style=>"height:445px;overflow:scroll;"}
         .card-header.bg-dark.border-dark
-          .row
-            .col-4
-              %h2.text-info
-                %b=@still_locked_trophies.count
-            .col-8.pt-3.text-left
-              .pt-1.text-white trophées jamais débloqués
-        .card-body{:style=>"height:350px;overflow:scroll;"}
-          %p
-            -@still_locked_trophies.each do |t|
-              =link_to t do
-                =fa_icon 'trophy'
-                =t.name
-                =fa_icon 'trophy'
-                %br
+          %h2.text-white.mb-0.pt-5
+            %b
+              =@nb_total_kf_payes
+        .card-body.bg-dark.border-dark.p-0
+          %h2.text-info.mb-0
+            %b
+              cafés payés
+              %br
+              au total
+    // .col-sm-12.col-md-4.px-md-1
+        
+    //   .card.mt-2.border-dark
+    //     .card-header.bg-dark.border-dark
+    //       .row
+    //         .col-4
+    //           %h2.text-info
+    //             %b=@still_locked_trophies.count
+    //         .col-8.pt-3.text-left
+    //           .pt-1.text-white trophées jamais débloqués
+    //     .card-body{:style=>"height:350px;overflow:scroll;"}
+    //       %p
+    //         -@still_locked_trophies.each do |t|
+    //           =link_to t do
+    //             =fa_icon 'trophy'
+    //             =t.name
+    //             =fa_icon 'trophy'
+    //             %br
 
     .col-sm-12.col-md-4.px-md-1.pr-md-3
         
@@ -143,3 +155,5 @@
           Nombre de parties par joueur
         .card-body
           = chartjs_bar_chart @games_by_player_data, @games_by_player_options
+  .row
+    =@nb_total_kf_payes
