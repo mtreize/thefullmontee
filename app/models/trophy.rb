@@ -121,6 +121,22 @@ class Trophy < ApplicationRecord
     end
     return false
   end
+  
+  
+  def self.unlock_perfect(game, player)
+    t=Trophy.find_by_technical_name('perfect')
+    Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
+    if Result.for_game_and_player(game, player).ranking==1
+      nb_echecs=game.scores.where(:player=>player).where("VALUE < 0").count
+      if nb_echecs==0
+        p=Performance.where(:game=>game,:player=>player, :trophy=>t).first_or_initialize
+        p.save
+        return true
+      end
+    end
+    return false
+  end
+  
   def self.unlock_back_3_back(game, player)
     t=Trophy.find_by_technical_name('back_3_back')
     Performance.where(:game=>game,:player=>player, :trophy=>t).destroy_all
