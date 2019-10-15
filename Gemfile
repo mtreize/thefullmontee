@@ -41,7 +41,7 @@ end
 gem "passenger"
 
 gem "font-awesome-rails"
-gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem "bootstrap", ">= 4.3.1"
 gem 'jquery-easing-rails'
 gem 'chartjs-ror'
 gem 'filesaverjs-rails'
