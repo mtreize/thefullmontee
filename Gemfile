@@ -6,6 +6,8 @@ end
 ruby '>=2.3.4'
 gem 'rails', '~> 5.1.0.rc2'
 gem 'sqlite3'
+gem "nokogiri", ">= 1.10.4"
+
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -23,11 +25,13 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'devise'
+gem "devise", ">= 4.7.1"
 gem 'devise-i18n'
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'therubyracer', :platform=>:ruby
+# gem 'therubyracer', :platform=>:ruby
+gem 'mini_racer', platforms: :ruby
+
 group :development do
   gem 'better_errors'
   gem 'html2haml'
@@ -46,3 +50,5 @@ gem 'slack-poster'
 gem "handle_invalid_percent_encoding_requests"
 
 gem "simple_calendar", "~> 2.0"
+gem "actionview", ">= 5.1.6.2"
+gem "rubyzip", ">= 1.3.0"
