@@ -12,11 +12,21 @@
   .field
     = f.label :avatar
     = f.text_field :avatar
-    %small.text-muted
-      anteater, buffalo-1, cow,   donkey,   hedgehog,     kangaroo, marten,   octopus, parrot,    polar-bear, rooster, sheep, turtle
-      bear,     buffalo,   crow,  elephant, hen,          koala,    monkey-1, ostrich, penguin-1, rabbit,     seagull, sloth, whale
-      beaver,   cat,       dog-1, fox,      hippopotamus, leopard,  monkey,   owl,     penguin,   racoon,     seal,    snake, zebra
-      boar,     chicken,   dog,   giraffe,  horse,        lion,     mouse,    panda,   pig,       rhinoceros, sheep-1, tiger
+  %br
+  .row
+    -animal_files=  Dir.glob("*app/assets/images/animals/*")
+    -animal_files.each do |animal_file|
+      -a=animal_file.split("/").last
+      .col-2.border.text-center.py-3
+        =image_tag "animals/#{a}", size: "60"
+        %br
+        =a.split(".").first
+  -# %small.text-muted
+
+  -#   anteater, buffalo-1, cow,   donkey,   hedgehog,     kangaroo, marten,   octopus, parrot,    polar-bear, rooster, sheep, turtle
+  -#   bear,     buffalo,   crow,  elephant, hen,          koala,    monkey-1, ostrich, penguin-1, rabbit,     seagull, sloth, whale
+  -#   beaver,   cat,       dog-1, fox,      hippopotamus, leopard,  monkey,   owl,     penguin,   racoon,     seal,    snake, zebra
+  -#   boar,     chicken,   dog,   giraffe,  horse,        lion,     mouse,    panda,   pig,       rhinoceros, sheep-1, tiger
   %br/
   .actions
     = f.submit 'Enregistrer', :class=>"btn btn-primary"
