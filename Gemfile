@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
 end
 ruby '2.4.9'
 gem 'rails', '~> 5.1.0.rc2'
-#gem 'sqlite3'
+gem 'sqlite3'
 gem 'pg'
 gem "nokogiri", ">= 1.10.4"
 
@@ -53,3 +53,4 @@ gem "handle_invalid_percent_encoding_requests"
 gem "simple_calendar", "~> 2.0"
 gem "actionview", ">= 5.1.6.2"
 gem "rubyzip", ">= 1.3.0"
+gem "yaml_db"
