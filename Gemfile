@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
 end
 ruby '2.4.9'
 gem 'rails', '~> 5.1.0.rc2'
-# gem 'sqlite3'
+gem 'seed_dump'
 gem 'pg'
 gem "nokogiri", ">= 1.10.4"
 
@@ -15,6 +15,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 group :development, :test do
+  gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13.0'
   gem 'selenium-webdriver'
@@ -54,3 +55,4 @@ gem "simple_calendar", "~> 2.0"
 gem "actionview", ">= 5.1.6.2"
 gem "rubyzip", ">= 1.3.0"
 gem "yaml_db"
+gem 'rails_serve_static_assets'
