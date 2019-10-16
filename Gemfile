@@ -56,3 +56,4 @@ gem "actionview", ">= 5.1.6.2"
 gem "rubyzip", ">= 1.3.0"
 gem "yaml_db"
 gem 'rails_serve_static_assets'
+gem 'rails_12factor', group: :production
