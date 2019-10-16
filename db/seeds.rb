@@ -1698,10 +1698,10 @@
 #   {game_id: 211, player_id: 5, position: nil},
 #   {game_id: 211, player_id: 6, position: nil}
 # ])
-User.create!([
-  {email: "maxime.comet@gmail.com", encrypted_password: "$2a$11$1PFhIzaBOwbrVA68JARMz.dpO8av2560/oP/k5GYnTW6gJ6YIXg6.", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2018-07-08 22:58:40", last_sign_in_at: "2018-07-08 22:58:40", current_sign_in_ip: "2.15.90.17", last_sign_in_ip: "2.15.90.17", name: nil, role: "admin"},
-  {email: "megusta@gmail.com", encrypted_password: "$2a$11$PzQv6booWGUIYcNq/arnM.TvHcIw5UUFFbtcouJ6FTS3045U86VYm", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: "2018-07-11 15:10:38", sign_in_count: 1851, current_sign_in_at: "2019-10-15 12:40:11", last_sign_in_at: "2019-10-10 12:40:21", current_sign_in_ip: "::1", last_sign_in_ip: "93.22.135.94", name: nil, role: "user"}
-])
+# User.create!([
+#   {email: "maxime.comet@gmail.com", encrypted_password: "$2a$11$1PFhIzaBOwbrVA68JARMz.dpO8av2560/oP/k5GYnTW6gJ6YIXg6.", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2018-07-08 22:58:40", last_sign_in_at: "2018-07-08 22:58:40", current_sign_in_ip: "2.15.90.17", last_sign_in_ip: "2.15.90.17", name: nil, role: "admin"},
+#   {email: "megusta@gmail.com", encrypted_password: "$2a$11$PzQv6booWGUIYcNq/arnM.TvHcIw5UUFFbtcouJ6FTS3045U86VYm", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: "2018-07-11 15:10:38", sign_in_count: 1851, current_sign_in_at: "2019-10-15 12:40:11", last_sign_in_at: "2019-10-10 12:40:21", current_sign_in_ip: "::1", last_sign_in_ip: "93.22.135.94", name: nil, role: "user"}
+# ])
 CoffeeBill.create!([
   {player_id: 1, game_id: 10, nb_coffee: 4},
   {player_id: 5, game_id: 11, nb_coffee: 4},
